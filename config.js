@@ -25,8 +25,8 @@ window.APP_CONFIG = {
   // 1. Supabase Project Configuration
   // Found in Supabase Dashboard -> Project Settings -> API
   SUPABASE: {
-    url: "YOUR_SUPABASE_PROJECT_URL",       // e.g. "https://xyzcompany.supabase.co"
-    anonKey: "YOUR_SUPABASE_ANON_KEY"      // Public anon key (never put service_role key here)
+    url: "https://kumuvzthmqslfszgwjmq.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1bXV2enRobXFzbGZzemd3am1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2MzQ3NTIsImV4cCI6MjEwNjIxMDc1Mn0.6xUKnFd5LtB0mG51_cvbwpK5Wj9UeUZb3dgq1Hm8Ab8"
   },
 
   // 2. Firebase Cloud Messaging (Web Push) Configuration
