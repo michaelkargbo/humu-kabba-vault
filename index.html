@@ -3,622 +3,734 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Humu Kabba Variety Vault | Luxury Fashion, Beauty & Lifestyle Boutique | Freetown, Sierra Leone</title>
-  <meta name="description" content="Discover premium fashion, designer bags, luxury perfumes, cosmetics, denim, and footwear at Humu Kabba Variety Vault in Aberdeen, Freetown. Chat & order on WhatsApp at +232 754 16008.">
-  <meta name="keywords" content="Humu Kabba Variety Vault, Freetown Fashion Boutique, Aberdeen Sierra Leone clothing, designer bags Freetown, wholesale fashion Sierra Leone, WhatsApp order fashion">
+  <title>Humu Kabba Variety Vault | Luxury Fashion, Beauty & Lifestyle Boutique | Freetown</title>
+  <meta name="description" content="Discover premium fashion, designer bags, luxury perfumes, cosmetics, footwear, and iPhone 17 Pro Max phone cases at Humu Kabba Variety Vault in Aberdeen, Freetown. Order on WhatsApp at +232 754 16008.">
+  <meta name="keywords" content="Humu Kabba Variety Vault, Aberdeen Freetown boutique, fashion retail Sierra Leone, wholesale dresses Freetown, designer bags Sierra Leone, WhatsApp fashion order">
   <meta name="theme-color" content="#0a0a0c">
 
-  <!-- Open Graph / Social Sharing -->
+  <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Humu Kabba Variety Vault | Your Style, Our Priority">
-  <meta property="og:description" content="Premium fashion, beauty & lifestyle retail and wholesale boutique in Aberdeen, Freetown. Chat directly on WhatsApp to order!">
+  <meta property="og:description" content="Fashion, beauty, and lifestyle boutique in Aberdeen, Freetown. Browse collections and order instantly on WhatsApp.">
   <meta property="og:image" content="assets/logo.jpg">
+  <meta property="og:url" content="https://humu-kabba-vault.vercel.app">
 
-  <!-- FontAwesome 6 Icons -->
+  <!-- LocalBusiness Schema (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "Humu Kabba Variety Vault",
+    "image": "https://humu-kabba-vault.vercel.app/assets/logo.jpg",
+    "telephone": "+23275416008",
+    "url": "https://humu-kabba-vault.vercel.app",
+    "slogan": "Your Style, Our Priority.",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4B Johnson Land, Back of the Field",
+      "addressLocality": "Aberdeen, Freetown",
+      "addressCountry": "SL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 8.4950,
+      "longitude": -13.2925
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "19:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "13:00",
+        "closes": "17:00"
+      }
+    ]
+  }
+  </script>
+
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+
+  <!-- Supabase JS Client (v2) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Firebase Compat for Web Push -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
+  <!-- App Configuration -->
+  <script src="config.js"></script>
 </head>
 <body>
 
-  <!-- Top Announcement & Live Store Bar -->
-  <header class="top-bar">
-    <div class="container top-bar-content">
-      <div class="top-bar-left">
-        <span class="store-status-badge open">
-          <span class="status-dot"></span> Open Today in Aberdeen
-        </span>
-        <span class="slogan-badge"><i class="fa-solid fa-gem" style="color: var(--gold-400); margin-right: 5px;"></i> "Your Style, Our Priority"</span>
+  <!-- Top Announcement & Store Hours Bar -->
+  <aside class="top-bar" aria-label="Store announcement bar">
+    <div class="container top-bar-inner">
+      <div class="store-status" data-store-status>
+        <span class="status-indicator status-open"></span> Checking store hours...
       </div>
-      <div class="top-bar-right">
-        <a href="https://maps.google.com/?q=Aberdeen+Freetown+Sierra+Leone" target="_blank" rel="noopener" class="top-contact-link">
-          <i class="fa-solid fa-location-dot"></i> 4B Johnson Land, Aberdeen, Freetown
-        </a>
-        <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" rel="noopener" class="whatsapp-chip" title="Click to chat on WhatsApp">
-          <i class="fa-brands fa-whatsapp"></i> +232 754 16008
+      <div class="top-bar-links">
+        <span><i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> 4B Johnson Land, Aberdeen</span>
+        <a href="https://wa.me/23275416008" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> +232 754 16008
         </a>
       </div>
     </div>
-  </header>
+  </aside>
 
-  <!-- Sticky Luxury Navigation -->
-  <nav class="navbar" id="navbar">
-    <div class="container nav-container">
-      <a href="#hero" class="brand-identity">
-        <img src="assets/logo.jpg" alt="Humu Kabba Variety Vault Emblem" class="brand-logo-img">
-        <div class="brand-text-block">
-          <span class="brand-name gold-text">HUMU KABBA</span>
-          <span class="brand-slogan">VARIETY VAULT</span>
+  <!-- Navigation Header (Section 4.1) -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.jpg" alt="Humu Kabba Variety Vault Logo" class="brand-logo" width="44" height="44">
+        <div>
+          <span class="brand-title">Humu Kabba</span>
+          <span class="brand-sub">Variety Vault</span>
         </div>
       </a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#collections" class="nav-link">Collections</a></li>
-        <li><a href="#wholesale-retail" class="nav-link">Retail & Wholesale</a></li>
-        <li><a href="#commitments" class="nav-link">Why Choose Us</a></li>
-        <li><a href="#order-builder" class="nav-link">Order via WhatsApp</a></li>
-        <li><a href="#location" class="nav-link">Visit Store</a></li>
-      </ul>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="#collections">Collections</a></li>
+          <li><a href="cases.html">Phone Cases</a></li>
+          <li><a href="#retail-wholesale">Retail and Wholesale</a></li>
+          <li><a href="#why-choose-us">Why Choose Us</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#order">Order</a></li>
+          <li><a href="#visit">Visit Store</a></li>
+        </ul>
+      </nav>
 
-      <div class="nav-cta-group">
-        <!-- Clicking this number opens WhatsApp directly -->
-        <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20visiting%20your%20website%20and%20would%20like%20to%20place%20an%20order." target="_blank" rel="noopener" class="btn-whatsapp-nav" title="Instant WhatsApp Chat">
-          <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i>
-          <span>Order: +232 754 16008</span>
+      <div class="nav-actions">
+        <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20place%20an%20order." target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
         </a>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <button class="menu-toggle-btn" id="mobileMenuToggle" aria-label="Toggle navigation menu">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
     </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-section" id="hero">
-    <div class="hero-bg-accent"></div>
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="hero-pill">
-          <i class="fa-solid fa-crown" style="color: var(--gold-400);"></i> 7+ Years of Trusted Boutique Excellence
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <a href="#collections">Collections</a>
+      <a href="cases.html">Phone Cases</a>
+      <a href="#retail-wholesale">Retail and Wholesale</a>
+      <a href="#why-choose-us">Why Choose Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#order">Order on WhatsApp</a>
+      <a href="#visit">Visit Store</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section (Section 4.2) -->
+    <section class="hero" id="hero">
+      <div class="container hero-content">
+        <div class="hero-badges">
+          <span class="badge-pill">7+ Years in Business</span>
+          <span class="badge-pill">100% Quality Assured</span>
+          <span class="badge-pill">Retail and Wholesale</span>
+          <span class="badge-pill">Aberdeen, Freetown</span>
         </div>
-        <h1 class="hero-title">
-          Elevate Your Look with <span class="gold-text">Timeless Luxury</span> & Modern Style.
-        </h1>
-        <p class="hero-description">
-          Welcome to <strong>Humu Kabba Variety Vault</strong> — Freetown’s premier destination for high-end designer bags, exquisite apparel, luxury perfumes, cosmetics, and footwear. Experience bespoke retail & wholesale service right here in Aberdeen.
+        <h1>Elevate Your Look with Timeless Luxury and Modern Style.</h1>
+        <p class="lead">
+          Welcome to <strong>Humu Kabba Variety Vault</strong> — Freetown’s trusted boutique for designer handbags, evening dresses, perfumes, cosmetics, denim, and custom iPhone 17 Pro Max cases. Browse our vault and place your order directly via WhatsApp.
         </p>
 
-        <div class="hero-actions">
-          <!-- Main WhatsApp Order CTA -->
-          <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20see%20your%20latest%20arrivals%20and%20prices." target="_blank" rel="noopener" class="btn-primary-whatsapp" id="heroWhatsAppBtn">
-            <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
-            <span>Chat on WhatsApp (+232 754 16008)</span>
+        <div class="hero-cta-group">
+          <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20see%20your%20latest%20arrivals." target="_blank" rel="noopener" class="btn btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
           </a>
-          <a href="#collections" class="btn-gold-outline">
-            <i class="fa-solid fa-bag-shopping"></i> Explore Vault
-          </a>
-        </div>
-
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number">7+</span>
-            <span class="stat-label">Years of Trust</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">Quality Assured</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">B2C & B2B</span>
-            <span class="stat-label">Retail & Wholesale</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">Aberdeen</span>
-            <span class="stat-label">Freetown, SL</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hero Visual with Logo Artwork -->
-      <div class="hero-visual">
-        <div class="logo-display-card">
-          <img src="assets/logo.jpg" alt="Official Humu Kabba Variety Vault Logo Badge" class="logo-main-img">
-          <!-- Clicking badge connects directly to WhatsApp -->
-          <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20inquire%20about%20your%20fashion%20items." target="_blank" rel="noopener" class="hero-floating-badge" title="Click to Order via WhatsApp">
-            <div class="whatsapp-icon-round">
-              <i class="fa-brands fa-whatsapp"></i>
-            </div>
-            <div>
-              <div style="font-size: 0.72rem; color: var(--gold-300); text-transform: uppercase;">Direct Line</div>
-              <div style="font-size: 0.96rem; font-weight: 800; color: #fff;">+232 754 16008</div>
-            </div>
+          <a href="#collections" class="btn btn-outline">
+            Explore the Vault
           </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Collections Showcase Section -->
-  <section class="collection-section" id="collections">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Curated Collections</span>
-        <h2 class="section-title">Step Inside the <span class="gold-text">Variety Vault</span></h2>
-        <p class="section-subtitle">
-          From glamorous evening gowns and premium designer handbags to intoxicating fragrances and chic denim, every piece is curated to honor your personal style.
-        </p>
-      </div>
+    <!-- Collections Section (Section 4.3) -->
+    <section class="section" id="collections">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>The Vault Collections</h2>
+          <p>Every piece in our Aberdeen boutique is selected for longevity, cut, and effortless style.</p>
+        </div>
 
-      <!-- Filter Tabs -->
-      <div class="category-tabs">
-        <button class="category-tab-btn active" data-filter="all">All Showcase</button>
-        <button class="category-tab-btn" data-filter="bags">Bags & Accessories</button>
-        <button class="category-tab-btn" data-filter="dresses">Apparel & Dresses</button>
-        <button class="category-tab-btn" data-filter="beauty">Beauty & Perfumes</button>
-        <button class="category-tab-btn" data-filter="footwear">Footwear & Denim</button>
-      </div>
+        <!-- Filter Bar -->
+        <div class="filter-bar" role="tablist" aria-label="Collections Filter">
+          <button type="button" class="filter-btn active" data-filter="all">All Showcase</button>
+          <button type="button" class="filter-btn" data-filter="Bags & Accessories">Bags and Accessories</button>
+          <button type="button" class="filter-btn" data-filter="Apparel & Dresses">Apparel and Dresses</button>
+          <button type="button" class="filter-btn" data-filter="Beauty & Perfumes">Beauty and Perfumes</button>
+          <button type="button" class="filter-btn" data-filter="Footwear & Denim">Footwear and Denim</button>
+          <button type="button" class="filter-btn" data-filter="Phone Cases">Phone Cases</button>
+        </div>
 
-      <!-- Showcase Cards -->
-      <div class="products-grid">
+        <!-- Product Grid -->
+        <div class="product-grid" id="dynamicProductsContainer">
 
-        <!-- Card 1: Designer Bags -->
-        <article class="product-card" data-category="bags">
-          <div class="product-image-wrap">
-            <img src="assets/bags.jpg" alt="Designer Bags and Gold Accessories at Humu Kabba Variety Vault" loading="lazy">
-            <span class="product-badge"><i class="fa-solid fa-star" style="color: var(--gold-400);"></i> Top Seller</span>
-          </div>
-          <div class="product-info">
-            <span class="product-category-title">Leatherware & Clutches</span>
-            <h3 class="product-name">Designer Handbags & Clutches</h3>
-            <p class="product-description">
-              Hand-selected luxury leather handbags, statement clutches, tote bags, and exquisite gold jewelry designed for discerning women.
-            </p>
-            <ul class="product-highlights">
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Genuine Textures</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Gold Hardware</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Retail & Bulk</li>
-            </ul>
-            <div class="card-action-bar">
-              <span class="stock-tag"><i class="fa-solid fa-circle-check"></i> Available in Boutique</span>
-              <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20interested%20in%20inquiring%20about%20Designer%20Handbags%20%26%20Clutches.%20Please%20share%20catalogue%20photos%20and%20prices." target="_blank" rel="noopener" class="btn-card-whatsapp" title="Inquire on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i> Inquire Now
-              </a>
+          <!-- Collection 1: Bags and Accessories -->
+          <article class="product-card" data-category="Bags & Accessories">
+            <div class="product-img-wrap">
+              <img src="assets/bags.jpg" alt="Designer handbags and gold jewellery" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">Bags & Accessories</span>
             </div>
-          </div>
-        </article>
-
-        <!-- Card 2: Apparel & Dresses -->
-        <article class="product-card" data-category="dresses">
-          <div class="product-image-wrap">
-            <img src="assets/dresses.jpg" alt="High Fashion Evening Dresses and Apparel" loading="lazy">
-            <span class="product-badge"><i class="fa-solid fa-sparkles" style="color: var(--gold-400);"></i> Elegant Wear</span>
-          </div>
-          <div class="product-info">
-            <span class="product-category-title">Apparel & Ready-to-Wear</span>
-            <h3 class="product-name">Chic Dresses & Evening Garments</h3>
-            <p class="product-description">
-              Breathtaking evening dresses, stylish two-piece sets, tailored suits, and versatile day-to-night fashion pieces crafted to turn heads.
-            </p>
-            <ul class="product-highlights">
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> S, M, L, XL Fits</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Premium Fabrics</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Party & Official</li>
-            </ul>
-            <div class="card-action-bar">
-              <span class="stock-tag"><i class="fa-solid fa-circle-check"></i> New Arrivals</span>
-              <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20interested%20in%20inquiring%20about%20Chic%20Dresses%20%26%20Evening%20Garments.%20Please%20send%20available%20sizes%20and%20colors." target="_blank" rel="noopener" class="btn-card-whatsapp" title="Inquire on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i> Inquire Now
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 3: Perfumes & Cosmetics -->
-        <article class="product-card" data-category="beauty">
-          <div class="product-image-wrap">
-            <img src="assets/beauty.jpg" alt="Luxury Perfumes and Beauty Cosmetics Collection" loading="lazy">
-            <span class="product-badge"><i class="fa-solid fa-spray-can-sparkles" style="color: var(--gold-400);"></i> Signature Scents</span>
-          </div>
-          <div class="product-info">
-            <span class="product-category-title">Beauty & Fragrances</span>
-            <h3 class="product-name">Luxury Perfumes & Cosmetics</h3>
-            <p class="product-description">
-              Indulge in long-lasting designer perfumes, niche Arabian oils, radiant skincare elixirs, and premium cosmetic makeup palettes.
-            </p>
-            <ul class="product-highlights">
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Long Lasting Projection</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> 100% Authentic</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Gift Packaging</li>
-            </ul>
-            <div class="card-action-bar">
-              <span class="stock-tag"><i class="fa-solid fa-circle-check"></i> Highly Recommended</span>
-              <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20inquire%20about%20your%20Luxury%20Perfumes%20%26%20Cosmetics%20range." target="_blank" rel="noopener" class="btn-card-whatsapp" title="Inquire on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i> Inquire Now
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 4: Denim & Shoes -->
-        <article class="product-card" data-category="footwear">
-          <div class="product-image-wrap">
-            <img src="assets/shoes.jpg" alt="Designer Footwear, Heels, Sneakers and Premium Denim" loading="lazy">
-            <span class="product-badge"><i class="fa-solid fa-shoe-prints" style="color: var(--gold-400);"></i> Trendy & Chic</span>
-          </div>
-          <div class="product-info">
-            <span class="product-category-title">Footwear & Denim</span>
-            <h3 class="product-name">Designer Footwear & Denim</h3>
-            <p class="product-description">
-              Step out with confidence. Featuring glamorous high heels, comfort sneakers, embellished sandals, and high-waisted designer jeans.
-            </p>
-            <ul class="product-highlights">
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Sizes 36 to 43</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> High Quality Denim</li>
-              <li class="product-highlight-item"><i class="fa-solid fa-check" style="color: var(--gold-400);"></i> Comfort Insole</li>
-            </ul>
-            <div class="card-action-bar">
-              <span class="stock-tag"><i class="fa-solid fa-circle-check"></i> Latest Trend</span>
-              <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20inquire%20about%20Designer%20Footwear%20%26%20Denim%20options." target="_blank" rel="noopener" class="btn-card-whatsapp" title="Inquire on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i> Inquire Now
-              </a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Retail & Wholesale Banner Section -->
-  <section class="commercial-modes" id="wholesale-retail">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Flexible Purchasing Options</span>
-        <h2 class="section-title">Serving Both <span class="gold-text">Retail & Wholesale</span></h2>
-        <p class="section-subtitle">
-          Whether you want a show-stopping outfit for yourself or need consistent inventory supply for your fashion boutique, we've got you covered.
-        </p>
-      </div>
-
-      <div class="modes-grid">
-        <!-- Retail Card -->
-        <div class="mode-card">
-          <div class="mode-card-icon">
-            <i class="fa-solid fa-person-dress"></i>
-          </div>
-          <h3 class="mode-title gold-text">Individual & Retail Shopping</h3>
-          <p class="mode-desc">
-            Personalized style recommendations, fitting guidance, and instant WhatsApp ordering for individual fashion lovers across Freetown and beyond.
-          </p>
-          <ul class="mode-perks">
-            <li><i class="fa-solid fa-circle-check"></i> One-on-one styling advice via WhatsApp</li>
-            <li><i class="fa-solid fa-circle-check"></i> Safe doorstep delivery or store pickup in Aberdeen</li>
-            <li><i class="fa-solid fa-circle-check"></i> Frequent new arrivals and trending pieces</li>
-          </ul>
-          <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20looking%20to%20shop%20for%20personal%20use.%20Please%20guide%20me%20on%20current%20stock." target="_blank" rel="noopener" class="btn-gold-outline" style="width: 100%;">
-            <i class="fa-brands fa-whatsapp"></i> Shop Retail via WhatsApp
-          </a>
-        </div>
-
-        <!-- Wholesale Card -->
-        <div class="mode-card">
-          <div class="mode-card-icon">
-            <i class="fa-solid fa-truck-ramp-box"></i>
-          </div>
-          <h3 class="mode-title gold-text">Wholesale & Reseller Partnerships</h3>
-          <p class="mode-desc">
-            Are you a boutique owner, reseller, or entrepreneur? Enjoy bulk tiered pricing, dependable stock supply, and priority customer service.
-          </p>
-          <ul class="mode-perks">
-            <li><i class="fa-solid fa-circle-check"></i> Generous wholesale profit margins for vendors</li>
-            <li><i class="fa-solid fa-circle-check"></i> Direct bulk orders for dresses, bags & perfumes</li>
-            <li><i class="fa-solid fa-circle-check"></i> Fast order processing and reliable dispatch</li>
-          </ul>
-          <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20interested%20in%20Wholesale%20pricing%20and%20bulk%20orders%20for%20my%20business." target="_blank" rel="noopener" class="btn-primary-whatsapp" style="width: 100%; border-radius: var(--radius-full);">
-            <i class="fa-brands fa-whatsapp"></i> Wholesale Inquiries (+232 754 16008)
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Commitments / Core Values -->
-  <section class="commitments-section" id="commitments">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Our Promise</span>
-        <h2 class="section-title">The <span class="gold-text">Humu Kabba</span> Standard</h2>
-        <p class="section-subtitle">
-          Seven years of continuous customer satisfaction built on honesty, quality, and passion for fashion.
-        </p>
-      </div>
-
-      <div class="commitments-grid">
-        <div class="commitment-card">
-          <div class="commitment-icon-wrap">
-            <i class="fa-solid fa-certificate"></i>
-          </div>
-          <h4 class="commitment-title">Quality Products</h4>
-          <p class="commitment-text">Meticulously inspected fashion items designed to last and maintain their beauty.</p>
-        </div>
-
-        <div class="commitment-card">
-          <div class="commitment-icon-wrap">
-            <i class="fa-solid fa-tags"></i>
-          </div>
-          <h4 class="commitment-title">Affordable Prices</h4>
-          <p class="commitment-text">True value for your money with competitive pricing on both retail and wholesale items.</p>
-        </div>
-
-        <div class="commitment-card">
-          <div class="commitment-icon-wrap">
-            <i class="fa-solid fa-mobile-screen"></i>
-          </div>
-          <h4 class="commitment-title">Convenient Shopping</h4>
-          <p class="commitment-text">Simply tap on WhatsApp to view photos, place orders, and coordinate pickup or delivery.</p>
-        </div>
-
-        <div class="commitment-card">
-          <div class="commitment-icon-wrap">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-          </div>
-          <h4 class="commitment-title">Trendy & Unique Items</h4>
-          <p class="commitment-text">Stand out from the crowd with handpicked, modern fashion pieces you won't find anywhere else.</p>
-        </div>
-
-        <div class="commitment-card">
-          <div class="commitment-icon-wrap">
-            <i class="fa-solid fa-handshake-angle"></i>
-          </div>
-          <h4 class="commitment-title">Reliable Support</h4>
-          <p class="commitment-text">Dedicated, polite, and rapid customer service directly with Humu Kabba team.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive WhatsApp Order & Inquiry Builder -->
-  <section class="order-builder-section" id="order-builder">
-    <div class="container">
-      <div class="order-card-wrapper">
-        <div class="builder-header">
-          <span class="section-tag"><i class="fa-brands fa-whatsapp"></i> Quick WhatsApp Assistant</span>
-          <h3 class="gold-text">Build Your Inquiry & Order Instantly</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            Fill out your preference below and click "Send Order to WhatsApp" to chat directly with our team at <strong style="color: var(--gold-300);">+232 754 16008</strong>.
-          </p>
-        </div>
-
-        <form id="quickOrderForm" class="builder-form">
-          <div class="form-group">
-            <label for="customerName" class="form-label"><i class="fa-regular fa-user"></i> Your Name</label>
-            <input type="text" id="customerName" class="form-input" placeholder="e.g. Fatima / Michael" required>
-          </div>
-
-          <div class="form-group">
-            <label for="orderCategory" class="form-label"><i class="fa-solid fa-layer-group"></i> Category of Interest</label>
-            <select id="orderCategory" class="form-select">
-              <option value="Designer Handbags & Clutches">Designer Handbags & Clutches</option>
-              <option value="Dresses & Fashion Apparel">Dresses & Fashion Apparel</option>
-              <option value="Luxury Perfumes & Beauty">Luxury Perfumes & Fragrances</option>
-              <option value="Cosmetics & Skincare">Cosmetics & Skincare</option>
-              <option value="Shoes & Footwear">Shoes & Footwear</option>
-              <option value="Denim & Casual Chic">Denim & Casual Chic</option>
-              <option value="General Boutique Inquiry">General Boutique Inquiry</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="orderType" class="form-label"><i class="fa-solid fa-briefcase"></i> Order Type</label>
-            <select id="orderType" class="form-select">
-              <option value="Personal / Retail Shopping">Personal / Retail Shopping</option>
-              <option value="Wholesale / Reseller Order">Wholesale / Reseller Order</option>
-              <option value="Special Event / Gift Order">Special Event / Gift Order</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="preferredContact" class="form-label"><i class="fa-solid fa-phone"></i> Target Contact Number</label>
-            <input type="text" id="preferredContact" class="form-input" value="+232 754 16008 (WhatsApp Direct)" readonly style="color: var(--gold-300); font-weight: 700;">
-          </div>
-
-          <div class="form-group full-width">
-            <label for="itemDetails" class="form-label"><i class="fa-regular fa-comment-dots"></i> Item Details, Sizes, or Questions</label>
-            <textarea id="itemDetails" class="form-textarea" placeholder="Describe the style, preferred color, shoe/dress size, or any wholesale quantity..."></textarea>
-          </div>
-
-          <div class="form-group full-width">
-            <button type="submit" class="btn-send-order" id="submitOrderBtn">
-              <i class="fa-brands fa-whatsapp" style="font-size: 1.35rem;"></i> Send to WhatsApp (+232 754 16008)
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Store Location, Address & Hours Section -->
-  <section class="location-section" id="location">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Visit or Connect</span>
-        <h2 class="section-title">Shop Location & <span class="gold-text">Opening Hours</span></h2>
-        <p class="section-subtitle">
-          Located conveniently in Aberdeen, Freetown. Visit us in-person or reach out anytime on WhatsApp.
-        </p>
-      </div>
-
-      <div class="location-grid">
-        <!-- Location Details Card -->
-        <div class="location-info-card">
-          <div>
-            <div class="location-detail-group">
-              <div class="detail-row">
-                <div class="detail-icon">
-                  <i class="fa-solid fa-location-dot"></i>
-                </div>
-                <div class="detail-content">
-                  <h4>Shop Address</h4>
-                  <p><strong>4B Johnson Land, Aberdeen</strong><br>Freetown, Sierra Leone<br><span style="color: var(--gold-400); font-weight: 600;">(Back of the Field)</span></p>
-                </div>
-              </div>
-
-              <div class="detail-row">
-                <div class="detail-icon" style="background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.4); color: #25d366;">
-                  <i class="fa-brands fa-whatsapp"></i>
-                </div>
-                <div class="detail-content">
-                  <h4>Official WhatsApp & Calls</h4>
-                  <!-- Direct clickable WhatsApp number -->
-                  <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20chat%20and%20order." target="_blank" rel="noopener" style="font-size: 1.25rem; font-weight: 800; color: #25d366; display: inline-block; margin-top: 2px;" title="Click to open WhatsApp chat">
-                    +232 754 16008
-                  </a>
-                  <p style="font-size: 0.84rem; color: var(--text-dim); margin-top: 3px;">Click to initiate instant WhatsApp chat</p>
-                </div>
-              </div>
-
-              <div class="detail-row">
-                <div class="detail-icon">
-                  <i class="fa-solid fa-map-location-dot"></i>
-                </div>
-                <div class="detail-content">
-                  <h4>Directions & Landmark</h4>
-                  <p>Located right at the <strong>Back of the Field</strong> on Johnson Land in Aberdeen. Easy access from Aberdeen Road.</p>
-                </div>
+            <div class="product-body">
+              <h3 class="product-title">Designer Handbags & Clutches</h3>
+              <div class="product-colors">Selected Leatherware & Clutches</div>
+              <p class="product-desc">
+                Designer handbags, clutches, spacious totes, and fine gold-tone jewellery crafted for everyday elegance and black-tie galas.
+              </p>
+              <div class="product-footer">
+                <div><span class="ask-price">Ask price on WhatsApp</span></div>
+                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Designer Handbags and Clutches" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Designer Handbags and Clutches. Please share photos and prices.">
+                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
+                </button>
               </div>
             </div>
+          </article>
+
+          <!-- Collection 2: Apparel and Dresses -->
+          <article class="product-card" data-category="Apparel & Dresses">
+            <div class="product-img-wrap">
+              <img src="assets/dresses.jpg" alt="Evening dresses and stylish two-piece sets" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">Apparel & Dresses</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Evening Dresses & Apparel</h3>
+              <div class="product-colors">Sizes: Small, Medium, Large, XL</div>
+              <p class="product-desc">
+                Evening dresses, co-ord two-piece sets, tailored suits, and versatile fashion items cut to flatter every silhouette.
+              </p>
+              <div class="product-footer">
+                <div><span class="ask-price">Ask price on WhatsApp</span></div>
+                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Evening Dresses and Apparel" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Evening Dresses & Apparel collection. Please share available sizes and colors.">
+                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Collection 3: Beauty and Perfumes -->
+          <article class="product-card" data-category="Beauty & Perfumes">
+            <div class="product-img-wrap">
+              <img src="assets/beauty.jpg" alt="Designer perfumes and luxury cosmetics" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">Beauty & Perfumes</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Luxury Perfumes & Cosmetics</h3>
+              <div class="product-colors">Designer Scents & Skincare</div>
+              <p class="product-desc">
+                Long-lasting designer perfumes, concentrated Arabian oils, glow serums, and makeup palettes for refined daily beauty.
+              </p>
+              <div class="product-footer">
+                <div><span class="ask-price">Ask price on WhatsApp</span></div>
+                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Luxury Perfumes and Cosmetics" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Perfumes & Beauty products. Please share current fragrances in stock.">
+                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Collection 4: Footwear and Denim -->
+          <article class="product-card" data-category="Footwear & Denim">
+            <div class="product-img-wrap">
+              <img src="assets/shoes.jpg" alt="Designer footwear and denim jeans" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">Footwear & Denim</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Footwear & Premium Denim</h3>
+              <div class="product-colors">Footwear Sizes 36 to 43</div>
+              <p class="product-desc">
+                Glamorous stiletto heels, everyday comfort sneakers, embellished sandals, and high-waisted designer denim trousers.
+              </p>
+              <div class="product-footer">
+                <div><span class="ask-price">Ask price on WhatsApp</span></div>
+                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Footwear and Denim" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Footwear & Denim items. Please share available sizes.">
+                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Collection 5: Phone Cases Preview -->
+          <article class="product-card" data-category="Phone Cases">
+            <div class="product-img-wrap">
+              <img src="assets/cases/crystal_shell.jpg" alt="Crystal shell case for iPhone 17 Pro Max" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">iPhone 17 Pro Max</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Phone Case Collection</h3>
+              <div class="product-colors">iPhone 17 Pro Max Exclusive</div>
+              <p class="product-desc">
+                Crystal shell cases, heart shimmer cases with crystal camera frames, and monogram leather-look cases with optional wrist charms.
+              </p>
+              <div class="product-footer">
+                <div><span class="ask-price">Full Catalogue</span></div>
+                <a href="cases.html" class="btn btn-gold btn-sm">
+                  View Cases Page &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Retail and Wholesale Section (Section 4.4) -->
+    <section class="section" id="retail-wholesale">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>Retail and Wholesale Options</h2>
+          <p>We cater to individual shoppers seeking personal style as well as retail partners across Sierra Leone.</p>
+        </div>
+
+        <div class="split-grid">
+          <!-- Retail -->
+          <div class="split-card">
+            <h3>Retail Shopping</h3>
+            <p>Step out in style with curated pieces handpicked for your special occasions and everyday wardrobe.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-check"></i> One-on-one styling advice via WhatsApp</li>
+              <li><i class="fa-solid fa-check"></i> Doorstep delivery across Freetown or store pickup in Aberdeen</li>
+              <li><i class="fa-solid fa-check"></i> Frequent new arrivals and fresh boutique drops</li>
+            </ul>
+            <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20shopping%20for%20personal%20use.%20Please%20guide%20me%20on%20current%20stock." target="_blank" rel="noopener" class="btn btn-outline" style="width: 100%;">
+              <i class="fa-brands fa-whatsapp"></i> Shop Retail on WhatsApp
+            </a>
           </div>
 
-          <div class="click-to-chat-banner">
-            <div>
-              <span style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-200); font-weight: 700;">Direct WhatsApp Hotline</span>
-              <a href="https://wa.me/23275416008" target="_blank" rel="noopener" class="phone-number-big" style="display: block;">
-                +232 754 16008
-              </a>
-            </div>
-            <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault!" target="_blank" rel="noopener" class="btn-whatsapp-nav" style="padding: 10px 18px;">
-              <i class="fa-brands fa-whatsapp"></i> Chat Now
+          <!-- Wholesale -->
+          <div class="split-card">
+            <h3>Wholesale Partnerships</h3>
+            <p>Reliable bulk inventory, tiered margins, and dedicated support for fashion retailers and resellers.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-check"></i> Bulk tiered pricing for maximum resale profit</li>
+              <li><i class="fa-solid fa-check"></i> Dependable stock for dresses, bags, perfumes, and cases</li>
+              <li><i class="fa-solid fa-check"></i> Fast order dispatch and priority customer service</li>
+            </ul>
+            <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20interested%20in%20wholesale%20bulk%20purchases%20for%20my%20business." target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%;">
+              <i class="fa-brands fa-whatsapp"></i> Wholesale Inquiries (+232 754 16008)
             </a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Hours & Schedule Card -->
-        <div class="hours-card">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-            <h3>Operating Schedule</h3>
-            <span class="store-status-badge open">
-              <span class="status-dot"></span> Open Today
-            </span>
+    <!-- The Humu Kabba Standard (Section 4.5) -->
+    <section class="section" id="why-choose-us">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>The Humu Kabba Standard</h2>
+          <p>With over seven years in Freetown, our reputation is built on consistent standards and customer trust.</p>
+        </div>
+
+        <div class="standards-grid">
+          <div class="standard-item">
+            <h4>Quality Products</h4>
+            <p>Every item is individually inspected for seam integrity, fabric quality, and durable finishes.</p>
           </div>
-          <p>We welcome you to visit our Aberdeen boutique or chat directly with our team during our operational hours:</p>
-
-          <ul class="schedule-list">
-            <li class="schedule-item">
-              <span class="schedule-day"><i class="fa-regular fa-calendar-check" style="color: var(--gold-400); margin-right: 8px;"></i> Monday - Saturday</span>
-              <span class="schedule-time">09:00 - 19:00 (9 AM - 7 PM)</span>
-            </li>
-            <li class="schedule-item">
-              <span class="schedule-day"><i class="fa-regular fa-calendar-check" style="color: var(--gold-400); margin-right: 8px;"></i> Sunday</span>
-              <span class="schedule-time">13:00 - 17:00 (1 PM - 5 PM)</span>
-            </li>
-            <li class="schedule-item">
-              <span class="schedule-day"><i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 8px;"></i> WhatsApp Online Inquiries</span>
-              <span class="schedule-time" style="color: #25d366;">24/7 (Replies during store hours)</span>
-            </li>
-          </ul>
-
-          <div class="landmark-box">
-            <p><strong><i class="fa-solid fa-circle-info"></i> Visiting Note:</strong> If you are driving or taking transport to Aberdeen, look for <strong>Johnson Land, Back of the Field</strong>. You can call or WhatsApp <strong><a href="https://wa.me/23275416008" target="_blank" style="color: var(--gold-300); text-decoration: underline;">+232 754 16008</a></strong> if you need live directions!</p>
+          <div class="standard-item">
+            <h4>Affordable Prices</h4>
+            <p>Real value for your money. Tagline: <em>"Check us now and get the value worth your money."</em></p>
+          </div>
+          <div class="standard-item">
+            <h4>Convenient Shopping</h4>
+            <p>Browse photos, request video clips, ask questions, and confirm orders directly over WhatsApp.</p>
+          </div>
+          <div class="standard-item">
+            <h4>Trendy & Unique Items</h4>
+            <p>Fresh fashion pieces and limited releases to keep your personal style distinctive and modern.</p>
+          </div>
+          <div class="standard-item">
+            <h4>Reliable Support</h4>
+            <p>Dedicated customer service directly from Humu Kabba for questions, sizing, and order tracking.</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Luxury Footer -->
-  <footer class="luxury-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand-wrap">
-            <img src="assets/logo.jpg" alt="Humu Kabba Logo" class="footer-logo-img">
-            <div>
-              <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: #fff;">HUMU KABBA</h4>
-              <p style="font-size: 0.72rem; color: var(--gold-300); letter-spacing: 1px;">VARIETY VAULT</p>
+    <!-- Customer Reviews (Section 4.6) -->
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>Customer Reviews</h2>
+          <p>Real customer feedback from shoppers and business partners across Freetown.</p>
+        </div>
+
+        <div class="reviews-container" id="reviewsList">
+          <!-- Dynamically populated or empty state: "No reviews yet. Be the first to share your experience." -->
+          <div class="empty-reviews-state">
+            <p>No reviews yet. Be the first to share your experience.</p>
+            <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20leave%20a%20customer%20review%3A%0A-%20Name%3A%20%0A-%20What%20I%20bought%3A%20%0A-%20Rating%20(1%20to%205)%3A%20%0A-%20My%20review%3A%20" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+              <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> Leave a review on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp Order Builder (Section 4.7) -->
+    <section class="section" id="order">
+      <div class="container">
+        <div class="section-title-wrap" style="text-align: center; margin-bottom: 26px;">
+          <h2>WhatsApp Order Builder</h2>
+          <p style="margin: 0 auto;">Select your item and order type below. Tapping the button opens WhatsApp with a pre-formatted message.</p>
+        </div>
+
+        <div class="order-box">
+          <form id="whatsappOrderForm" class="order-form">
+            <div class="form-group">
+              <label for="orderCustName" class="form-label">Your Name</label>
+              <input type="text" id="orderCustName" class="form-control" placeholder="e.g. Mariama Sesay" required>
+            </div>
+
+            <div class="form-group">
+              <label for="orderCustCategory" class="form-label">Category</label>
+              <select id="orderCustCategory" class="form-control">
+                <option value="Phone Cases (iPhone 17 Pro Max)">Phone Cases (iPhone 17 Pro Max)</option>
+                <option value="Bags & Accessories">Bags and Accessories</option>
+                <option value="Apparel & Dresses">Apparel and Dresses</option>
+                <option value="Beauty & Perfumes">Beauty and Perfumes</option>
+                <option value="Footwear & Denim">Footwear and Denim</option>
+                <option value="General Boutique Inquiry">General Boutique Inquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="orderCustType" class="form-label">Order Type</label>
+              <select id="orderCustType" class="form-control">
+                <option value="Retail">Retail (Personal Use)</option>
+                <option value="Wholesale">Wholesale (Bulk / Business)</option>
+                <option value="Gift">Gift for someone special</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="orderCustPhone" class="form-label">Your Phone Number</label>
+              <input type="tel" id="orderCustPhone" class="form-control" placeholder="e.g. +232 75 000000">
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="orderCustDetails" class="form-label">Item Details, Sizes, or Colors</label>
+              <textarea id="orderCustDetails" class="form-control" placeholder="State preferred dress size, footwear size, case color, or quantity..."></textarea>
+            </div>
+
+            <div class="form-group form-group-full">
+              <button type="submit" class="btn btn-whatsapp" style="width: 100%; padding: 14px;">
+                <i class="fa-brands fa-whatsapp"></i> Send Order to WhatsApp (+232 754 16008)
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visit Store (Section 4.8) -->
+    <section class="section" id="visit">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>Visit Our Aberdeen Boutique</h2>
+          <p>Drop by our shop in Aberdeen or get in touch for live directions.</p>
+        </div>
+
+        <div class="visit-grid">
+          <!-- Information Card -->
+          <div class="visit-card">
+            <div class="visit-row">
+              <h4>Shop Address</h4>
+              <p>4B Johnson Land, Aberdeen, Freetown, Sierra Leone<br><strong>Back of the Field</strong> (Easy access from Aberdeen Road)</p>
+            </div>
+
+            <div class="visit-row">
+              <h4>WhatsApp and Phone Calls</h4>
+              <p>
+                <a href="https://wa.me/23275416008" target="_blank" rel="noopener" style="color: var(--whatsapp-green); font-weight: 700; font-size: 1.1rem;">
+                  <i class="fa-brands fa-whatsapp"></i> +232 754 16008
+                </a>
+              </p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">WhatsApp inquiries 24/7; replies during store hours.</p>
+            </div>
+
+            <div class="visit-row">
+              <h4>Directions & Landmark</h4>
+              <p>
+                Located right at the Back of the Field on Johnson Land in Aberdeen. For real-time driving or walking guidance, call or WhatsApp our hotline.
+              </p>
+            </div>
+
+            <div style="margin-top: 20px;">
+              <a href="https://maps.google.com/?q=Aberdeen+Freetown+Sierra+Leone" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+                <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
+              </a>
             </div>
           </div>
-          <p class="footer-desc">
-            Fashion • Beauty • Lifestyle. Trusted destination for premium apparel, designer bags, fragrances, and cosmetics in Aberdeen, Freetown. Your style, our priority.
+
+          <!-- Hours Card -->
+          <div class="visit-card">
+            <h4>Opening Hours</h4>
+            <div class="store-status" data-store-status style="margin: 8px 0 16px;">
+              <span class="status-indicator status-open"></span> Checking store hours...
+            </div>
+
+            <table class="hours-table">
+              <tbody>
+                <tr>
+                  <td>Monday to Saturday</td>
+                  <td>09:00 - 19:00</td>
+                </tr>
+                <tr>
+                  <td>Sunday</td>
+                  <td>13:00 - 17:00</td>
+                </tr>
+                <tr>
+                  <td>WhatsApp Orders</td>
+                  <td>24 Hours</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20planning%20to%20visit%20your%20Aberdeen%20shop." target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%;">
+              <i class="fa-brands fa-whatsapp"></i> Message Before Visiting
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (Section 4.9) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Humu Kabba Variety Vault</h4>
+          <p>
+            "Your Style, Our Priority." Fashion, beauty, and lifestyle retail and wholesale boutique based in Aberdeen, Freetown, Sierra Leone. Over seven years of excellence.
+          </p>
+          <p style="margin-top: 8px; font-size: 0.85rem; color: var(--gold-accent);">
+            "Check us now and get the value worth your money."
           </p>
         </div>
 
-        <div>
-          <h4 class="footer-title">Vault Collections</h4>
+        <div class="footer-col">
+          <h4>Navigation</h4>
           <ul class="footer-links">
-            <li><a href="#collections">Designer Bags & Clutches</a></li>
-            <li><a href="#collections">Apparel & Chic Dresses</a></li>
-            <li><a href="#collections">Luxury Perfumes & Scents</a></li>
-            <li><a href="#collections">Cosmetics & Beauty Kits</a></li>
-            <li><a href="#collections">Footwear & Trendy Denim</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="cases.html">iPhone 17 Pro Max Cases</a></li>
+            <li><a href="#retail-wholesale">Retail and Wholesale</a></li>
+            <li><a href="#why-choose-us">The Humu Kabba Standard</a></li>
+            <li><a href="#reviews">Customer Reviews</a></li>
+            <li><a href="#order">Order on WhatsApp</a></li>
+            <li><a href="#visit">Store Location</a></li>
           </ul>
         </div>
 
-        <div>
-          <h4 class="footer-title">Quick Links</h4>
-          <ul class="footer-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#wholesale-retail">Retail Shopping</a></li>
-            <li><a href="#wholesale-retail">Wholesale Orders</a></li>
-            <li><a href="#commitments">Our Commitments</a></li>
-            <li><a href="#order-builder">Order via WhatsApp</a></li>
-            <li><a href="#location">Store Location</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-title">Contact Us</h4>
-          <div class="footer-contact-item">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>4B Johnson Land, Aberdeen, Freetown, Sierra Leone (Back of the Field)</span>
-          </div>
-          <div class="footer-contact-item">
-            <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-            <!-- Direct WhatsApp link -->
-            <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20contacting%20you%20from%20your%20website." target="_blank" rel="noopener" style="color: #25d366; font-weight: 700;" title="Click to Chat on WhatsApp">
-              +232 754 16008
-            </a>
-          </div>
-          <div class="footer-contact-item">
-            <i class="fa-regular fa-clock"></i>
-            <span>Mon - Sat: 9:00 - 19:00<br>Sun: 13:00 - 17:00</span>
-          </div>
+        <div class="footer-col">
+          <h4>Contact & Address</h4>
+          <p style="font-size: 0.9rem; margin-bottom: 8px;">
+            <i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> 4B Johnson Land, Aberdeen, Freetown (Back of the Field)
+          </p>
+          <p style="font-size: 0.9rem; margin-bottom: 8px;">
+            <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i>
+            <a href="https://wa.me/23275416008" target="_blank" rel="noopener" style="color: var(--text-main);">+232 754 16008</a>
+          </p>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Mon to Sat 09:00 - 19:00 | Sun 13:00 - 17:00
+          </p>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div>
-          &copy; 2026 <strong>Humu Kabba Variety Vault</strong>. All Rights Reserved. "Your Style, Our Priority."
+          &copy; 2026 Humu Kabba Variety Vault. All rights reserved.
         </div>
         <div>
-          Designed for Excellence • Aberdeen, Freetown, Sierra Leone
+          <!-- Discreet Owner Login Link -->
+          <a href="#admin" class="owner-link" data-open-owner>Owner</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Floating WhatsApp Quick Button -->
-  <div class="floating-whatsapp-widget">
-    <div class="floating-whatsapp-tooltip">
-      <i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 5px;"></i> Chat on WhatsApp (+232 754 16008)
+  <!-- Owner Management Panel Overlay Modal -->
+  <div class="owner-overlay" id="ownerOverlay" role="dialog" aria-modal="true" aria-labelledby="ownerModalTitle">
+    <div class="owner-modal">
+      <div class="modal-header">
+        <h3 id="ownerModalTitle">Owner Administration</h3>
+        <button class="modal-close-btn" data-close-owner aria-label="Close owner panel">&times;</button>
+      </div>
+
+      <!-- View 1: Sign In -->
+      <div id="ownerLoginView">
+        <p style="margin-bottom: 20px; font-size: 0.95rem;">
+          Sign in with your owner credentials to manage products, customer reviews, and view orders.
+        </p>
+        <form id="ownerLoginForm" style="display: flex; flex-direction: column; gap: 14px; max-width: 400px;">
+          <div class="form-group">
+            <label for="ownerEmail" class="form-label">Email</label>
+            <input type="email" id="ownerEmail" class="form-control" placeholder="owner@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="ownerPassword" class="form-label">Password</label>
+            <input type="password" id="ownerPassword" class="form-control" required>
+          </div>
+          <div id="loginErrorMsg" style="color: var(--danger-color); font-size: 0.85rem;"></div>
+          <button type="submit" class="btn btn-gold">Sign In</button>
+        </form>
+      </div>
+
+      <!-- View 2: Dashboard -->
+      <div id="ownerDashboardView" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span style="font-size: 0.9rem; color: var(--gold-accent);">Authenticated as Owner</span>
+          <div style="display: flex; gap: 10px;">
+            <button type="button" id="enablePushBtn" class="btn btn-outline btn-sm">
+              <i class="fa-regular fa-bell"></i> Enable Push Notifications
+            </button>
+            <button type="button" id="ownerLogoutBtn" class="btn btn-sm" style="color: var(--danger-color); border: 1px solid var(--danger-color);">
+              Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="owner-tabs">
+          <button class="owner-tab-btn active" data-tab="tabAddProduct">Add Product</button>
+          <button class="owner-tab-btn" data-tab="tabManageProducts">Manage Products</button>
+          <button class="owner-tab-btn" data-tab="tabReviews">Approved Reviews</button>
+          <button class="owner-tab-btn" data-tab="tabOrders">WhatsApp Orders (10)</button>
+        </div>
+
+        <!-- Tab 1: Add Product -->
+        <div class="owner-tab-content active" id="tabAddProduct">
+          <form id="addProductForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="prodName" class="form-label">Product Name *</label>
+              <input type="text" id="prodName" class="form-control" placeholder="e.g. Crystal Shell Case" required>
+            </div>
+            <div class="form-group">
+              <label for="prodCategory" class="form-label">Category</label>
+              <select id="prodCategory" class="form-control">
+                <option value="Phone Cases">Phone Cases</option>
+                <option value="Bags & Accessories">Bags & Accessories</option>
+                <option value="Apparel & Dresses">Apparel & Dresses</option>
+                <option value="Beauty & Perfumes">Beauty & Perfumes</option>
+                <option value="Footwear & Denim">Footwear & Denim</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prodColors" class="form-label">Colours / Variants</label>
+              <input type="text" id="prodColors" class="form-control" placeholder="e.g. White, Lilac, Pink">
+            </div>
+            <div class="form-group">
+              <label for="prodPrice" class="form-label">Price in SLE (Leave blank for 'Ask price')</label>
+              <input type="number" step="0.01" id="prodPrice" class="form-control" placeholder="Optional">
+            </div>
+            <div class="form-group">
+              <label for="prodImage" class="form-label">Product Photo (Auto-resized to 900px JPEG)</label>
+              <input type="file" id="prodImage" class="form-control" accept="image/*">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="prodDesc" class="form-label">Description</label>
+              <textarea id="prodDesc" class="form-control" placeholder="Provide accurate material and fit details..."></textarea>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <button type="submit" id="saveProductBtn" class="btn btn-gold">Save & Publish Product</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab 2: Manage Products -->
+        <div class="owner-tab-content" id="tabManageProducts">
+          <div style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsList">
+                <tr><td colspan="5" style="text-align: center; padding: 20px;">Loading products...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Reviews -->
+        <div class="owner-tab-content" id="tabReviews">
+          <h4 style="margin-bottom: 12px; font-size: 1.1rem; color: var(--gold-accent);">Publish Approved Customer Review</h4>
+          <form id="addReviewForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px;">
+            <div class="form-group">
+              <label for="revCustomerName" class="form-label">Customer Name</label>
+              <input type="text" id="revCustomerName" class="form-control" placeholder="e.g. Zainab K." required>
+            </div>
+            <div class="form-group">
+              <label for="revItemName" class="form-label">Item Purchased</label>
+              <input type="text" id="revItemName" class="form-control" placeholder="e.g. Crystal Shell Case" required>
+            </div>
+            <div class="form-group">
+              <label for="revRating" class="form-label">Star Rating (1 to 5)</label>
+              <select id="revRating" class="form-control">
+                <option value="5">5 Stars (Excellent)</option>
+                <option value="4">4 Stars (Great)</option>
+                <option value="3">3 Stars (Good)</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="revText" class="form-label">Customer's Review Quote</label>
+              <textarea id="revText" class="form-control" placeholder="Paste the customer's WhatsApp feedback..." required></textarea>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <button type="submit" class="btn btn-gold">Publish Review to Website</button>
+            </div>
+          </form>
+
+          <h4 style="margin-bottom: 12px; font-size: 1.1rem;">Currently Published Reviews</h4>
+          <div id="adminReviewsList">Loading reviews...</div>
+        </div>
+
+        <!-- Tab 4: Orders -->
+        <div class="owner-tab-content" id="tabOrders">
+          <h4 style="margin-bottom: 8px; font-size: 1.1rem; color: var(--gold-accent);">Recent WhatsApp Order Inquiries</h4>
+          <p style="font-size: 0.85rem; margin-bottom: 14px;">Logged when customers click 'Order on WhatsApp' across the site.</p>
+          <div style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product / Request</th>
+                  <th>Customer</th>
+                  <th>Type</th>
+                  <th>Date & Time</th>
+                </tr>
+              </thead>
+              <tbody id="adminOrdersList">
+                <tr><td colspan="4" style="text-align: center; padding: 20px;">Loading orders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    <a href="https://wa.me/23275416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20would%20like%20to%20make%20an%20inquiry%20or%20place%20an%20order." target="_blank" rel="noopener" class="floating-whatsapp-btn" aria-label="Chat directly on WhatsApp with Humu Kabba Variety Vault">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
   </div>
 
-  <!-- JavaScript -->
+  <div id="toastContainer" class="toast-container"></div>
   <script src="script.js"></script>
 </body>
 </html>
