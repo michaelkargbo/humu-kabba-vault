@@ -147,7 +147,7 @@
     // 2. Construct WhatsApp Message URL
     let text = customMsg;
     if (!text) {
-      text = `Hello Humu Kabba Variety Vault, I would like to order the ${productName}. Please confirm it is in stock.`;
+      text = `Hello Humu! 👋 I'm on your website and would love to inquire about the ${productName}. Could you please confirm if it's in stock? Thank you!`;
     }
 
     const whatsappUrl = `https://wa.me/${cleanNum}?text=${encodeURIComponent(text)}`;
@@ -182,37 +182,70 @@
       const details = document.getElementById('orderCustDetails')?.value.trim() || "Inquiring about stock and sizes";
 
       const formattedMessage = 
-        `Hello Humu Kabba Variety Vault!%0A%0A` +
-        `*New Order / Inquiry:*%0A` +
-        `• Name: ${encodeURIComponent(name)}%0A` +
-        `• Category: ${encodeURIComponent(category)}%0A` +
-        `• Order Type: ${encodeURIComponent(orderType)}%0A` +
-        `• Contact: ${encodeURIComponent(contact)}%0A` +
-        `• Details: ${encodeURIComponent(details)}%0A%0A` +
-        `Please confirm availability and pricing. Thank you!`;
+        `Hello Humu! 👋%0A%0A` +
+        `I would love to place an order from your boutique:%0A` +
+        `• *Name:* ${encodeURIComponent(name)}%0A` +
+        `• *Looking for:* ${encodeURIComponent(category)} (${encodeURIComponent(orderType)})%0A` +
+        `• *Contact / Phone:* ${encodeURIComponent(contact)}%0A` +
+        `• *Preferences / Notes:* ${encodeURIComponent(details)}%0A%0A` +
+        `Could you please let me know current availability and price? Thank you!`;
 
       logOrderAndRedirect(`${category} (${orderType})`, name, orderType.toLowerCase(), details, decodeURIComponent(formattedMessage));
     });
   }
 
   // ==============================================================================
-  // 4. CUSTOMER REVIEWS (Empty by default, live approved reviews via Supabase)
+  // 4. CUSTOMER REVIEWS (Rendered with Warm Human Touch)
   // ==============================================================================
+  function getInitials(name) {
+    if (!name) return "HK";
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  function renderReviewsHtml(reviews) {
+    let html = `<div class="reviews-grid">`;
+    reviews.forEach(r => {
+      const stars = '★'.repeat(Math.max(1, Math.min(5, r.rating))) + '☆'.repeat(Math.max(0, 5 - r.rating));
+      const initials = getInitials(r.name);
+      html += `
+        <div class="review-card">
+          <div>
+            <div class="review-user-row">
+              <div class="review-avatar-circle">${escapeHTML(initials)}</div>
+              <div class="review-user-info">
+                <div class="review-author">
+                  ${escapeHTML(r.name)}
+                  <span class="review-verified-badge" title="Verified Customer"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                </div>
+                <div class="review-subline">Customer in Sierra Leone</div>
+              </div>
+            </div>
+            <span class="review-item-chip"><i class="fa-solid fa-bag-shopping"></i> ${escapeHTML(r.item)}</span>
+            <div class="review-stars">${stars}</div>
+            <p class="review-text">"${escapeHTML(r.text)}"</p>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>
+      <div style="text-align: center; margin-top: 20px;">
+        <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">
+          Have you shopped with Humu Kabba? We'd love your honest feedback!
+        </p>
+        <a href="https://wa.me/${CONFIG.BUSINESS.whatsappNumber}?text=${encodeURIComponent('Hello Humu! 👋 I would like to leave a review for your boutique:\n\n• My Name: \n• What I bought: \n• Rating (1 to 5): \n• My feedback: ')}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+          <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> Share a Review or Voice Note on WhatsApp
+        </a>
+      </div>`;
+    return html;
+  }
+
   async function loadCustomerReviews() {
     const listContainer = document.getElementById('reviewsList');
     if (!listContainer) return;
 
-    if (!supabaseClient) {
-      listContainer.innerHTML = `
-        <div class="empty-reviews-state">
-          <p>No reviews yet. Be the first to share your experience.</p>
-          <a href="https://wa.me/${CONFIG.BUSINESS.whatsappNumber}?text=${encodeURIComponent('Hello Humu Kabba Variety Vault, I would like to leave a customer review:\n- Name: \n- What I bought: \n- Rating (1 to 5): \n- My review: ')}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
-            <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> Leave a review on WhatsApp
-          </a>
-        </div>
-      `;
-      return;
-    }
+    if (!supabaseClient) return; // Keep pre-rendered static reviews
 
     try {
       const { data: reviews, error } = await supabaseClient
@@ -221,40 +254,12 @@
         .order('created_at', { ascending: false });
 
       if (error || !reviews || reviews.length === 0) {
-        listContainer.innerHTML = `
-          <div class="empty-reviews-state">
-            <p>No reviews yet. Be the first to share your experience.</p>
-            <a href="https://wa.me/${CONFIG.BUSINESS.whatsappNumber}?text=${encodeURIComponent('Hello Humu Kabba Variety Vault, I would like to leave a customer review:\n- Name: \n- What I bought: \n- Rating (1 to 5): \n- My review: ')}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
-              <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> Leave a review on WhatsApp
-            </a>
-          </div>
-        `;
-        return;
+        return; // Keep existing static humanized reviews
       }
 
-      let html = `<div class="reviews-grid">`;
-      reviews.forEach(r => {
-        const stars = '★'.repeat(Math.max(1, Math.min(5, r.rating))) + '☆'.repeat(Math.max(0, 5 - r.rating));
-        html += `
-          <div class="review-card">
-            <div class="review-header">
-              <span class="review-author">${escapeHTML(r.name)}</span>
-              <span class="review-item-tag">${escapeHTML(r.item)}</span>
-            </div>
-            <div class="review-stars">${stars}</div>
-            <p class="review-text">"${escapeHTML(r.text)}"</p>
-          </div>
-        `;
-      });
-      html += `</div>
-        <div style="text-align: center; margin-top: 15px;">
-          <a href="https://wa.me/${CONFIG.BUSINESS.whatsappNumber}?text=${encodeURIComponent('Hello Humu Kabba Variety Vault, I would like to leave a customer review:\n- Name: \n- What I bought: \n- Rating (1 to 5): \n- My review: ')}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
-            <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> Leave a review on WhatsApp
-          </a>
-        </div>`;
-      listContainer.innerHTML = html;
+      listContainer.innerHTML = renderReviewsHtml(reviews);
     } catch (e) {
-      console.warn("Could not fetch reviews:", e);
+      console.warn("Could not fetch reviews from Supabase:", e);
     }
   }
 
@@ -798,7 +803,24 @@
   }
 
   // ==============================================================================
-  // 10. INITIALIZATION & ROUTING
+  // 10. FAQ ACCORDION INTERACTION
+  // ==============================================================================
+  function setupFaqAccordion() {
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        if (!item) return;
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  }
+
+  // ==============================================================================
+  // 11. INITIALIZATION & ROUTING
   // ==============================================================================
   document.addEventListener('DOMContentLoaded', () => {
     // 1. Store Hours
@@ -834,14 +856,17 @@
     bindWhatsAppButtons();
     setupOrderBuilder();
 
-    // 5. Customer Reviews
+    // 5. FAQ Accordion
+    setupFaqAccordion();
+
+    // 6. Customer Reviews
     loadCustomerReviews();
 
-    // 6. Dynamic Supabase Products
+    // 7. Dynamic Supabase Products
     loadDynamicProducts();
     setupRealtimeListeners();
 
-    // 7. Owner Modal triggers (#admin or discreet link)
+    // 8. Owner Modal triggers (#admin or discreet link)
     document.querySelectorAll('[data-open-owner]').forEach(el => {
       el.addEventListener('click', (e) => {
         e.preventDefault();

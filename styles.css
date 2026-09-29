@@ -953,3 +953,308 @@ textarea.form-control {
   color: var(--text-main);
   font-size: 0.95rem;
 }
+
+/* ==============================================================================
+   HUMANIZED SECTIONS: FOUNDER'S STORY, REVIEWS & FAQ
+   ============================================================================== */
+
+/* Founder's Story Card */
+.founder-card {
+  background: linear-gradient(135deg, rgba(26, 26, 32, 0.95) 0%, rgba(16, 16, 20, 0.98) 100%);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+@media (min-width: 820px) {
+  .founder-card {
+    padding: 48px;
+  }
+}
+.founder-card::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .founder-grid {
+    grid-template-columns: 280px 1fr;
+    gap: 44px;
+  }
+}
+.founder-visual {
+  text-align: center;
+  position: relative;
+}
+.founder-avatar-wrap {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  padding: 5px;
+  background: linear-gradient(135deg, var(--gold-accent), rgba(212, 175, 55, 0.2));
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+}
+.founder-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.founder-name {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  color: var(--gold-accent);
+  margin-bottom: 4px;
+}
+.founder-title-tag {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+.founder-quote {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: #e5e5ea;
+  margin-bottom: 24px;
+  position: relative;
+  font-style: italic;
+}
+.founder-quote::before {
+  content: "\201C";
+  font-size: 3.5rem;
+  line-height: 1;
+  color: rgba(212, 175, 55, 0.35);
+  position: absolute;
+  left: -22px;
+  top: -14px;
+  font-family: Georgia, serif;
+}
+.founder-highlights {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 24px 0;
+}
+@media (min-width: 600px) {
+  .founder-highlights {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.founder-hl-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.founder-hl-item i {
+  color: var(--gold-accent);
+  font-size: 1.1rem;
+}
+.founder-hl-item span {
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+.voice-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 211, 102, 0.12);
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* Humanized Reviews */
+.review-card {
+  background: linear-gradient(180deg, #131318 0%, #0d0d11 100%);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.review-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+.review-user-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.review-avatar-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.05));
+  border: 1px solid var(--gold-accent);
+  color: var(--gold-accent);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.review-user-info {
+  flex-grow: 1;
+}
+.review-author {
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.review-verified-badge {
+  font-size: 0.72rem;
+  color: #25d366;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.review-subline {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+.review-item-chip {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold-accent);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.review-stars {
+  color: var(--gold-accent);
+  font-size: 0.92rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.review-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #d1d1d8;
+  font-style: normal;
+}
+
+/* FAQ Section */
+.faq-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+.faq-item.active, .faq-item:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+}
+.faq-question {
+  width: 100%;
+  padding: 18px 22px;
+  background: none;
+  border: none;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  font-weight: 600;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.faq-question:hover {
+  color: var(--gold-accent);
+}
+.faq-chevron {
+  color: var(--gold-accent);
+  transition: transform 0.25s ease;
+  font-size: 0.85rem;
+}
+.faq-item.active .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 22px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.faq-item.active .faq-answer {
+  max-height: 250px;
+  padding: 0 22px 20px 22px;
+}
+
+/* Payment Pills */
+.payment-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.payment-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+}
+.payment-pill-orange {
+  border-color: rgba(255, 121, 0, 0.4);
+  color: #ff8b1f;
+  background: rgba(255, 121, 0, 0.08);
+}
+.payment-pill-afri {
+  border-color: rgba(227, 6, 19, 0.4);
+  color: #ff4d58;
+  background: rgba(227, 6, 19, 0.08);
+}
+
