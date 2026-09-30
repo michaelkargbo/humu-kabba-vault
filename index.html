@@ -72,12 +72,16 @@
 <body>
 
   <!-- Top Announcement & Store Hours Bar -->
+  <!-- Top Announcement & Store Hours Bar -->
   <aside class="top-bar" aria-label="Store announcement bar">
     <div class="container top-bar-inner">
       <div class="store-status" data-store-status>
         <span class="status-indicator status-open"></span> Checking store hours...
       </div>
       <div class="top-bar-links">
+        <a href="#order" data-select-method="orange_money" style="color: var(--gold-accent); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+          <i class="fa-solid fa-credit-card"></i> Pay via Orange Money • Afrimoney • Cards
+        </a>
         <span><i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> 4B Johnson Land, Aberdeen</span>
         <a href="https://wa.me/23275416008" target="_blank" rel="noopener">
           <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp-green);"></i> +232 754 16008
@@ -107,6 +111,7 @@
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#visit">Visit Store</a></li>
+          <li><a href="#order" data-select-method="orange_money" class="nav-payment-link"><i class="fa-solid fa-credit-card"></i> Pay & Checkout</a></li>
         </ul>
       </nav>
 
@@ -122,6 +127,9 @@
 
     <!-- Mobile Drawer -->
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <a href="#order" data-select-method="orange_money" style="color: var(--gold-accent); font-weight: 700;">
+        <i class="fa-solid fa-credit-card"></i> Online Checkout & Payments
+      </a>
       <a href="#collections">Collections</a>
       <a href="cases.html">Phone Cases</a>
       <a href="#about-humu">Meet Humu</a>
@@ -150,6 +158,9 @@
         </p>
 
         <div class="hero-cta-group">
+          <a href="#order" data-select-method="orange_money" class="btn btn-gold">
+            <i class="fa-solid fa-credit-card"></i> Pay Online & Checkout
+          </a>
           <a href="https://wa.me/23275416008?text=Hello%20Humu!%20%F0%9F%91%8B%20I%20am%20browsing%20your%20website%20and%20would%20love%20to%20see%20your%20latest%20arrivals." target="_blank" rel="noopener" class="btn btn-whatsapp">
             <i class="fa-brands fa-whatsapp"></i> Chat with Humu on WhatsApp
           </a>
@@ -195,9 +206,14 @@
               </p>
               <div class="product-footer">
                 <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Designer Handbags and Clutches" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Designer Handbags and Clutches. Please share photos and prices.">
-                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
-                </button>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Designer Handbags and Clutches" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Designer Handbags and Clutches. Please share photos and prices.">
+                    <i class="fa-brands fa-whatsapp"></i> Inquire
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Luxury Designer Handbag" data-checkout-price="950" title="Pay with Orange Money, Afrimoney or Card">
+                    <i class="fa-solid fa-credit-card"></i> Pay Online
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -216,9 +232,14 @@
               </p>
               <div class="product-footer">
                 <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Evening Dresses and Apparel" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Evening Dresses & Apparel collection. Please share available sizes and colors.">
-                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
-                </button>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Evening Dresses and Apparel" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Evening Dresses & Apparel collection. Please share available sizes and colors.">
+                    <i class="fa-brands fa-whatsapp"></i> Inquire
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Boutique Evening Dress" data-checkout-price="850" title="Pay with Orange Money, Afrimoney or Card">
+                    <i class="fa-solid fa-credit-card"></i> Pay Online
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -237,9 +258,14 @@
               </p>
               <div class="product-footer">
                 <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Luxury Perfumes and Cosmetics" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Perfumes & Beauty products. Please share current fragrances in stock.">
-                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
-                </button>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Luxury Perfumes and Cosmetics" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Perfumes & Beauty products. Please share current fragrances in stock.">
+                    <i class="fa-brands fa-whatsapp"></i> Inquire
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Luxury Arabian Perfume" data-checkout-price="650" title="Pay with Orange Money, Afrimoney or Card">
+                    <i class="fa-solid fa-credit-card"></i> Pay Online
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -258,9 +284,14 @@
               </p>
               <div class="product-footer">
                 <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Footwear and Denim" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Footwear & Denim items. Please share available sizes.">
-                  <i class="fa-brands fa-whatsapp"></i> Inquire Now
-                </button>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Footwear and Denim" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Footwear & Denim items. Please share available sizes.">
+                    <i class="fa-brands fa-whatsapp"></i> Inquire
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Designer Footwear / Heels" data-checkout-price="750" title="Pay with Orange Money, Afrimoney or Card">
+                    <i class="fa-solid fa-credit-card"></i> Pay Online
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -279,9 +310,14 @@
               </p>
               <div class="product-footer">
                 <div><span class="ask-price">Full Catalogue</span></div>
-                <a href="cases.html" class="btn btn-gold btn-sm">
-                  View Cases Page &rarr;
-                </a>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <a href="cases.html" class="btn btn-gold btn-sm">
+                    View Cases &rarr;
+                  </a>
+                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="iPhone 17 Pro Max Case (Crystal Shell)" data-checkout-price="450" title="Pay with Orange Money, Afrimoney or Card">
+                    <i class="fa-solid fa-credit-card"></i> Pay Online
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -555,7 +591,23 @@
               <i class="fa-solid fa-chevron-down faq-chevron"></i>
             </button>
             <div class="faq-answer">
-              We make payment easy and flexible. We accept <strong>Orange Money</strong>, <strong>Afrimoney</strong>, <strong>Cash on Delivery / In-Store</strong>, and <strong>Local Bank Transfer</strong>.
+              <p style="margin-bottom: 8px;">
+                We make payment easy, flexible, and secure across Sierra Leone. We accept <strong>Orange Money</strong>, <strong>Afrimoney</strong>, <strong>Visa & Mastercard Credit Cards</strong>, <strong>Bank Debit Cards</strong>, and <strong>Cash on Delivery / In-Store</strong>.
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                <button type="button" class="btn btn-outline btn-sm" data-select-method="orange_money" style="font-size: 0.78rem;">
+                  <i class="fa-solid fa-mobile-screen" style="color: #ff8b1f;"></i> Pay with Orange Money
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" data-select-method="afrimoney" style="font-size: 0.78rem;">
+                  <i class="fa-solid fa-money-bill-transfer" style="color: #ff4d58;"></i> Pay with Afrimoney
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" data-select-method="credit_card" style="font-size: 0.78rem;">
+                  <i class="fa-regular fa-credit-card" style="color: #c084fc;"></i> Pay with Card
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" data-select-method="cash_delivery" style="font-size: 0.78rem;">
+                  <i class="fa-solid fa-hand-holding-dollar" style="color: #25d366;"></i> Cash on Delivery
+                </button>
+              </div>
             </div>
           </div>
 
@@ -658,36 +710,36 @@
               <label class="form-label" style="font-size: 0.95rem; color: var(--gold-accent);">
                 <i class="fa-solid fa-wallet"></i> Choose Payment Method (Section 14)
               </label>
-              <div class="payment-methods-grid">
-                <div class="payment-method-card selected" data-method="orange_money">
+              <div class="payment-methods-grid" role="radiogroup" aria-label="Choose Payment Method">
+                <button type="button" class="payment-method-card selected" data-method="orange_money" role="radio" aria-checked="true" aria-label="Pay with Orange Money">
                   <div class="pm-icon-wrap pm-icon-orange"><i class="fa-solid fa-mobile-screen-button"></i></div>
                   <div class="pm-title">Orange Money</div>
                   <div class="pm-desc">*144# Push / Merchant</div>
-                </div>
+                </button>
 
-                <div class="payment-method-card" data-method="afrimoney">
+                <button type="button" class="payment-method-card" data-method="afrimoney" role="radio" aria-checked="false" aria-label="Pay with Afrimoney">
                   <div class="pm-icon-wrap pm-icon-afri"><i class="fa-solid fa-money-bill-transfer"></i></div>
                   <div class="pm-title">Afrimoney</div>
                   <div class="pm-desc">*161# USSD Pay</div>
-                </div>
+                </button>
 
-                <div class="payment-method-card" data-method="credit_card">
+                <button type="button" class="payment-method-card" data-method="credit_card" role="radio" aria-checked="false" aria-label="Pay with Credit Card">
                   <div class="pm-icon-wrap pm-icon-card"><i class="fa-regular fa-credit-card"></i></div>
                   <div class="pm-title">Credit Card</div>
                   <div class="pm-desc">Visa / Mastercard</div>
-                </div>
+                </button>
 
-                <div class="payment-method-card" data-method="debit_card">
+                <button type="button" class="payment-method-card" data-method="debit_card" role="radio" aria-checked="false" aria-label="Pay with Debit Card">
                   <div class="pm-icon-wrap pm-icon-card"><i class="fa-solid fa-credit-card"></i></div>
                   <div class="pm-title">Debit Card</div>
                   <div class="pm-desc">Local Bank Cards</div>
-                </div>
+                </button>
 
-                <div class="payment-method-card" data-method="cash_delivery">
+                <button type="button" class="payment-method-card" data-method="cash_delivery" role="radio" aria-checked="false" aria-label="Pay with Cash on Delivery">
                   <div class="pm-icon-wrap pm-icon-cash"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                   <div class="pm-title">Cash on Delivery</div>
                   <div class="pm-desc">Pay at Gate / Store</div>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -806,21 +858,32 @@
             <span class="receipt-val" id="rcptItem">iPhone 17 Pro Max Case</span>
           </div>
           <div class="receipt-row">
+            <span class="receipt-label">Customer:</span>
+            <span class="receipt-val" id="rcptCustomer">—</span>
+          </div>
+          <div class="receipt-row">
             <span class="receipt-label">Delivery To:</span>
             <span class="receipt-val" id="rcptDelivery">Aberdeen Pickup</span>
           </div>
           <div class="receipt-row">
+            <span class="receipt-label">Date:</span>
+            <span class="receipt-val" id="rcptDate">—</span>
+          </div>
+          <div class="receipt-row">
             <span class="receipt-label">Status:</span>
-            <span class="receipt-val" style="color: #25d366; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> PAID / CONFIRMED</span>
+            <span class="receipt-val" style="color: #25d366; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
           </div>
         </div>
 
-        <a href="#" id="rcptWhatsAppBtn" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%; padding: 14px; font-size: 0.95rem; margin-bottom: 10px;">
-          <i class="fa-brands fa-whatsapp"></i> Continue to WhatsApp with Payment Receipt
-        </a>
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">
-          Tap the button above to alert Humu directly on WhatsApp for prompt dispatch or packaging!
-        </p>
+        <div class="receipt-actions">
+          <a href="#" id="rcptWhatsappBtn" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%; padding: 14px; font-size: 0.95rem;">
+            <i class="fa-brands fa-whatsapp"></i> Send Receipt to WhatsApp (+232 754 16008)
+          </a>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0; text-align: center;">
+            <i class="fa-solid fa-shield-halved" style="color: var(--gold-accent);"></i>
+            Your order has been recorded. Humu will confirm via WhatsApp within minutes.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -858,15 +921,26 @@
             </div>
 
             <div class="visit-row">
-              <h4>Accepted Payment Methods</h4>
-              <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">
-                Fast, flexible, and secure payments across Sierra Leone:
+              <h4>Accepted Payment Methods (Click to Pay)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+                Fast, flexible, and secure payments across Sierra Leone. Tap any method to launch checkout:
               </p>
               <div class="payment-pills-row">
-                <span class="payment-pill payment-pill-orange"><i class="fa-solid fa-mobile-screen"></i> Orange Money</span>
-                <span class="payment-pill payment-pill-afri"><i class="fa-solid fa-money-bill-transfer"></i> Afrimoney</span>
-                <span class="payment-pill"><i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery</span>
-                <span class="payment-pill"><i class="fa-solid fa-building-columns"></i> Bank Transfer</span>
+                <button type="button" class="payment-pill payment-pill-orange" data-select-method="orange_money" title="Click to pay via Orange Money">
+                  <i class="fa-solid fa-mobile-screen"></i> Orange Money (*144#)
+                </button>
+                <button type="button" class="payment-pill payment-pill-afri" data-select-method="afrimoney" title="Click to pay via Afrimoney">
+                  <i class="fa-solid fa-money-bill-transfer"></i> Afrimoney (*161#)
+                </button>
+                <button type="button" class="payment-pill payment-pill-card" data-select-method="credit_card" title="Click to pay via Visa/Mastercard">
+                  <i class="fa-regular fa-credit-card"></i> Credit Card
+                </button>
+                <button type="button" class="payment-pill payment-pill-card" data-select-method="debit_card" title="Click to pay via Bank Debit">
+                  <i class="fa-solid fa-credit-card"></i> Debit Card
+                </button>
+                <button type="button" class="payment-pill payment-pill-cash" data-select-method="cash_delivery" title="Click to pay Cash on Delivery">
+                  <i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery
+                </button>
               </div>
             </div>
 

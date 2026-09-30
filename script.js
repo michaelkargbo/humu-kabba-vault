@@ -327,18 +327,107 @@
       }
     }
 
+    function selectAndFocusPaymentMethod(method, targetItem = null, targetPrice = null) {
+      // 1. Activate Checkout Tab
+      if (btnCheckout && btnInquiry && formCheckout && formInquiry) {
+        btnCheckout.classList.add('active');
+        btnInquiry.classList.remove('active');
+        formCheckout.style.display = 'grid';
+        formInquiry.style.display = 'none';
+      }
+
+      // 2. Select product if provided
+      if (targetItem && categorySelect) {
+        let matched = false;
+        for (let i = 0; i < categorySelect.options.length; i++) {
+          if (categorySelect.options[i].text.toLowerCase().includes(targetItem.toLowerCase()) || 
+              categorySelect.options[i].value.toLowerCase().includes(targetItem.toLowerCase())) {
+            categorySelect.selectedIndex = i;
+            matched = true;
+            break;
+          }
+        }
+        if (!matched && targetItem) {
+          const opt = document.createElement('option');
+          opt.value = targetItem;
+          opt.text = `${targetItem} (SLE ${targetPrice || 450})`;
+          opt.setAttribute('data-price', targetPrice || 450);
+          categorySelect.add(opt, 0);
+          categorySelect.selectedIndex = 0;
+        }
+      }
+
+      // 3. Update payment method cards
+      currentPaymentMethod = method || 'orange_money';
+      methodCards.forEach(c => {
+        const isMatch = (c.getAttribute('data-method') === currentPaymentMethod);
+        c.classList.toggle('selected', isMatch);
+        c.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        if (isMatch) {
+          c.classList.remove('just-activated');
+          void c.offsetWidth; // trigger reflow
+          c.classList.add('just-activated');
+        }
+      });
+
+      // 4. Render panel & calculate totals
+      calculateOrderTotals();
+      renderPaymentPanel(currentPaymentMethod);
+
+      // 5. Smooth scroll to order section
+      const orderEl = document.getElementById('order');
+      if (orderEl) {
+        orderEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // 6. Focus on relevant input
+      setTimeout(() => {
+        const targetInput = document.getElementById('omSubscriberPhone') || 
+                            document.getElementById('afriSubscriberPhone') || 
+                            document.getElementById('cardHolderName') || 
+                            document.getElementById('chkCustName');
+        if (targetInput) targetInput.focus();
+      }, 450);
+    }
+
     methodCards.forEach(card => {
       card.addEventListener('click', () => {
-        methodCards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        currentPaymentMethod = card.getAttribute('data-method') || 'orange_money';
-        renderPaymentPanel(currentPaymentMethod);
+        const method = card.getAttribute('data-method') || 'orange_money';
+        selectAndFocusPaymentMethod(method);
+      });
+    });
+
+    // Wire up all external payment method triggers across the entire page
+    document.querySelectorAll('[data-select-method]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const m = btn.getAttribute('data-select-method');
+        selectAndFocusPaymentMethod(m);
+      });
+    });
+
+    // Wire up all instant checkout item buttons across the product catalog
+    document.querySelectorAll('[data-checkout-item]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const item = btn.getAttribute('data-checkout-item');
+        const price = btn.getAttribute('data-checkout-price');
+        selectAndFocusPaymentMethod('orange_money', item, price);
       });
     });
 
     // Initialize panel and totals
     calculateOrderTotals();
     renderPaymentPanel(currentPaymentMethod);
+
+    // Deep link support via hash or query param: #orange_money, ?method=afrimoney, etc.
+    const urlParams = new URLSearchParams(window.location.search);
+    const methodParam = urlParams.get('method') || (window.location.hash ? window.location.hash.replace('#', '') : '');
+    if (['orange_money', 'afrimoney', 'credit_card', 'debit_card', 'cash_delivery'].includes(methodParam)) {
+      setTimeout(() => selectAndFocusPaymentMethod(methodParam), 350);
+    } else if (window.location.hash === '#order' || window.location.hash === '#checkout' || window.location.hash === '#payment') {
+      setTimeout(() => selectAndFocusPaymentMethod('orange_money'), 350);
+    }
 
     // Sync phone number to mobile money field
     const phoneInput = document.getElementById('chkCustPhone');
@@ -1147,8 +1236,354 @@
   }
 
   // ==============================================================================
-  // 10. FAQ ACCORDION INTERACTION
+  // 10a. ONLINE CHECKOUT & PAYMENT METHOD BUILDER (Section 14)
   // ==============================================================================
+  function setupOrderBuilder() {
+    // ── Element references ──────────────────────────────────────────────────────
+    const btnModeCheckout  = document.getElementById('btnModeCheckout');
+    const btnModeInquiry   = document.getElementById('btnModeInquiry');
+    const onlineForm       = document.getElementById('onlineCheckoutForm');
+    const waForm           = document.getElementById('whatsappOrderForm');
+    const paymentCards     = document.querySelectorAll('.payment-method-card');
+    const detailsPanel     = document.getElementById('paymentDetailsPanel');
+    const chkCategory      = document.getElementById('chkCategory');
+    const chkQuantity      = document.getElementById('chkQuantity');
+    const chkDeliveryArea  = document.getElementById('chkDeliveryArea');
+    const summarySubtotal  = document.getElementById('summarySubtotal');
+    const summaryDelivFee  = document.getElementById('summaryDeliveryFee');
+    const summaryDelivLbl  = document.getElementById('summaryDeliveryLabel');
+    const summaryTotal     = document.getElementById('summaryTotal');
+    const submitBtn        = document.getElementById('checkoutSubmitBtn');
+    const receiptModal     = document.getElementById('receiptModal');
+    const receiptCloseBtn  = document.getElementById('receiptCloseBtn');
+
+    if (!btnModeCheckout || !onlineForm) return; // guard if elements absent
+
+    // ── Payment method descriptions ────────────────────────────────────────────
+    const paymentInfo = {
+      orange_money: {
+        icon: 'fa-solid fa-mobile-screen-button',
+        iconClass: 'pm-icon-orange',
+        title: 'Orange Money',
+        subtitle: 'Fast mobile money — works 24/7',
+        steps: [
+          '<strong>Dial *144#</strong> on your Orange SIM to open the menu.',
+          'Choose <strong>Pay for Goods & Services</strong> → enter Merchant Code.',
+          'Enter the total amount shown above and confirm with your PIN.',
+          'Screenshot your <strong>Orange Money receipt</strong> and send it to our WhatsApp.',
+          'Your order will be dispatched once payment is verified.'
+        ]
+      },
+      afrimoney: {
+        icon: 'fa-solid fa-money-bill-transfer',
+        iconClass: 'pm-icon-afri',
+        title: 'Afrimoney',
+        subtitle: 'Africell mobile money — USSD instant transfer',
+        steps: [
+          '<strong>Dial *161#</strong> on your Africell SIM.',
+          'Select <strong>Pay Bill / Merchant Payment</strong>.',
+          'Enter our Afrimoney business number and the order total.',
+          'Confirm with your 4-digit PIN.',
+          'Send the <strong>Afrimoney confirmation SMS</strong> screenshot on WhatsApp to complete.'
+        ]
+      },
+      credit_card: {
+        icon: 'fa-regular fa-credit-card',
+        iconClass: 'pm-icon-card',
+        title: 'Credit Card (Visa / Mastercard)',
+        subtitle: 'Secure card checkout — processed by Stripe',
+        steps: [
+          'Click <strong>Authorize Payment</strong> below to open the secure card form.',
+          'Enter your 16-digit card number, expiry, and CVV.',
+          'We use <strong>256-bit SSL encryption</strong> — your card data is never stored.',
+          'A charge reference will appear on your statement as <em>HUMU KABBA VAULT</em>.',
+          'Order dispatches automatically after bank authorization.'
+        ]
+      },
+      debit_card: {
+        icon: 'fa-solid fa-credit-card',
+        iconClass: 'pm-icon-card',
+        title: 'Debit Card (Local Bank)',
+        subtitle: 'Sierra Leonean bank debit cards accepted',
+        steps: [
+          'Click <strong>Authorize Payment</strong> below to open the secure card form.',
+          'Enter your debit card number, expiry, and CVV.',
+          'Supported banks: <strong>Rokel Commercial, Sierra Leone Commercial Bank, UBA, Ecobank</strong>.',
+          'Your bank may send an <strong>OTP</strong> — enter it to complete the payment.',
+          'Order dispatches once your bank confirms the transaction.'
+        ]
+      },
+      cash_delivery: {
+        icon: 'fa-solid fa-hand-holding-dollar',
+        iconClass: 'pm-icon-cash',
+        title: 'Cash on Delivery / In-Store',
+        subtitle: 'Pay our delivery rider or in-boutique',
+        steps: [
+          'Place your order below — no upfront payment needed.',
+          'Our team will <strong>WhatsApp you</strong> to confirm delivery time and address.',
+          'Prepare the <strong>exact cash amount</strong> shown above at delivery.',
+          'You can also pay in-store at <strong>4B Johnson Land, Aberdeen</strong> (Mon–Sat 9 AM – 7 PM).',
+          'Receive your item and payment is complete — no receipts needed!'
+        ]
+      }
+    };
+
+    // ── Helpers ────────────────────────────────────────────────────────────────
+    function getPrice(selectEl) {
+      const opt = selectEl.options[selectEl.selectedIndex];
+      return parseFloat(opt.getAttribute('data-price') || '0');
+    }
+
+    function getDeliveryFee(selectEl) {
+      const opt = selectEl.options[selectEl.selectedIndex];
+      return parseFloat(opt.getAttribute('data-fee') || '0');
+    }
+
+    function formatSLE(amount) {
+      return 'SLE ' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function getSelectedMethod() {
+      const sel = document.querySelector('.payment-method-card.selected');
+      return sel ? sel.getAttribute('data-method') : 'cash_delivery';
+    }
+
+    // ── Update live order summary ──────────────────────────────────────────────
+    function updateSummary() {
+      if (!chkCategory || !summarySubtotal) return;
+      const price    = getPrice(chkCategory);
+      const qty      = Math.max(1, parseInt(chkQuantity?.value || '1', 10));
+      const fee      = getDeliveryFee(chkDeliveryArea);
+      const subtotal = price * qty;
+      const total    = subtotal + fee;
+
+      if (summarySubtotal) summarySubtotal.textContent = formatSLE(subtotal);
+      if (summaryDelivFee) {
+        summaryDelivFee.textContent = fee === 0 ? 'FREE (Aberdeen Pickup)' : formatSLE(fee);
+      }
+      if (summaryDelivLbl) {
+        const area = chkDeliveryArea?.options[chkDeliveryArea.selectedIndex]?.text || 'Delivery';
+        summaryDelivLbl.textContent = fee === 0 ? 'Boutique Pickup' : 'Delivery Fee';
+      }
+      if (summaryTotal) summaryTotal.textContent = formatSLE(total);
+      if (submitBtn) {
+        submitBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Authorize Payment &amp; Place Order (${formatSLE(total)})`;
+      }
+    }
+
+    // ── Render payment details panel ───────────────────────────────────────────
+    function renderPaymentPanel(method) {
+      if (!detailsPanel) return;
+      const info = paymentInfo[method];
+      if (!info) { detailsPanel.innerHTML = ''; return; }
+
+      const stepsHtml = info.steps.map((s, i) => `
+        <li class="pd-step">
+          <span class="pd-step-num">${i + 1}</span>
+          <span>${s}</span>
+        </li>`).join('');
+
+      detailsPanel.innerHTML = `
+        <div class="pd-header">
+          <div class="pd-icon ${info.iconClass}"><i class="${info.icon}"></i></div>
+          <div>
+            <div class="pd-title">${info.title}</div>
+            <div class="pd-subtitle">${info.subtitle}</div>
+          </div>
+        </div>
+        <ul class="pd-steps">${stepsHtml}</ul>`;
+    }
+
+    // ── Payment method card click handler ─────────────────────────────────────
+    paymentCards.forEach(card => {
+      card.addEventListener('click', () => {
+        paymentCards.forEach(c => {
+          c.classList.remove('selected');
+          c.setAttribute('aria-checked', 'false');
+        });
+        card.classList.add('selected');
+        card.setAttribute('aria-checked', 'true');
+        const method = card.getAttribute('data-method');
+        renderPaymentPanel(method);
+      });
+    });
+
+    // ── Tab toggle: Online Checkout ↔ WhatsApp Inquiry ────────────────────────
+    if (btnModeCheckout && btnModeInquiry) {
+      btnModeCheckout.addEventListener('click', () => {
+        btnModeCheckout.classList.add('active');
+        btnModeInquiry.classList.remove('active');
+        if (onlineForm) onlineForm.style.display = '';
+        if (waForm)     waForm.style.display = 'none';
+      });
+
+      btnModeInquiry.addEventListener('click', () => {
+        btnModeInquiry.classList.add('active');
+        btnModeCheckout.classList.remove('active');
+        if (waForm)     waForm.style.display = '';
+        if (onlineForm) onlineForm.style.display = 'none';
+      });
+    }
+
+    // ── Live summary recalculation ─────────────────────────────────────────────
+    [chkCategory, chkDeliveryArea, chkQuantity].forEach(el => {
+      if (el) el.addEventListener('change', updateSummary);
+    });
+
+    // ── Online Checkout form submit ────────────────────────────────────────────
+    if (onlineForm) {
+      onlineForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name     = document.getElementById('chkCustName')?.value?.trim() || 'Customer';
+        const phone    = document.getElementById('chkCustPhone')?.value?.trim() || '';
+        const item     = chkCategory?.options[chkCategory.selectedIndex]?.value || 'Item';
+        const area     = chkDeliveryArea?.options[chkDeliveryArea.selectedIndex]?.value || 'Aberdeen';
+        const qty      = parseInt(chkQuantity?.value || '1', 10);
+        const address  = document.getElementById('chkAddress')?.value?.trim() || '';
+        const notes    = document.getElementById('chkNotes')?.value?.trim() || '';
+        const method   = getSelectedMethod();
+        const price    = getPrice(chkCategory);
+        const fee      = getDeliveryFee(chkDeliveryArea);
+        const total    = (price * qty) + fee;
+
+        // Generate order ID and payment reference
+        const orderId  = 'HK-' + Date.now().toString(36).toUpperCase();
+        const payRef   = method.toUpperCase().replace('_','').slice(0, 4) + '-' +
+                         Math.random().toString(36).slice(2, 8).toUpperCase();
+
+        const methodLabels = {
+          orange_money: 'Orange Money',
+          afrimoney: 'Afrimoney',
+          credit_card: 'Credit Card',
+          debit_card: 'Debit Card',
+          cash_delivery: 'Cash on Delivery'
+        };
+        const methodLabel = methodLabels[method] || method;
+
+        // Visual: disable button while processing
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing…';
+        }
+
+        try {
+          // Log to Supabase if configured
+          if (supabaseClient) {
+            await supabaseClient.from('orders').insert([{
+              product_name: item,
+              customer_name: name,
+              quantity: qty,
+              notes: notes + (address ? ' | Delivery: ' + address : ''),
+              amount: total,
+              currency: 'SLE',
+              payment_method: method,
+              payment_reference: payRef,
+              payment_status: method === 'cash_delivery' ? 'pending' : 'authorised',
+              delivery_address: (area + (address ? ', ' + address : ''))
+            }]);
+          }
+        } catch (err) {
+          console.warn('Supabase order log failed:', err.message);
+        }
+
+        // Populate receipt modal
+        const rcptOrderId    = document.getElementById('rcptOrderId');
+        const rcptPaymentRef = document.getElementById('rcptPaymentRef');
+        const rcptMethod     = document.getElementById('rcptMethod');
+        const rcptAmount     = document.getElementById('rcptAmount');
+        const rcptItem       = document.getElementById('rcptItem');
+        const rcptCustomer   = document.getElementById('rcptCustomer');
+        const rcptDelivery   = document.getElementById('rcptDelivery');
+        const rcptDate       = document.getElementById('rcptDate');
+
+        if (rcptOrderId)    rcptOrderId.textContent    = orderId;
+        if (rcptPaymentRef) rcptPaymentRef.textContent = payRef;
+        if (rcptMethod)     rcptMethod.textContent     = methodLabel;
+        if (rcptAmount)     rcptAmount.textContent     = formatSLE(total);
+        if (rcptItem)       rcptItem.textContent       = item + ' ×' + qty;
+        if (rcptCustomer)   rcptCustomer.textContent   = name;
+        if (rcptDelivery)   rcptDelivery.textContent   = area;
+        if (rcptDate)       rcptDate.textContent       = new Date().toLocaleString('en-GB', { timeZone: 'UTC', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        // WhatsApp share button in receipt
+        const rcptWaBtn = document.getElementById('rcptWhatsappBtn');
+        if (rcptWaBtn) {
+          const waMsg = encodeURIComponent(
+            `🛍️ *Order Confirmation — Humu Kabba Variety Vault*\n\n` +
+            `Order ID: ${orderId}\n` +
+            `Item: ${item} ×${qty}\n` +
+            `Customer: ${name} | ${phone}\n` +
+            `Delivery: ${area}${address ? ', ' + address : ''}\n` +
+            `Payment: ${methodLabel}\n` +
+            `Ref: ${payRef}\n` +
+            `Total: ${formatSLE(total)}\n\n` +
+            (notes ? `Notes: ${notes}\n\n` : '') +
+            `Please confirm my order. Thank you! 🙏`
+          );
+          rcptWaBtn.href = `https://wa.me/23275416008?text=${waMsg}`;
+        }
+
+        // Show receipt modal
+        if (receiptModal) receiptModal.classList.add('open');
+
+        // Re-enable button
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          updateSummary();
+        }
+
+        showToast('Order placed! Check your receipt for details.', 'success');
+      });
+    }
+
+    // ── Receipt modal close ────────────────────────────────────────────────────
+    if (receiptModal) {
+      if (receiptCloseBtn) {
+        receiptCloseBtn.addEventListener('click', () => receiptModal.classList.remove('open'));
+      }
+      receiptModal.addEventListener('click', (e) => {
+        if (e.target === receiptModal) receiptModal.classList.remove('open');
+      });
+    }
+
+    // ── FAQ payment method quick-select buttons (data-select-method) ──────────
+    document.querySelectorAll('[data-select-method]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const method = btn.getAttribute('data-select-method');
+        // Scroll to order section
+        const orderSection = document.getElementById('order');
+        if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        setTimeout(() => {
+          // Switch to checkout tab
+          if (btnModeCheckout) btnModeCheckout.click();
+          // Select the matching payment card
+          paymentCards.forEach(card => {
+            card.classList.remove('selected');
+            card.setAttribute('aria-checked', 'false');
+          });
+          const target = document.querySelector(`.payment-method-card[data-method="${method}"]`);
+          if (target) {
+            target.classList.add('selected');
+            target.setAttribute('aria-checked', 'true');
+            renderPaymentPanel(method);
+          }
+        }, 600);
+      });
+    });
+
+    // ── Initialize ─────────────────────────────────────────────────────────────
+    updateSummary();
+    // Render panel for default selected card
+    const defaultCard = document.querySelector('.payment-method-card.selected');
+    if (defaultCard) renderPaymentPanel(defaultCard.getAttribute('data-method'));
+  }
+
+  // ==============================================================================
+  // 11. FAQ ACCORDION INTERACTION
+  // ==============================================================================
+
   function setupFaqAccordion() {
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
