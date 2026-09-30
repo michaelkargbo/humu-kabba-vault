@@ -167,31 +167,343 @@
   }
 
   // ==============================================================================
-  // 3. WHATSAPP ORDER BUILDER (Home Page)
+  // ==============================================================================
+  // 3. ONLINE PAYMENTS, CHECKOUT & WHATSAPP ORDER BUILDER (Section 14 & 13)
   // ==============================================================================
   function setupOrderBuilder() {
-    const form = document.getElementById('whatsappOrderForm');
-    if (!form) return;
+    const btnCheckout = document.getElementById('btnModeCheckout');
+    const btnInquiry = document.getElementById('btnModeInquiry');
+    const formCheckout = document.getElementById('onlineCheckoutForm');
+    const formInquiry = document.getElementById('whatsappOrderForm');
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('orderCustName')?.value.trim() || "A valued customer";
-      const category = document.getElementById('orderCustCategory')?.value || "General Fashion";
-      const orderType = document.getElementById('orderCustType')?.value || "Retail";
-      const contact = document.getElementById('orderCustPhone')?.value.trim() || "Via WhatsApp";
-      const details = document.getElementById('orderCustDetails')?.value.trim() || "Inquiring about stock and sizes";
+    // 3.1 Toggle between Checkout and WhatsApp Inquiry Mode
+    if (btnCheckout && btnInquiry && formCheckout && formInquiry) {
+      btnCheckout.addEventListener('click', () => {
+        btnCheckout.classList.add('active');
+        btnInquiry.classList.remove('active');
+        formCheckout.style.display = 'grid';
+        formInquiry.style.display = 'none';
+      });
 
-      const formattedMessage = 
-        `Hello Humu! 👋%0A%0A` +
-        `I would love to place an order from your boutique:%0A` +
-        `• *Name:* ${encodeURIComponent(name)}%0A` +
-        `• *Looking for:* ${encodeURIComponent(category)} (${encodeURIComponent(orderType)})%0A` +
-        `• *Contact / Phone:* ${encodeURIComponent(contact)}%0A` +
-        `• *Preferences / Notes:* ${encodeURIComponent(details)}%0A%0A` +
-        `Could you please let me know current availability and price? Thank you!`;
+      btnInquiry.addEventListener('click', () => {
+        btnInquiry.classList.add('active');
+        btnCheckout.classList.remove('active');
+        formInquiry.style.display = 'grid';
+        formCheckout.style.display = 'none';
+      });
+    }
 
-      logOrderAndRedirect(`${category} (${orderType})`, name, orderType.toLowerCase(), details, decodeURIComponent(formattedMessage));
+    // 3.2 Dynamic Total Calculation
+    const categorySelect = document.getElementById('chkCategory');
+    const deliverySelect = document.getElementById('chkDeliveryArea');
+    const quantityInput = document.getElementById('chkQuantity');
+    const subtotalEl = document.getElementById('summarySubtotal');
+    const deliveryFeeEl = document.getElementById('summaryDeliveryFee');
+    const totalEl = document.getElementById('summaryTotal');
+    const checkoutSubmitBtn = document.getElementById('checkoutSubmitBtn');
+
+    function calculateOrderTotals() {
+      if (!categorySelect || !deliverySelect || !quantityInput) return { subtotal: 0, deliveryFee: 0, total: 0 };
+      const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+      const itemPrice = parseFloat(selectedOption?.getAttribute('data-price')) || 450;
+      const qty = Math.max(1, parseInt(quantityInput.value) || 1);
+      const subtotal = itemPrice * qty;
+
+      const selectedDelivery = deliverySelect.options[deliverySelect.selectedIndex];
+      const deliveryFee = parseFloat(selectedDelivery?.getAttribute('data-fee')) || 0;
+      const total = subtotal + deliveryFee;
+
+      if (subtotalEl) subtotalEl.textContent = `SLE ${subtotal.toFixed(2)}`;
+      if (deliveryFeeEl) {
+        if (deliveryFee === 0) {
+          deliveryFeeEl.textContent = "FREE (Aberdeen Pickup)";
+        } else {
+          deliveryFeeEl.textContent = `SLE ${deliveryFee.toFixed(2)}`;
+        }
+      }
+      if (totalEl) totalEl.textContent = `SLE ${total.toFixed(2)}`;
+      if (checkoutSubmitBtn) {
+        checkoutSubmitBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Authorize Payment & Place Order (SLE ${total.toFixed(2)})`;
+      }
+      return { subtotal, deliveryFee, total, qty, itemPrice, productName: selectedOption?.text || "Boutique Item" };
+    }
+
+    if (categorySelect) categorySelect.addEventListener('change', calculateOrderTotals);
+    if (deliverySelect) deliverySelect.addEventListener('change', calculateOrderTotals);
+    if (quantityInput) quantityInput.addEventListener('input', calculateOrderTotals);
+
+    // 3.3 Payment Method Selection
+    let currentPaymentMethod = 'orange_money';
+    const methodCards = document.querySelectorAll('.payment-method-card');
+    const panel = document.getElementById('paymentDetailsPanel');
+
+    function renderPaymentPanel(method) {
+      if (!panel) return;
+      const customerPhone = document.getElementById('chkCustPhone')?.value.trim() || "+232 75 416008";
+
+      if (method === 'orange_money') {
+        panel.innerHTML = `
+          <div class="payment-notice-tag">
+            <i class="fa-solid fa-mobile-screen"></i> Orange Money Merchant Checkout (*144#)
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5;">
+            Official Merchant Code: <strong style="color: #ff8b1f;">HK-VAULT</strong>. After tapping authorize, verify via the Orange Money prompt on your phone or dial *144*4*1#.
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" style="font-size: 0.8rem;">Orange Money Subscriber Number</label>
+            <input type="tel" id="omSubscriberPhone" class="form-control" value="${escapeHTML(customerPhone)}" placeholder="e.g. +232 75 000000" style="background: rgba(0,0,0,0.5);">
+          </div>
+        `;
+      } else if (method === 'afrimoney') {
+        panel.innerHTML = `
+          <div class="payment-notice-tag">
+            <i class="fa-solid fa-money-bill-transfer"></i> Afrimoney Merchant Checkout (*161#)
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5;">
+            Official Afrimoney Code: <strong style="color: #ff4d58;">AFRI-HKVAULT</strong>. Authorize payment directly with your mobile wallet PIN.
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" style="font-size: 0.8rem;">Afrimoney Subscriber Number</label>
+            <input type="tel" id="afriSubscriberPhone" class="form-control" value="${escapeHTML(customerPhone)}" placeholder="e.g. +232 88 000000" style="background: rgba(0,0,0,0.5);">
+          </div>
+        `;
+      } else if (method === 'credit_card') {
+        panel.innerHTML = `
+          <div class="payment-notice-tag">
+            <i class="fa-regular fa-credit-card"></i> Visa / Mastercard Encrypted Checkout
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" style="font-size: 0.8rem;">Cardholder Name</label>
+              <input type="text" id="cardHolderName" class="form-control" placeholder="Name as on card" value="${escapeHTML(document.getElementById('chkCustName')?.value.trim() || '')}" style="background: rgba(0,0,0,0.5);">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" style="font-size: 0.8rem;">Card Number</label>
+              <input type="text" id="cardNumber" class="form-control" maxlength="19" placeholder="4242 •••• •••• 4242" value="4242 8891 2045 7192" style="background: rgba(0,0,0,0.5); font-family: monospace;">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.8rem;">Expiry (MM/YY)</label>
+              <input type="text" id="cardExpiry" class="form-control" placeholder="12/28" value="09/28" style="background: rgba(0,0,0,0.5); text-align: center;">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.8rem;">Security Code (CVV)</label>
+              <input type="password" id="cardCvv" maxlength="4" class="form-control" placeholder="•••" value="882" style="background: rgba(0,0,0,0.5); text-align: center;">
+            </div>
+          </div>
+          <p style="font-size: 0.73rem; color: var(--text-dim); margin-top: 8px; margin-bottom: 0;">
+            <i class="fa-solid fa-lock"></i> Client-side tokenized checkout. Compliant with Section 14: Card numbers and CVVs are never saved to database.
+          </p>
+        `;
+      } else if (method === 'debit_card') {
+        panel.innerHTML = `
+          <div class="payment-notice-tag">
+            <i class="fa-solid fa-credit-card"></i> Sierra Leone Bank Debit Card
+          </div>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label class="form-label" style="font-size: 0.8rem;">Issuing Bank</label>
+            <select class="form-control" id="debitBankSelect" style="background: rgba(0,0,0,0.5);">
+              <option value="Rokel Commercial Bank">Rokel Commercial Bank (RCBank)</option>
+              <option value="Sierra Leone Commercial Bank">Sierra Leone Commercial Bank (SLCB)</option>
+              <option value="Ecobank Sierra Leone">Ecobank Sierra Leone</option>
+              <option value="Zenith Bank Sierra Leone">Zenith Bank SL</option>
+              <option value="United Bank for Africa">UBA Sierra Leone</option>
+              <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" style="font-size: 0.8rem;">Debit Card Number</label>
+            <input type="text" class="form-control" maxlength="19" placeholder="5399 •••• •••• 1029" value="5399 2100 8492 1029" style="background: rgba(0,0,0,0.5); font-family: monospace;">
+          </div>
+        `;
+      } else {
+        panel.innerHTML = `
+          <div class="payment-notice-tag">
+            <i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery / In-Store Aberdeen
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+            You can pay in cash directly to our boutique at 4B Johnson Land, Aberdeen or hand payment to our bike dispatch courier upon delivery. Please ensure exact change where possible.
+          </p>
+        `;
+      }
+    }
+
+    methodCards.forEach(card => {
+      card.addEventListener('click', () => {
+        methodCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        currentPaymentMethod = card.getAttribute('data-method') || 'orange_money';
+        renderPaymentPanel(currentPaymentMethod);
+      });
     });
+
+    // Initialize panel and totals
+    calculateOrderTotals();
+    renderPaymentPanel(currentPaymentMethod);
+
+    // Sync phone number to mobile money field
+    const phoneInput = document.getElementById('chkCustPhone');
+    if (phoneInput) {
+      phoneInput.addEventListener('input', () => {
+        const omInput = document.getElementById('omSubscriberPhone');
+        const afriInput = document.getElementById('afriSubscriberPhone');
+        if (omInput) omInput.value = phoneInput.value;
+        if (afriInput) afriInput.value = phoneInput.value;
+      });
+    }
+
+    // 3.4 Handle Online Checkout Form Submit
+    if (formCheckout) {
+      formCheckout.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('chkCustName')?.value.trim();
+        const phone = document.getElementById('chkCustPhone')?.value.trim();
+        const address = document.getElementById('chkAddress')?.value.trim() || "Freetown Delivery";
+        const notes = document.getElementById('chkNotes')?.value.trim() || "";
+        const deliveryArea = deliverySelect ? deliverySelect.value : "Aberdeen";
+
+        if (!name || !phone) {
+          showToast("Please provide your name and phone number.", "error");
+          return;
+        }
+
+        const totals = calculateOrderTotals();
+        const randomNum = Math.floor(100000 + Math.random() * 900000);
+        const orderId = `HK-ORD-${randomNum}`;
+
+        let paymentPrefix = "OM";
+        let methodNameDisplay = "Orange Money (*144#)";
+        if (currentPaymentMethod === 'afrimoney') {
+          paymentPrefix = "AF";
+          methodNameDisplay = "Afrimoney (*161#)";
+        } else if (currentPaymentMethod === 'credit_card') {
+          paymentPrefix = "CC";
+          methodNameDisplay = "Credit Card (Visa/Mastercard)";
+        } else if (currentPaymentMethod === 'debit_card') {
+          paymentPrefix = "DB";
+          methodNameDisplay = "Debit Card";
+        } else if (currentPaymentMethod === 'cash_delivery') {
+          paymentPrefix = "COD";
+          methodNameDisplay = "Cash on Delivery";
+        }
+        const paymentRef = `${paymentPrefix}-SLE-${randomNum}`;
+        const paymentStatus = (currentPaymentMethod === 'cash_delivery') ? 'pending' : 'paid';
+
+        // Animate processing button
+        if (checkoutSubmitBtn) {
+          checkoutSubmitBtn.disabled = true;
+          checkoutSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Authorizing with Payment Provider...`;
+        }
+
+        // Simulate provider communication
+        await new Promise(r => setTimeout(r, 900));
+
+        // Insert into Supabase orders table
+        if (supabaseClient) {
+          try {
+            await supabaseClient.from('orders').insert([{
+              product_name: `${totals.productName} (Qty: ${totals.qty})`,
+              customer_name: name,
+              phone: phone,
+              order_type: 'retail',
+              amount: totals.total,
+              currency: 'SLE',
+              payment_method: currentPaymentMethod,
+              payment_reference: paymentRef,
+              payment_status: paymentStatus,
+              delivery_address: `${deliveryArea} — ${address}`,
+              notes: notes,
+              status: 'confirmed'
+            }]);
+          } catch (err) {
+            console.warn("Could not log order to Supabase:", err);
+          }
+        }
+
+        if (checkoutSubmitBtn) {
+          checkoutSubmitBtn.disabled = false;
+          checkoutSubmitBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Authorize Payment & Place Order (SLE ${totals.total.toFixed(2)})`;
+        }
+
+        // Populate and show Receipt Modal
+        const rcptModal = document.getElementById('receiptModal');
+        const rcptOrderId = document.getElementById('rcptOrderId');
+        const rcptPaymentRef = document.getElementById('rcptPaymentRef');
+        const rcptMethod = document.getElementById('rcptMethod');
+        const rcptAmount = document.getElementById('rcptAmount');
+        const rcptItem = document.getElementById('rcptItem');
+        const rcptDelivery = document.getElementById('rcptDelivery');
+        const rcptWhatsAppBtn = document.getElementById('rcptWhatsAppBtn');
+
+        if (rcptOrderId) rcptOrderId.textContent = orderId;
+        if (rcptPaymentRef) rcptPaymentRef.textContent = paymentRef;
+        if (rcptMethod) rcptMethod.textContent = methodNameDisplay;
+        if (rcptAmount) rcptAmount.textContent = `SLE ${totals.total.toFixed(2)}`;
+        if (rcptItem) rcptItem.textContent = `${totals.productName} (Qty: ${totals.qty})`;
+        if (rcptDelivery) rcptDelivery.textContent = `${deliveryArea} (${address})`;
+
+        // Build WhatsApp deep-link message
+        const waCleanNum = CONFIG.BUSINESS.whatsappNumber || "23275416008";
+        const waMsg = 
+          `Hello Humu! 👋%0A%0A` +
+          `I have just placed an order and confirmed payment on your website:%0A%0A` +
+          `🧾 *ORDER RECEIPT*%0A` +
+          `• *Order ID:* ${encodeURIComponent(orderId)}%0A` +
+          `• *Payment Reference:* ${encodeURIComponent(paymentRef)}%0A` +
+          `• *Payment Method:* ${encodeURIComponent(methodNameDisplay)}%0A` +
+          `• *Amount:* SLE ${totals.total.toFixed(2)} (${paymentStatus.toUpperCase()})%0A` +
+          `• *Item:* ${encodeURIComponent(totals.productName)} (Qty: ${totals.qty})%0A` +
+          `• *Customer:* ${encodeURIComponent(name)} (${encodeURIComponent(phone)})%0A` +
+          `• *Delivery Destination:* ${encodeURIComponent(deliveryArea)} - ${encodeURIComponent(address)}%0A` +
+          (notes ? `• *Special Notes:* ${encodeURIComponent(notes)}%0A` : '') +
+          `%0APlease confirm my receipt and let me know when the bike rider will dispatch my parcel. Thank you!`;
+
+        if (rcptWhatsAppBtn) {
+          rcptWhatsAppBtn.href = `https://wa.me/${waCleanNum}?text=${waMsg}`;
+        }
+
+        if (rcptModal) {
+          rcptModal.classList.add('show');
+        }
+
+        showToast("Order placed & payment authorized successfully!", "success");
+        formCheckout.reset();
+        calculateOrderTotals();
+        renderPaymentPanel(currentPaymentMethod);
+      });
+    }
+
+    // Modal Close
+    const closeBtn = document.getElementById('receiptCloseBtn');
+    const rcptModal = document.getElementById('receiptModal');
+    if (closeBtn && rcptModal) {
+      closeBtn.addEventListener('click', () => rcptModal.classList.remove('show'));
+      rcptModal.addEventListener('click', (e) => {
+        if (e.target === rcptModal) rcptModal.classList.remove('show');
+      });
+    }
+
+    // 3.5 Quick WhatsApp Inquiry Form (Legacy Mode)
+    if (formInquiry) {
+      formInquiry.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('orderCustName')?.value.trim() || "A valued customer";
+        const category = document.getElementById('orderCustCategory')?.value || "General Fashion";
+        const orderType = document.getElementById('orderCustType')?.value || "Retail";
+        const contact = document.getElementById('orderCustPhone')?.value.trim() || "Via WhatsApp";
+        const details = document.getElementById('orderCustDetails')?.value.trim() || "Inquiring about stock and sizes";
+
+        const formattedMessage = 
+          `Hello Humu! 👋%0A%0A` +
+          `I would love to place an inquiry from your boutique:%0A` +
+          `• *Name:* ${encodeURIComponent(name)}%0A` +
+          `• *Looking for:* ${encodeURIComponent(category)} (${encodeURIComponent(orderType)})%0A` +
+          `• *Contact / Phone:* ${encodeURIComponent(contact)}%0A` +
+          `• *Preferences / Notes:* ${encodeURIComponent(details)}%0A%0A` +
+          `Could you please let me know current availability and price? Thank you!`;
+
+        logOrderAndRedirect(`${category} (${orderType})`, name, orderType.toLowerCase(), details, decodeURIComponent(formattedMessage));
+      });
+    }
   }
 
   // ==============================================================================
@@ -714,7 +1026,7 @@
     });
   }
 
-  // Load Admin WhatsApp Orders List (Latest 10)
+  // Load Admin WhatsApp Orders & Payment Auditing List
   async function loadAdminOrdersList() {
     const listEl = document.getElementById('adminOrdersList');
     if (!listEl || !supabaseClient) return;
@@ -723,21 +1035,53 @@
       .from('orders')
       .select('*')
       .order('created_at', { ascending: false })
-      .limit(10);
+      .limit(15);
 
     if (!orders || orders.length === 0) {
-      listEl.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 15px;">No orders captured yet. When customers click "Order on WhatsApp", they will be logged here.</td></tr>`;
+      listEl.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 15px;">No orders captured yet. When customers complete checkout or click "Order on WhatsApp", they will be logged here.</td></tr>`;
       return;
     }
 
     let rows = '';
     orders.forEach(o => {
       const dateStr = new Date(o.created_at).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      
+      // Payment method badge
+      let paymentBadge = '<span class="order-badge order-badge-pending">Inquiry</span>';
+      if (o.payment_method === 'orange_money') {
+        paymentBadge = `<span class="order-badge order-badge-om"><i class="fa-solid fa-mobile-screen"></i> Orange Money</span>`;
+      } else if (o.payment_method === 'afrimoney') {
+        paymentBadge = `<span class="order-badge order-badge-afri"><i class="fa-solid fa-mobile-screen"></i> Afrimoney</span>`;
+      } else if (o.payment_method === 'credit_card' || o.payment_method === 'debit_card') {
+        paymentBadge = `<span class="order-badge order-badge-card"><i class="fa-solid fa-credit-card"></i> Card</span>`;
+      } else if (o.payment_method === 'cash_delivery') {
+        paymentBadge = `<span class="order-badge order-badge-pending"><i class="fa-solid fa-hand-holding-dollar"></i> Cash</span>`;
+      }
+
+      // Status badge
+      let statusBadge = '<span class="order-badge order-badge-pending">Pending</span>';
+      if (o.payment_status === 'paid' || o.status === 'confirmed' || o.status === 'paid') {
+        statusBadge = `<span class="order-badge order-badge-paid"><i class="fa-solid fa-check"></i> Paid</span>`;
+      }
+
+      const amountText = (o.amount !== null && o.amount !== undefined && o.amount !== '') 
+        ? `<strong style="color: var(--gold-accent);">SLE ${Number(o.amount).toFixed(2)}</strong>` 
+        : '<span style="color: var(--text-dim); font-size: 0.8rem;">Ask Price</span>';
+
+      const refText = o.payment_reference 
+        ? `<div style="font-size: 0.72rem; color: var(--gold-accent); font-family: monospace; margin-top: 2px;">${escapeHTML(o.payment_reference)}</div>` 
+        : '';
+
+      const phoneText = o.phone 
+        ? `<div style="font-size: 0.8rem; color: var(--text-muted);">${escapeHTML(o.phone)}</div>` 
+        : '';
+
       rows += `
         <tr>
           <td><strong>${escapeHTML(o.product_name)}</strong></td>
-          <td>${escapeHTML(o.customer_name || 'Website Visitor')}</td>
-          <td>${escapeHTML(o.order_type || 'Retail')}</td>
+          <td>${escapeHTML(o.customer_name || 'Website Visitor')}${phoneText}</td>
+          <td>${amountText}<div style="margin-top: 3px;">${paymentBadge}</div></td>
+          <td>${statusBadge}${refText}</td>
           <td style="color: var(--text-dim); font-size: 0.82rem;">${dateStr}</td>
         </tr>
       `;

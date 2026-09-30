@@ -50,17 +50,31 @@ create table if not exists public.reviews (
   created_at timestamptz default now()
 );
 
--- 6. Create 'orders' table (logs when customers initiate an order via WhatsApp)
+-- 6. Create 'orders' table (logs WhatsApp inquiries and online checkouts)
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
   product_name text not null,
   customer_name text default 'Anonymous Customer',
   phone text default '',
   order_type text default 'retail',
+  amount numeric default null,
+  currency text default 'SLE',
+  payment_method text default 'whatsapp',
+  payment_reference text default '',
+  payment_status text default 'pending',
+  delivery_address text default '',
   notes text default '',
   status text not null default 'new',
   created_at timestamptz default now()
 );
+
+-- Safe column additions for existing databases
+alter table public.orders add column if not exists amount numeric default null;
+alter table public.orders add column if not exists currency text default 'SLE';
+alter table public.orders add column if not exists payment_method text default 'whatsapp';
+alter table public.orders add column if not exists payment_reference text default '';
+alter table public.orders add column if not exists payment_status text default 'pending';
+alter table public.orders add column if not exists delivery_address text default '';
 
 -- 7. Create 'push_tokens' table for Firebase Cloud Messaging tokens
 create table if not exists public.push_tokens (

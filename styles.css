@@ -1258,3 +1258,298 @@ textarea.form-control {
   background: rgba(227, 6, 19, 0.08);
 }
 
+/* ==============================================================================
+   SECTION 14: ONLINE PAYMENTS & CHECKOUT STYLES
+   ============================================================================== */
+
+/* Order Mode Toggle */
+.order-mode-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 24px;
+  gap: 6px;
+}
+.order-mode-btn {
+  flex: 1;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+.order-mode-btn:hover {
+  color: var(--text-main);
+}
+.order-mode-btn.active {
+  background: var(--gold-accent);
+  color: #0a0a0c;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Payment Methods Grid */
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 10px 0 18px;
+}
+.payment-method-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+.payment-method-card:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+.payment-method-card.selected {
+  border-color: var(--gold-accent);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+.payment-method-card.selected::after {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 0.78rem;
+  color: var(--gold-accent);
+}
+.pm-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.pm-icon-orange {
+  background: rgba(255, 121, 0, 0.15);
+  color: #ff8b1f;
+}
+.pm-icon-afri {
+  background: rgba(227, 6, 19, 0.15);
+  color: #ff4d58;
+}
+.pm-icon-card {
+  background: rgba(147, 51, 234, 0.15);
+  color: #c084fc;
+}
+.pm-icon-cash {
+  background: rgba(37, 211, 102, 0.15);
+  color: var(--whatsapp-green);
+}
+.pm-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+.pm-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Payment Specific Details Container */
+.payment-details-panel {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin: 14px 0;
+}
+.payment-notice-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--gold-accent);
+  margin-bottom: 12px;
+}
+
+/* Order Summary Box */
+.order-summary-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin: 16px 0;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+.summary-row.total {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* Payment Receipt Modal */
+.receipt-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.receipt-modal-backdrop.show {
+  display: flex;
+}
+.receipt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  max-width: 520px;
+  width: 100%;
+  padding: 32px 26px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+  position: relative;
+  text-align: center;
+  animation: receiptSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes receiptSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.receipt-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.receipt-close-btn:hover {
+  color: var(--text-main);
+}
+.receipt-check-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.15);
+  border: 2px solid var(--whatsapp-green);
+  color: var(--whatsapp-green);
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.receipt-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--gold-accent);
+  margin-bottom: 4px;
+}
+.receipt-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.receipt-breakdown {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: left;
+  margin-bottom: 22px;
+}
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.receipt-row:last-child {
+  border-bottom: none;
+}
+.receipt-label {
+  color: var(--text-muted);
+}
+.receipt-val {
+  font-weight: 600;
+  color: var(--text-main);
+}
+.receipt-val.highlight {
+  color: var(--gold-accent);
+}
+
+/* Badges for Admin Orders */
+.order-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.order-badge-paid {
+  background: rgba(37, 211, 102, 0.15);
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+}
+.order-badge-pending {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-accent);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+.order-badge-om {
+  background: rgba(255, 121, 0, 0.15);
+  color: #ff8b1f;
+  border: 1px solid rgba(255, 121, 0, 0.3);
+}
+.order-badge-afri {
+  background: rgba(227, 6, 19, 0.15);
+  color: #ff4d58;
+  border: 1px solid rgba(227, 6, 19, 0.3);
+}
+.order-badge-card {
+  background: rgba(147, 51, 234, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(147, 51, 234, 0.3);
+}
+
+

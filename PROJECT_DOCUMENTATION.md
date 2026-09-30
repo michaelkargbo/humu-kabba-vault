@@ -156,8 +156,15 @@ The platform is built using a high-performance, lightweight architecture using v
 | - Authenticated Login |
 | - Inventory & Stock   |
 | - Payment Verification|
-+-----------+-----------+
++-----------------------+
 ```
+
+1. The customer loads the website on any device.
+2. The customer filters products and inspects item details.
+3. The customer chooses between direct WhatsApp inquiry or instant online checkout.
+4. If choosing checkout, the customer selects Orange Money, Afrimoney, or Card, reviews the order total, and enters delivery information.
+5. A secure transaction reference and order record are generated and saved to the Supabase database.
+6. The customer receives a digital receipt and continues to WhatsApp to coordinate bike delivery or boutique pickup.
 
 ---
 

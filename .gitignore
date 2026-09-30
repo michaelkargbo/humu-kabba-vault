@@ -1,3 +1,5 @@
 .snapshots/
 *.docx
 supabase/.temp/
+.vscode/
+

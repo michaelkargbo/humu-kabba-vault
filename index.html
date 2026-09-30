@@ -582,16 +582,152 @@
       </div>
     </section>
 
-    <!-- WhatsApp Order Builder (Section 4.7) -->
+    <!-- Online Payments, Checkout & WhatsApp Ordering (Section 14 & 13) -->
     <section class="section" id="order">
       <div class="container">
         <div class="section-title-wrap" style="text-align: center; margin-bottom: 26px;">
-          <h2>WhatsApp Order Builder</h2>
-          <p style="margin: 0 auto;">Select your item and order type below. Tapping the button opens WhatsApp with a pre-formatted message.</p>
+          <h2>Online Checkout & WhatsApp Ordering</h2>
+          <p style="margin: 0 auto; max-width: 640px;">Choose direct online payment via Orange Money, Afrimoney, Credit/Debit card, or fast WhatsApp concierge inquiry.</p>
         </div>
 
         <div class="order-box">
-          <form id="whatsappOrderForm" class="order-form">
+          <!-- Mode Toggle Tabs -->
+          <div class="order-mode-toggle">
+            <button type="button" class="order-mode-btn active" id="btnModeCheckout">
+              <i class="fa-solid fa-credit-card"></i> Online Checkout & Payment
+            </button>
+            <button type="button" class="order-mode-btn" id="btnModeInquiry">
+              <i class="fa-brands fa-whatsapp"></i> Quick WhatsApp Inquiry
+            </button>
+          </div>
+
+          <!-- VIEW 1: STRUCTURED ONLINE CHECKOUT & PAYMENT (Section 14) -->
+          <form id="onlineCheckoutForm" class="order-form">
+            <div class="form-group">
+              <label for="chkCustName" class="form-label">Full Name *</label>
+              <input type="text" id="chkCustName" class="form-control" placeholder="e.g. Mariama Sesay" required>
+            </div>
+
+            <div class="form-group">
+              <label for="chkCustPhone" class="form-label">Contact / Mobile Money Phone *</label>
+              <input type="tel" id="chkCustPhone" class="form-control" placeholder="e.g. +232 75 416008" required>
+            </div>
+
+            <div class="form-group">
+              <label for="chkCategory" class="form-label">Select Item / Collection *</label>
+              <select id="chkCategory" class="form-control">
+                <option value="iPhone 17 Pro Max Case (Crystal Shell)" data-price="450">iPhone 17 Pro Max Case — Crystal Shell (SLE 450)</option>
+                <option value="iPhone 17 Pro Max Case (Heart Shimmer)" data-price="450">iPhone 17 Pro Max Case — Heart Shimmer (SLE 450)</option>
+                <option value="iPhone 17 Pro Max Case (Monogram Leather)" data-price="500">iPhone 17 Pro Max Case — Monogram Leather (SLE 500)</option>
+                <option value="Luxury Designer Handbag" data-price="950">Luxury Designer Handbag (SLE 950)</option>
+                <option value="Boutique Evening Dress" data-price="850">Boutique Evening Dress (SLE 850)</option>
+                <option value="Luxury Arabian Perfume" data-price="650">Luxury Arabian Perfume (SLE 650)</option>
+                <option value="Designer Footwear / Heels" data-price="750">Designer Footwear / Heels (SLE 750)</option>
+                <option value="Custom Item / Other Fashion Piece" data-price="500">Custom Item / Other Fashion Piece (SLE 500)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="chkDeliveryArea" class="form-label">Delivery Destination / Pickup *</label>
+              <select id="chkDeliveryArea" class="form-control">
+                <option value="Aberdeen (Boutique Pickup - Back of the Field)" data-fee="0">Aberdeen (Free Boutique Pickup)</option>
+                <option value="Lumley / Murray Town / Wilberforce" data-fee="30">Lumley / Murray Town / Wilberforce (SLE 30 Delivery)</option>
+                <option value="Central Freetown / Brookfields / Tower Hill" data-fee="40">Central Freetown / Brookfields (SLE 40 Delivery)</option>
+                <option value="Kissy / Wellington / East End Freetown" data-fee="50">East End / Kissy / Wellington (SLE 50 Delivery)</option>
+                <option value="Provincial Dispatch (Bo / Makeni / Kenema / Kono)" data-fee="80">Upcountry Courier — Bo / Makeni / Kenema (SLE 80)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="chkQuantity" class="form-label">Quantity</label>
+              <input type="number" id="chkQuantity" class="form-control" value="1" min="1" max="50">
+            </div>
+
+            <div class="form-group">
+              <label for="chkAddress" class="form-label">Street Address / Landmark</label>
+              <input type="text" id="chkAddress" class="form-control" placeholder="e.g. Near Aberdeen Police Station, Gate 4">
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="chkNotes" class="form-label">Size, Color, or Special Instructions</label>
+              <input type="text" id="chkNotes" class="form-control" placeholder="e.g. Color: Rose Gold, Size: UK 12 / 40">
+            </div>
+
+            <!-- Payment Method Selector -->
+            <div class="form-group form-group-full" style="margin-top: 6px;">
+              <label class="form-label" style="font-size: 0.95rem; color: var(--gold-accent);">
+                <i class="fa-solid fa-wallet"></i> Choose Payment Method (Section 14)
+              </label>
+              <div class="payment-methods-grid">
+                <div class="payment-method-card selected" data-method="orange_money">
+                  <div class="pm-icon-wrap pm-icon-orange"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                  <div class="pm-title">Orange Money</div>
+                  <div class="pm-desc">*144# Push / Merchant</div>
+                </div>
+
+                <div class="payment-method-card" data-method="afrimoney">
+                  <div class="pm-icon-wrap pm-icon-afri"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                  <div class="pm-title">Afrimoney</div>
+                  <div class="pm-desc">*161# USSD Pay</div>
+                </div>
+
+                <div class="payment-method-card" data-method="credit_card">
+                  <div class="pm-icon-wrap pm-icon-card"><i class="fa-regular fa-credit-card"></i></div>
+                  <div class="pm-title">Credit Card</div>
+                  <div class="pm-desc">Visa / Mastercard</div>
+                </div>
+
+                <div class="payment-method-card" data-method="debit_card">
+                  <div class="pm-icon-wrap pm-icon-card"><i class="fa-solid fa-credit-card"></i></div>
+                  <div class="pm-title">Debit Card</div>
+                  <div class="pm-desc">Local Bank Cards</div>
+                </div>
+
+                <div class="payment-method-card" data-method="cash_delivery">
+                  <div class="pm-icon-wrap pm-icon-cash"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                  <div class="pm-title">Cash on Delivery</div>
+                  <div class="pm-desc">Pay at Gate / Store</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Payment Details Panel -->
+            <div class="form-group form-group-full">
+              <div class="payment-details-panel" id="paymentDetailsPanel">
+                <!-- Filled dynamically by JS -->
+              </div>
+            </div>
+
+            <!-- Order Summary & Total -->
+            <div class="form-group form-group-full">
+              <div class="order-summary-box">
+                <div class="summary-row">
+                  <span>Item Subtotal</span>
+                  <span id="summarySubtotal">SLE 450.00</span>
+                </div>
+                <div class="summary-row">
+                  <span id="summaryDeliveryLabel">Delivery / Pickup</span>
+                  <span id="summaryDeliveryFee">FREE (Aberdeen Pickup)</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total Amount Due</span>
+                  <span id="summaryTotal">SLE 450.00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group form-group-full">
+              <button type="submit" id="checkoutSubmitBtn" class="btn btn-gold" style="width: 100%; padding: 15px; font-size: 1rem; font-weight: 700;">
+                <i class="fa-solid fa-lock"></i> Authorize Payment & Place Order (SLE 450.00)
+              </button>
+              <p style="font-size: 0.78rem; text-align: center; color: var(--text-muted); margin-top: 8px;">
+                <i class="fa-solid fa-shield-halved" style="color: var(--gold-accent);"></i> Bank-grade 256-bit encryption. Payment verified before order dispatch.
+              </p>
+            </div>
+          </form>
+
+          <!-- VIEW 2: FAST WHATSAPP INQUIRY (Legacy) -->
+          <form id="whatsappOrderForm" class="order-form" style="display: none;">
             <div class="form-group">
               <label for="orderCustName" class="form-label">Your Name</label>
               <input type="text" id="orderCustName" class="form-control" placeholder="e.g. Mariama Sesay" required>
@@ -630,13 +766,63 @@
 
             <div class="form-group form-group-full">
               <button type="submit" class="btn btn-whatsapp" style="width: 100%; padding: 14px;">
-                <i class="fa-brands fa-whatsapp"></i> Send Order to WhatsApp (+232 754 16008)
+                <i class="fa-brands fa-whatsapp"></i> Send Inquiry to WhatsApp (+232 754 16008)
               </button>
             </div>
           </form>
         </div>
       </div>
     </section>
+
+    <!-- Payment Confirmation / Digital Receipt Modal (Section 14.7) -->
+    <div class="receipt-modal-backdrop" id="receiptModal">
+      <div class="receipt-card">
+        <button type="button" class="receipt-close-btn" id="receiptCloseBtn">&times;</button>
+        <div class="receipt-check-circle">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="receipt-title">Payment Confirmed!</h3>
+        <p class="receipt-subtitle">Your order has been recorded and submitted to Humu Kabba Variety Vault.</p>
+
+        <div class="receipt-breakdown">
+          <div class="receipt-row">
+            <span class="receipt-label">Order ID:</span>
+            <span class="receipt-val highlight" id="rcptOrderId">HK-ORD-00000</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Payment Ref:</span>
+            <span class="receipt-val" id="rcptPaymentRef">OM-REF-00000</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Method:</span>
+            <span class="receipt-val" id="rcptMethod">Orange Money</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Amount:</span>
+            <span class="receipt-val highlight" id="rcptAmount">SLE 450.00</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Item:</span>
+            <span class="receipt-val" id="rcptItem">iPhone 17 Pro Max Case</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Delivery To:</span>
+            <span class="receipt-val" id="rcptDelivery">Aberdeen Pickup</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Status:</span>
+            <span class="receipt-val" style="color: #25d366; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> PAID / CONFIRMED</span>
+          </div>
+        </div>
+
+        <a href="#" id="rcptWhatsAppBtn" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%; padding: 14px; font-size: 0.95rem; margin-bottom: 10px;">
+          <i class="fa-brands fa-whatsapp"></i> Continue to WhatsApp with Payment Receipt
+        </a>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">
+          Tap the button above to alert Humu directly on WhatsApp for prompt dispatch or packaging!
+        </p>
+      </div>
+    </div>
 
     <!-- Visit Store (Section 4.8) -->
     <section class="section" id="visit">
@@ -922,22 +1108,23 @@
           <div id="adminReviewsList">Loading reviews...</div>
         </div>
 
-        <!-- Tab 4: Orders -->
+        <!-- Tab 4: Orders & Payments -->
         <div class="owner-tab-content" id="tabOrders">
-          <h4 style="margin-bottom: 8px; font-size: 1.1rem; color: var(--gold-accent);">Recent WhatsApp Order Inquiries</h4>
-          <p style="font-size: 0.85rem; margin-bottom: 14px;">Logged when customers click 'Order on WhatsApp' across the site.</p>
+          <h4 style="margin-bottom: 8px; font-size: 1.1rem; color: var(--gold-accent);">Inbound Orders & Payment Auditing</h4>
+          <p style="font-size: 0.85rem; margin-bottom: 14px;">Logged when customers complete online checkout or click 'Order on WhatsApp'.</p>
           <div style="overflow-x: auto;">
             <table class="admin-table">
               <thead>
                 <tr>
                   <th>Product / Request</th>
-                  <th>Customer</th>
-                  <th>Type</th>
+                  <th>Customer & Contact</th>
+                  <th>Payment & Amount</th>
+                  <th>Status & Reference</th>
                   <th>Date & Time</th>
                 </tr>
               </thead>
               <tbody id="adminOrdersList">
-                <tr><td colspan="4" style="text-align: center; padding: 20px;">Loading orders...</td></tr>
+                <tr><td colspan="5" style="text-align: center; padding: 20px;">Loading orders...</td></tr>
               </tbody>
             </table>
           </div>
