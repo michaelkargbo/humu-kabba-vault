@@ -2471,3 +2471,94 @@ textarea.form-control {
 }
 
 
+
+/* ============================================================
+   TOP-LEFT HAMBURGER BUTTON
+   ============================================================ */
+.hamburger-left {
+  order: -1;
+  flex-shrink: 0;
+  background: transparent;
+  cursor: pointer;
+}
+@media (min-width: 992px) {
+  .hamburger-left {
+    display: none;
+  }
+}
+
+/* ============================================================
+   BOTTOM NAVIGATION BAR
+   ============================================================ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 950;
+  display: flex;
+  align-items: stretch;
+  background: rgba(10, 10, 12, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+  height: 62px;
+}
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 8px 4px;
+  transition: color var(--transition), background var(--transition);
+  position: relative;
+}
+.bottom-nav-item i {
+  font-size: 1.15rem;
+  transition: transform var(--transition), color var(--transition);
+}
+.bottom-nav-item span {
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  letter-spacing: 0.5px;
+}
+.bottom-nav-item.active,
+.bottom-nav-item:hover {
+  color: var(--gold-accent);
+}
+.bottom-nav-item.active i,
+.bottom-nav-item:hover i {
+  transform: translateY(-2px);
+}
+.bottom-nav-item.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--gold-accent);
+  border-radius: 0 0 4px 4px;
+}
+.bottom-nav-item + .bottom-nav-item {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+body {
+  padding-bottom: 62px;
+}
+@media (min-width: 992px) {
+  .bottom-nav {
+    display: none;
+  }
+  body {
+    padding-bottom: 0;
+  }
+}
