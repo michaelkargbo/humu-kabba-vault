@@ -181,14 +181,14 @@
       btnCheckout.addEventListener('click', () => {
         btnCheckout.classList.add('active');
         btnInquiry.classList.remove('active');
-        formCheckout.style.display = 'grid';
+        formCheckout.style.display = 'flex';
         formInquiry.style.display = 'none';
       });
 
       btnInquiry.addEventListener('click', () => {
         btnInquiry.classList.add('active');
         btnCheckout.classList.remove('active');
-        formInquiry.style.display = 'grid';
+        formInquiry.style.display = 'flex';
         formCheckout.style.display = 'none';
       });
     }
@@ -332,7 +332,7 @@
       if (btnCheckout && btnInquiry && formCheckout && formInquiry) {
         btnCheckout.classList.add('active');
         btnInquiry.classList.remove('active');
-        formCheckout.style.display = 'grid';
+        formCheckout.style.display = 'flex';
         formInquiry.style.display = 'none';
       }
 
@@ -357,8 +357,13 @@
         }
       }
 
-      // 3. Update payment method cards
+      // 3. Update payment method cards & dropdown option
       currentPaymentMethod = method || 'orange_money';
+      const paymentDropdown = document.getElementById('chkPaymentOption');
+      if (paymentDropdown) {
+        paymentDropdown.value = currentPaymentMethod;
+      }
+
       methodCards.forEach(c => {
         const isMatch = (c.getAttribute('data-method') === currentPaymentMethod);
         c.classList.toggle('selected', isMatch);
@@ -388,6 +393,14 @@
                             document.getElementById('chkCustName');
         if (targetInput) targetInput.focus();
       }, 450);
+    }
+
+    // Payment Option Dropdown change handler
+    const paymentDropdown = document.getElementById('chkPaymentOption');
+    if (paymentDropdown) {
+      paymentDropdown.addEventListener('change', (e) => {
+        selectAndFocusPaymentMethod(e.target.value);
+      });
     }
 
     methodCards.forEach(card => {

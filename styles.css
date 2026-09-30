@@ -2048,3 +2048,158 @@ textarea.form-control {
 
 .payment-pill-cash { border-color: rgba(37,211,102,0.35); color: #25d366; }
 .payment-pill-cash:hover { background: rgba(37,211,102,0.12); border-color: #25d366; }
+
+/* ==============================================================================
+   STRUCTURED CHECKOUT STEPS & INPUT FIELDS
+   ============================================================================== */
+.checkout-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.cstep {
+  padding: 22px 0;
+}
+.cstep:first-child {
+  padding-top: 6px;
+}
+.cstep:last-child {
+  padding-bottom: 6px;
+}
+.cstep-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.cstep-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gold-accent);
+  color: #0a0a0c;
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cstep-badge-gold {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-accent);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  font-size: 0.9rem;
+}
+.cstep-badge-wa {
+  background: rgba(37, 211, 102, 0.15);
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  font-size: 0.9rem;
+}
+.cstep-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-main);
+  letter-spacing: 0.2px;
+}
+.cstep-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.cstep-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.cfield {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cfield-full {
+  grid-column: 1 / -1;
+}
+.cstep-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 6px 0;
+}
+.cinput {
+  position: relative;
+}
+.ci {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  pointer-events: none;
+  z-index: 1;
+}
+.cinput textarea ~ .ci {
+  top: 18px;
+  transform: none;
+}
+.cinput .form-control {
+  padding-left: 40px;
+}
+.req {
+  color: #e05252;
+}
+.btn-submit-checkout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background: var(--gold-accent);
+  color: #0a0a0c;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all var(--transition);
+}
+.btn-submit-checkout:hover {
+  background: var(--gold-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+}
+.btn-submit-checkout strong {
+  margin-left: auto;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+.btn-submit-wa {
+  background: #25d366;
+  color: #ffffff;
+}
+.btn-submit-wa:hover {
+  background: #22bf5b;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+}
+.checkout-security-note {
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+.checkout-security-note i {
+  color: var(--gold-accent);
+  margin-right: 4px;
+}
+@media (max-width: 600px) {
+  .cstep-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
