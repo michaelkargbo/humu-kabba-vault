@@ -1630,6 +1630,18 @@
         if (content) content.classList.add('active');
       });
     });
+
+    // Live Clock for Phone Frame Status Bar
+    function updatePhoneClock() {
+      const clockEl = document.getElementById('phoneStatusTime');
+      if (!clockEl) return;
+      const now = new Date();
+      const hrs = now.getHours().toString().padStart(2, '0');
+      const mins = now.getMinutes().toString().padStart(2, '0');
+      clockEl.textContent = `${hrs}:${mins}`;
+    }
+    updatePhoneClock();
+    setInterval(updatePhoneClock, 30000);
   });
 
 })();
