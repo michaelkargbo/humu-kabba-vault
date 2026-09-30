@@ -267,54 +267,6 @@
             <input type="tel" id="afriSubscriberPhone" class="form-control" value="${escapeHTML(customerPhone)}" placeholder="e.g. +232 88 000000" style="background: rgba(0,0,0,0.5);">
           </div>
         `;
-      } else if (method === 'credit_card') {
-        panel.innerHTML = `
-          <div class="payment-notice-tag">
-            <i class="fa-regular fa-credit-card"></i> Visa / Mastercard Encrypted Checkout
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div class="form-group" style="grid-column: 1 / -1;">
-              <label class="form-label" style="font-size: 0.8rem;">Cardholder Name</label>
-              <input type="text" id="cardHolderName" class="form-control" placeholder="Name as on card" value="${escapeHTML(document.getElementById('chkCustName')?.value.trim() || '')}" style="background: rgba(0,0,0,0.5);">
-            </div>
-            <div class="form-group" style="grid-column: 1 / -1;">
-              <label class="form-label" style="font-size: 0.8rem;">Card Number</label>
-              <input type="text" id="cardNumber" class="form-control" maxlength="19" placeholder="4242 •••• •••• 4242" value="4242 8891 2045 7192" style="background: rgba(0,0,0,0.5); font-family: monospace;">
-            </div>
-            <div class="form-group">
-              <label class="form-label" style="font-size: 0.8rem;">Expiry (MM/YY)</label>
-              <input type="text" id="cardExpiry" class="form-control" placeholder="12/28" value="09/28" style="background: rgba(0,0,0,0.5); text-align: center;">
-            </div>
-            <div class="form-group">
-              <label class="form-label" style="font-size: 0.8rem;">Security Code (CVV)</label>
-              <input type="password" id="cardCvv" maxlength="4" class="form-control" placeholder="•••" value="882" style="background: rgba(0,0,0,0.5); text-align: center;">
-            </div>
-          </div>
-          <p style="font-size: 0.73rem; color: var(--text-dim); margin-top: 8px; margin-bottom: 0;">
-            <i class="fa-solid fa-lock"></i> Client-side tokenized checkout. Compliant with Section 14: Card numbers and CVVs are never saved to database.
-          </p>
-        `;
-      } else if (method === 'debit_card') {
-        panel.innerHTML = `
-          <div class="payment-notice-tag">
-            <i class="fa-solid fa-credit-card"></i> Sierra Leone Bank Debit Card
-          </div>
-          <div class="form-group" style="margin-bottom: 10px;">
-            <label class="form-label" style="font-size: 0.8rem;">Issuing Bank</label>
-            <select class="form-control" id="debitBankSelect" style="background: rgba(0,0,0,0.5);">
-              <option value="Rokel Commercial Bank">Rokel Commercial Bank (RCBank)</option>
-              <option value="Sierra Leone Commercial Bank">Sierra Leone Commercial Bank (SLCB)</option>
-              <option value="Ecobank Sierra Leone">Ecobank Sierra Leone</option>
-              <option value="Zenith Bank Sierra Leone">Zenith Bank SL</option>
-              <option value="United Bank for Africa">UBA Sierra Leone</option>
-              <option value="Standard Chartered Bank">Standard Chartered Bank</option>
-            </select>
-          </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label" style="font-size: 0.8rem;">Debit Card Number</label>
-            <input type="text" class="form-control" maxlength="19" placeholder="5399 •••• •••• 1029" value="5399 2100 8492 1029" style="background: rgba(0,0,0,0.5); font-family: monospace;">
-          </div>
-        `;
       } else {
         panel.innerHTML = `
           <div class="payment-notice-tag">
@@ -389,7 +341,6 @@
       setTimeout(() => {
         const targetInput = document.getElementById('omSubscriberPhone') || 
                             document.getElementById('afriSubscriberPhone') || 
-                            document.getElementById('cardHolderName') || 
                             document.getElementById('chkCustName');
         if (targetInput) targetInput.focus();
       }, 450);
@@ -436,7 +387,7 @@
     // Deep link support via hash or query param: #orange_money, ?method=afrimoney, etc.
     const urlParams = new URLSearchParams(window.location.search);
     const methodParam = urlParams.get('method') || (window.location.hash ? window.location.hash.replace('#', '') : '');
-    if (['orange_money', 'afrimoney', 'credit_card', 'debit_card', 'cash_delivery'].includes(methodParam)) {
+    if (['orange_money', 'afrimoney', 'cash_delivery'].includes(methodParam)) {
       setTimeout(() => selectAndFocusPaymentMethod(methodParam), 350);
     } else if (window.location.hash === '#order' || window.location.hash === '#checkout' || window.location.hash === '#payment') {
       setTimeout(() => selectAndFocusPaymentMethod('orange_money'), 350);
@@ -477,12 +428,6 @@
         if (currentPaymentMethod === 'afrimoney') {
           paymentPrefix = "AF";
           methodNameDisplay = "Afrimoney (*161#)";
-        } else if (currentPaymentMethod === 'credit_card') {
-          paymentPrefix = "CC";
-          methodNameDisplay = "Credit Card (Visa/Mastercard)";
-        } else if (currentPaymentMethod === 'debit_card') {
-          paymentPrefix = "DB";
-          methodNameDisplay = "Debit Card";
         } else if (currentPaymentMethod === 'cash_delivery') {
           paymentPrefix = "COD";
           methodNameDisplay = "Cash on Delivery";

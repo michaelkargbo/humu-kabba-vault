@@ -592,7 +592,7 @@
             </button>
             <div class="faq-answer">
               <p style="margin-bottom: 8px;">
-                We make payment easy, flexible, and secure across Sierra Leone. We accept <strong>Orange Money</strong>, <strong>Afrimoney</strong>, <strong>Visa & Mastercard Credit Cards</strong>, <strong>Bank Debit Cards</strong>, and <strong>Cash on Delivery / In-Store</strong>.
+                We make payment easy, flexible, and secure across Sierra Leone. We accept <strong>Orange Money</strong>, <strong>Afrimoney</strong>, and <strong>Cash on Delivery / In-Store</strong>.
               </p>
               <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
                 <button type="button" class="btn btn-outline btn-sm" data-select-method="orange_money" style="font-size: 0.78rem;">
@@ -600,9 +600,6 @@
                 </button>
                 <button type="button" class="btn btn-outline btn-sm" data-select-method="afrimoney" style="font-size: 0.78rem;">
                   <i class="fa-solid fa-money-bill-transfer" style="color: #ff4d58;"></i> Pay with Afrimoney
-                </button>
-                <button type="button" class="btn btn-outline btn-sm" data-select-method="credit_card" style="font-size: 0.78rem;">
-                  <i class="fa-regular fa-credit-card" style="color: #c084fc;"></i> Pay with Card
                 </button>
                 <button type="button" class="btn btn-outline btn-sm" data-select-method="cash_delivery" style="font-size: 0.78rem;">
                   <i class="fa-solid fa-hand-holding-dollar" style="color: #25d366;"></i> Cash on Delivery
@@ -639,7 +636,7 @@
       <div class="container">
         <div class="section-title-wrap" style="text-align: center; margin-bottom: 26px;">
           <h2>Online Checkout & WhatsApp Ordering</h2>
-          <p style="margin: 0 auto; max-width: 640px;">Choose direct online payment via Orange Money, Afrimoney, Credit/Debit card, or fast WhatsApp concierge inquiry.</p>
+          <p style="margin: 0 auto; max-width: 640px;">Choose direct online payment via Orange Money, Afrimoney, Cash on Delivery, or fast WhatsApp concierge inquiry.</p>
         </div>
 
         <div class="order-box">
@@ -767,9 +764,7 @@
                   <select id="chkPaymentOption" class="form-control">
                     <option value="orange_money">Option 1: Orange Money (*144# Mobile Wallet)</option>
                     <option value="afrimoney">Option 2: Afrimoney (*161# USSD Mobile Money)</option>
-                    <option value="credit_card">Option 3: Credit Card (Visa / Mastercard)</option>
-                    <option value="debit_card">Option 4: Sierra Leone Bank Debit Card (RCBank, SLCB, Ecobank)</option>
-                    <option value="cash_delivery">Option 5: Cash on Delivery / Aberdeen Store Pickup</option>
+                    <option value="cash_delivery">Option 3: Cash on Delivery / Aberdeen Store Pickup</option>
                   </select>
                 </div>
               </div>
@@ -785,16 +780,6 @@
                   <div class="pm-icon-wrap pm-icon-afri"><i class="fa-solid fa-money-bill-transfer"></i></div>
                   <div class="pm-title">Afrimoney</div>
                   <div class="pm-desc">*161# USSD</div>
-                </button>
-                <button type="button" class="payment-method-card" data-method="credit_card" role="radio" aria-checked="false" aria-label="Pay with Credit Card">
-                  <div class="pm-icon-wrap pm-icon-card"><i class="fa-regular fa-credit-card"></i></div>
-                  <div class="pm-title">Credit Card</div>
-                  <div class="pm-desc">Visa / Mastercard</div>
-                </button>
-                <button type="button" class="payment-method-card" data-method="debit_card" role="radio" aria-checked="false" aria-label="Pay with Debit Card">
-                  <div class="pm-icon-wrap pm-icon-card"><i class="fa-solid fa-credit-card"></i></div>
-                  <div class="pm-title">Debit Card</div>
-                  <div class="pm-desc">Local Bank Cards</div>
                 </button>
                 <button type="button" class="payment-method-card" data-method="cash_delivery" role="radio" aria-checked="false" aria-label="Pay with Cash on Delivery">
                   <div class="pm-icon-wrap pm-icon-cash"><i class="fa-solid fa-hand-holding-dollar"></i></div>
@@ -1008,12 +993,6 @@
                 </button>
                 <button type="button" class="payment-pill payment-pill-afri" data-select-method="afrimoney" title="Click to pay via Afrimoney">
                   <i class="fa-solid fa-money-bill-transfer"></i> Afrimoney (*161#)
-                </button>
-                <button type="button" class="payment-pill payment-pill-card" data-select-method="credit_card" title="Click to pay via Visa/Mastercard">
-                  <i class="fa-regular fa-credit-card"></i> Credit Card
-                </button>
-                <button type="button" class="payment-pill payment-pill-card" data-select-method="debit_card" title="Click to pay via Bank Debit">
-                  <i class="fa-solid fa-credit-card"></i> Debit Card
                 </button>
                 <button type="button" class="payment-pill payment-pill-cash" data-select-method="cash_delivery" title="Click to pay Cash on Delivery">
                   <i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery
