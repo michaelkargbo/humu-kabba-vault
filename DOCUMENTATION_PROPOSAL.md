@@ -5,7 +5,7 @@
 > **"Your Style, Our Priority."**  
 > **Fashion, Beauty & Lifestyle Boutique**  
 > 4B Johnson Land, Aberdeen, Freetown, Sierra Leone  
-> **WhatsApp:** +232 754 16008  
+> **WhatsApp:** +232 77 416008  
 > **Hours:** Mon–Sat 09:00–19:00 | Sun 13:00–17:00 (GMT/Freetown Time)  
 > **Prepared for:** Humu Kabba Variety Vault  
 > **Version:** 1.0 — 29 September 2026  
@@ -59,7 +59,7 @@ Humu Kabba Variety Vault is built around fashion, beauty, and lifestyle products
 | **Business Name** | Humu Kabba Variety Vault |
 | **Tagline** | *Your Style, Our Priority.* |
 | **Physical Location** | 4B Johnson Land, Aberdeen, Freetown, Sierra Leone (Back of the Field) |
-| **WhatsApp Hotline** | `+232 754 16008` |
+| **WhatsApp Hotline** | `+232 77 416008` |
 | **Store Hours** | Monday–Saturday: 09:00–19:00; Sunday: 13:00–17:00 |
 | **WhatsApp Inquiries** | Available 24/7 (Replies during store operating hours) |
 | **Local Currencies** | Sierra Leone New Leones (`SLE`) and US Dollars (`USD`) |

@@ -5,12 +5,12 @@
 > **"Your Style, Our Priority."**  
 > **Fashion, Beauty & Lifestyle Boutique**  
 > 4B Johnson Land, Aberdeen, Freetown, Sierra Leone  
-> **WhatsApp:** +232 754 16008  
-> **Hours:** Mon–Sat 09:00–19:00 | Sun 13:00–17:00 (GMT/Freetown Time)  
+> **WhatsApp:** +232 77 416008  
+> **Operating Hours:** Mon–Sat 09:00–19:00 | Sun 13:00–17:00 (Freetown Time)  
 > **Prepared for:** Humu Kabba Variety Vault  
 > **Version:** 1.0 — 29 September 2026  
-> **Production URL:** [https://humu-kabba-vault.vercel.app](https://humu-kabba-vault.vercel.app)  
-> **Repository:** [https://github.com/michaelkargbo/humu-kabba-vault](https://github.com/michaelkargbo/humu-kabba-vault)
+> **Live Website:** [https://humu-kabba-vault.vercel.app](https://humu-kabba-vault.vercel.app)  
+> **Source Repository:** [https://github.com/michaelkargbo/humu-kabba-vault](https://github.com/michaelkargbo/humu-kabba-vault)
 
 ---
 
@@ -28,361 +28,298 @@
 11. [Owner/Admin Journey](#11-owneradmin-journey)
 12. [Prototype Design](#12-prototype-design)
 13. [WhatsApp Ordering](#13-whatsapp-ordering)
-14. [Online Payments and Checkout](#14-online-payments-and-checkout)
-15. [Customer Reviews](#15-customer-reviews)
-16. [Notifications](#16-notifications)
-17. [Security](#17-security)
-18. [Search Engine and Social Media Visibility](#18-search-engine-and-social-media-visibility)
-19. [Deployment and Setup](#19-deployment-and-setup)
-20. [Testing](#20-testing)
-21. [Maintenance](#21-maintenance)
-22. [Future Improvements](#22-future-improvements)
-23. [Conclusion](#23-conclusion)
-24. [References](#24-references)
+14. [Customer Reviews](#14-customer-reviews)
+15. [Notifications](#15-notifications)
+16. [Security](#16-security)
+17. [Search Engine and Social Media Visibility](#17-search-engine-and-social-media-visibility)
+18. [Deployment and Setup](#18-deployment-and-setup)
+19. [Testing](#19-testing)
+20. [Maintenance](#20-maintenance)
+21. [Future Improvements](#21-future-improvements)
+22. [Conclusion](#22-conclusion)
+23. [References](#23-references)
 
 ---
 
 ## 1. Introduction
-**Humu Kabba Variety Vault** is a fashion, beauty, and lifestyle boutique based at 4B Johnson Land, Aberdeen, Freetown, Sierra Leone. The business offers a variety of curated products, including luxury bags, dresses, beauty products, footwear, and specialized iPhone 17 Pro Max phone cases. This project was created to give the boutique a strong, professional online presence and make it seamless for customers to discover products, view authentic daylight details, and contact the shop.
+**Humu Kabba Variety Vault** is a fashion, beauty and lifestyle boutique based at 4B Johnson Land, Aberdeen, Freetown. The business offers a variety of products, including bags, dresses, beauty products, footwear and iPhone 17 Pro Max phone cases. This project was created to give the business a strong online presence and make it easier for customers to discover products and contact the shop.
 
-Instead of making the website feel like a detached, rigid online supermarket, the design deliberately focuses on what customers need most: viewing products clearly with rich visual fidelity, finding the right collection easily, asking questions directly, and placing orders through WhatsApp with doorstep bike dispatch. The boutique owner also has a dedicated administrative area for managing products, approving authentic customer reviews, and tracking incoming order inquiries.
+Instead of making the website feel like a complicated online store, the design focuses on what customers are most likely to need: seeing products clearly, finding the right collection, asking questions and placing an order through WhatsApp. The owner also has an administration area for managing products, reviews and order information.
 
 ---
 
 ## 2. About the Business
-Humu Kabba Variety Vault is built around fashion, beauty, and lifestyle products. The boutique serves customers who desire stylish and affordable items while receiving a warm, personalized shopping experience. Customers can inquire about sizes, colors, availability, real-time pricing in Sierra Leone New Leones (`SLE`), and local doorstep delivery before completing their purchase.
+Humu Kabba Variety Vault is built around fashion, beauty and lifestyle products. The boutique serves customers who want stylish and affordable items while also providing a more personal shopping experience through WhatsApp. Customers can ask about sizes, colours, availability, prices and delivery before completing a purchase.
 
 ### Business Information Summary
 
-| Detail | Specification |
+| Business Information | Details |
 | :--- | :--- |
-| **Business Name** | Humu Kabba Variety Vault |
-| **Tagline** | *Your Style, Our Priority.* |
-| **Physical Location** | 4B Johnson Land, Aberdeen, Freetown, Sierra Leone (Back of the Field) |
-| **WhatsApp Hotline** | `+232 754 16008` |
-| **Store Hours** | Monday–Saturday: 09:00–19:00; Sunday: 13:00–17:00 |
-| **WhatsApp Inquiries** | Available 24/7 (Replies during store operating hours) |
-| **Local Currencies** | Sierra Leone New Leones (`SLE`) and US Dollars (`USD`) |
+| **Business name** | Humu Kabba Variety Vault |
+| **Tagline** | Your Style, Our Priority. |
+| **Location** | 4B Johnson Land, Aberdeen, Freetown, Sierra Leone |
+| **WhatsApp** | +232 77 416008 |
+| **Opening hours** | Monday–Saturday: 09:00–19:00; Sunday: 13:00–17:00 |
 
 ---
 
 ## 3. Purpose of the Website
-The primary purpose of the website is to bring the boutique closer to its customers online. A customer should be able to visit the website from any smartphone or computer, browse available collections, choose an item of interest, calculate delivery fees, select payment options, and contact the business without technical friction.
+The main purpose of the website is to bring the boutique closer to its customers online. A customer should be able to visit the website from a phone, look through the available collections, choose an item that interests them and contact the business without having to understand any complicated technology.
 
-For the owner, the website provides a user-friendly management portal. Products can be added, updated, or marked as sold out, customer reviews can be curated and published, and incoming orders can be audited in real time.
+For the owner, the website provides a simple way to keep the catalogue up to date. Products can be added or removed, approved customer reviews can be displayed, and order inquiries can be viewed from the owner area.
 
 ---
 
 ## 4. Main Objectives
-- **Create a modern and attractive digital storefront:** Showcase boutique items with an elegant dark-and-gold luxury aesthetic.
-- **Empower effortless browsing:** Group items into distinct categories so shoppers in Freetown and upcountry can quickly locate desired fashion pieces.
-- **Provide direct WhatsApp communication:** Allow shoppers to request daylight video clips, confirm sizes, and chat directly with Humu Kabba.
-- **Support retail and wholesale buyers:** Clearly distinguish between individual retail purchases and wholesale bulk reseller packs for provincial traders.
-- **Enable dynamic catalog management:** Allow the business owner to add, edit, and publish products without touching the underlying source code.
-- **Highlight physical store presence:** Keep store location, Aberdeen landmark guidance, and real-time open/closed business hours readily visible.
-- **Provide a foundation for secure online payments:** Enable structured checkouts using Orange Money, Afrimoney, credit cards, and debit cards.
+- **Create a modern and attractive online storefront** for the boutique.
+- **Make it easy for customers in Freetown and elsewhere** to browse the available collections.
+- **Give customers a direct way to contact the business** through WhatsApp.
+- **Provide separate information** for normal retail customers and wholesale buyers.
+- **Allow the owner to manage products and customer reviews** without changing the website code.
+- **Keep important business information** such as the address, opening hours and contact number easy to find.
+- **Provide a foundation** that can later support online payments, stock management and other business features.
 
 ---
 
 ## 5. What the Website Covers
-The current platform implementation encompasses:
-- **Home page & brand introduction:** High-impact hero section, value badges, and founder story.
-- **Product collections & category filters:** Filterable gallery across Bags & Accessories, Apparel & Dresses, Beauty & Perfumes, Footwear & Denim, and iPhone 17 Pro Max Cases.
-- **Dedicated iPhone 17 Pro Max Cases catalog (`cases.html`):** Crystal Shells, Monogram Leather, and protective luxury cases.
-- **Retail & wholesale information:** Clear purchasing guidelines for personal shoppers and bulk resellers.
-- **WhatsApp order builder:** Interactive form generating structured inquiry messages.
-- **Online payment & structured checkout:** Instant checkout supporting Orange Money, Afrimoney, Credit Cards, and Debit Cards with payment verification and receipt generation.
-- **Customer reviews:** Social proof displaying verified customer reviews and rating breakdowns.
-- **Frequently asked questions (FAQ):** Interactive accordion resolving common questions on delivery, video clips, and payment methods.
-- **Store location & real-time hours:** Live GMT clock calculation displaying whether the Aberdeen boutique is currently open or closed.
-- **Protected owner/admin panel:** Secure authentication, inventory management, review approval, and order audit log.
-- **Cloud database & storage:** Supabase integration with PostgreSQL and Row Level Security.
-- **Push notifications:** Firebase Cloud Messaging support for instant owner notifications.
-- **Search engine & social sharing optimization:** Structured JSON-LD metadata, OpenGraph cards, and Twitter cards.
+The current project includes the following areas:
+- **Home page and business introduction**
+- **Product collections and category filters:**
+  - Bags and accessories
+  - Apparel and dresses
+  - Beauty and perfumes
+  - Footwear and denim
+  - iPhone 17 Pro Max cases
+- **Retail and wholesale information**
+- **WhatsApp order builder**
+- **Customer reviews**
+- **Frequently asked questions**
+- **Store location and opening hours**
+- **Owner/admin panel**
+- **Supabase database and storage integration**
+- **Firebase push notifications**
+- **Search-engine and social-sharing information**
+
+> [!NOTE]
+> The current version does not include a full card-payment checkout, automatic delivery tracking or a native mobile application.
 
 ---
 
 ## 6. People Who Use the System
 
-| User Role | Capabilities | Access Level |
+| User | What they can do | Access |
 | :--- | :--- | :--- |
-| **Retail Customer** | Browse catalog, filter categories, view pricing, select payment method, initiate checkout, and order via WhatsApp | Public |
-| **Wholesale Buyer** | Explore bulk packs, learn about wholesale minimum order quantities, and request reseller rates | Public |
-| **Owner / Admin** | Create and edit products, upload product imagery, approve reviews, audit orders, and manage notification settings | Protected (Authenticated) |
+| **Customer** | Browse products, ask questions and start an order | Public |
+| **Wholesale customer** | Ask about bulk purchases and wholesale pricing | Public |
+| **Owner/Admin** | Manage products, reviews, orders and notifications | Protected |
 
 ---
 
 ## 7. Main Features
 
-| Feature | Description & Benefit |
+| Feature | How it helps |
 | :--- | :--- |
-| **Curated Product Catalog** | Grouped into intuitive collections with high-resolution imagery and local pricing. |
-| **Interactive Category Filtering** | Instant client-side filtering without page reloads. |
-| **WhatsApp Order Builder** | Generates pre-formatted order text including product name, order type, and customer preferences. |
-| **Online Payments & Checkout** | Structured payment stage supporting Orange Money, Afrimoney, Visa/Mastercard credit/debit cards with instant transaction references. |
-| **Real-time Store Status** | Dynamic indicator calculated based on Africa/Freetown time zone (Mon–Sat 09:00–19:00, Sun 13:00–17:00). |
-| **Customer Reviews Moderation** | Allows customers to share feedback while keeping the owner in control of published reviews. |
-| **Owner CMS Dashboard** | Password-protected portal to publish new items, toggle stock availability, and inspect orders. |
-| **Cloud Database (Supabase)** | PostgreSQL backend with Row Level Security, auto-generated UUIDs, and realtime capabilities. |
-| **Push Notifications (FCM)** | Alerts the owner on device when incoming orders or customer actions are recorded. |
-| **SEO & Social Metadata** | OpenGraph tags, Twitter cards, and Schema.org `LocalBusiness` structured data for search ranking. |
+| **Product catalogue** | Products are grouped into clear collections so customers can quickly find what they are looking for. |
+| **Category filtering** | Customers can filter the product list instead of scrolling through every item. |
+| **WhatsApp ordering** | A customer can enter their details and item information and have a ready-made WhatsApp message prepared for the shop. |
+| **Retail and wholesale** | The website explains both normal purchases and bulk/wholesale inquiries. |
+| **Reviews** | Customer reviews can be collected and approved by the owner before being shown publicly. |
+| **Owner panel** | The owner can manage products, reviews, order inquiries and notification settings. |
+| **Cloud database** | Supabase provides the database, authentication, storage, security rules and realtime features. |
+| **Notifications** | Firebase Cloud Messaging can notify the owner when new order activity is recorded. |
+| **Store status** | Opening hours are shown using Freetown/Africa time so customers can see whether the shop is open. |
+| **SEO** | The site includes search-engine metadata, social sharing information and LocalBusiness structured data. |
 
 ---
 
 ## 8. How the System Works
-The platform is built using a high-performance, lightweight architecture using vanilla HTML5, CSS3, and JavaScript, hosted globally on Vercel's Edge CDN.
+The website is intentionally lightweight. The customer-facing pages are built with HTML, CSS and vanilla JavaScript and are delivered through Vercel's CDN. When cloud services are connected, the website communicates with Supabase for data and storage. Firebase Cloud Messaging is used for push notifications.
 
 ```
-+-------------------------------------------------------------------+
-|                        CUSTOMER BROWSER                           |
-|  - Browses Catalog     - Selects Item / Quantity                 |
-|  - Chooses Payment     - Initiates Checkout / WhatsApp Order      |
-+---------------------------------+---------------------------------+
-                                  |
-            +---------------------+---------------------+
-            |                                           |
-            v                                           v
-+-----------------------+                   +-----------------------+
-|   SUPABASE BACKEND    |                   |    WHATSAPP ENGINE    |
-| - PostgreSQL Tables   |                   | - Pre-filled Message  |
-| - Orders & Payments   |                   | - Direct Hotline Chat |
-| - Products & Reviews  |                   | - 360° Video Previews |
-| - RLS Authorization   |                   | - Rider Dispatch      |
-+-----------------------+                   +-----------------------+
-            ^
-            |
-+-----------+-----------+
-|    OWNER ADMIN CMS    |
-| - Authenticated Login |
-| - Inventory & Stock   |
-| - Payment Verification|
-+-----------------------+
+       ┌────────────────────────────────────────────────────────┐
+       │               CUSTOMER DEVICE (BROWSER)                │
+       │       - Browse collections with category filters       │
+       │       - Select item & open WhatsApp Order Builder      │
+       └───────────────────────────┬────────────────────────────┘
+                                   │
+             ┌─────────────────────┴─────────────────────┐
+             │                                           │
+             ▼                                           ▼
+┌─────────────────────────┐                 ┌─────────────────────────┐
+│     SUPABASE CLOUD      │                 │     WHATSAPP HOTLINE    │
+│  - Products & Reviews   │                 │  - Direct boutique chat │
+│  - Order inquiries log  │                 │  - Video & size check   │
+│  - Row Level Security   │                 │  - Bike dispatch coord  │
+└─────────────────────────┘                 └─────────────────────────┘
+             ▲
+             │
+┌────────────┴────────────┐
+│    OWNER ADMIN PANEL    │
+│  - Authenticated login  │
+│  - Inventory management │
+│  - Review moderation    │
+└─────────────────────────┘
 ```
 
-1. The customer loads the website on any device.
-2. The customer filters products and inspects item details.
-3. The customer chooses between direct WhatsApp inquiry or instant online checkout.
-4. If choosing checkout, the customer selects Orange Money, Afrimoney, or Card, reviews the order total, and enters delivery information.
-5. A secure transaction reference and order record are generated and saved to the Supabase database.
-6. The customer receives a digital receipt and continues to WhatsApp to coordinate bike delivery or boutique pickup.
+### Operational Workflow:
+1. Customer opens the website on a phone, tablet or computer.
+2. Customer browses a collection and filters the products if necessary.
+3. Customer selects an item and chooses to make an inquiry.
+4. The order builder collects the customer's name, phone number, order type and product details.
+5. A WhatsApp message is prepared and opened for the customer to send.
+6. Where configured, the interaction is also recorded for the owner.
+7. The owner confirms availability, price, payment and delivery details directly with the customer.
 
 ---
 
 ## 9. Database and Information Management
-Supabase provides the PostgreSQL cloud data layer, Row Level Security (RLS), and authentication.
+Supabase is used as the cloud data layer. It provides PostgreSQL database storage, authentication, file storage, realtime updates and Row Level Security. The main information areas are products, reviews, orders and owner profiles.
 
-### Database Tables Schema
+- **Products:** name, category, variants, price, image, description and publication status.
+- **Reviews:** customer name, purchased item, rating, comment, approval status and date.
+- **Orders:** customer details, phone number, order type, requested item and date.
+- **Owner/profile information:** authenticated user details, role and notification information.
 
-```sql
--- 1. Admins Table
-create table public.admins (
-  user_id uuid primary key references auth.users(id) on delete cascade,
-  created_at timestamptz default now()
-);
-
--- 2. Products Table
-create table public.products (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  category text not null default 'Phone Cases',
-  colors text default '',
-  price numeric default null,
-  description text default '',
-  image_url text default '',
-  in_stock boolean default true,
-  created_at timestamptz default now()
-);
-
--- 3. Reviews Table
-create table public.reviews (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  item text not null,
-  rating integer not null check (rating >= 1 and rating <= 5),
-  text text not null,
-  created_at timestamptz default now()
-);
-
--- 4. Orders & Payments Table
-create table public.orders (
-  id uuid primary key default gen_random_uuid(),
-  product_name text not null,
-  customer_name text default 'Anonymous Customer',
-  phone text default '',
-  order_type text default 'retail',
-  amount numeric default null,
-  currency text default 'SLE',
-  payment_method text default 'whatsapp',
-  payment_reference text default '',
-  payment_status text default 'pending',
-  delivery_address text default '',
-  notes text default '',
-  status text not null default 'new',
-  created_at timestamptz default now()
-);
-
--- 5. Push Notification Tokens
-create table public.push_tokens (
-  user_id uuid not null references auth.users(id) on delete cascade,
-  token text primary key,
-  updated_at timestamptz default now()
-);
-```
+Public customers should only be able to see information that the owner has chosen to publish. Administrative actions should remain restricted to authenticated and authorized owner accounts.
 
 ---
 
 ## 10. Customer Journey
-1. **Discovery:** Shopper arrives at `https://humu-kabba-vault.vercel.app` via social link or direct search.
-2. **Orientation:** Checks Aberdeen boutique hours and open/closed indicator.
-3. **Exploration:** Navigates collections (Bags, Apparel, Perfumes, Footwear, iPhone Cases) using filter pills.
-4. **Item Selection:** Selects desired item, color, and size preference.
-5. **Checkout & Payment Choice:**
-   - **Path A (Fast Inquiry):** Direct WhatsApp link with pre-filled greeting.
-   - **Path B (Structured Checkout):** Enters contact info, delivery location, and selects Orange Money, Afrimoney, Credit Card, or Debit Card.
-6. **Payment Confirmation:** Reviews transaction reference and digital receipt.
-7. **Fulfillment:** WhatsApp dialogue coordinates same-day bike dispatch across Freetown or upcountry courier transport.
+1. **Visit the website.**
+2. **Check the store information** and current opening status.
+3. **Choose a product collection.**
+4. **Use the category filter** to narrow the products.
+5. **Select an item** that looks interesting.
+6. **Click the WhatsApp/inquiry button.**
+7. **Enter name, phone number, order type** and product details.
+8. **Open the prepared WhatsApp message.**
+9. **Continue the conversation** with the boutique to confirm the purchase.
 
 ---
 
 ## 11. Owner/Admin Journey
-1. **Access:** Owner scrolls to bottom footer or navigates to `#admin`.
-2. **Authentication:** Enters registered credentials securely validated via Supabase Auth.
-3. **Inventory Management:**
-   - Adds new items with image, price, description, and category.
-   - Updates stock status (`In Stock` vs `Sold Out`).
-4. **Order & Payment Auditing:**
-   - Reviews inbound orders, payment methods used, and transaction references.
-   - Verifies Orange Money / Afrimoney receipt codes against merchant account.
-5. **Review Moderation:** Approves verified customer testimonials for public display.
-6. **Sign-out:** Terminate session safely with one click.
+1. **Open the owner section** and sign in.
+2. **Add a new product** with its name, collection, image and description.
+3. **Publish the product** when it is ready for customers.
+4. **Update or remove products** that are no longer available.
+5. **Review submitted customer feedback** and approve suitable reviews.
+6. **Check order inquiries** recorded by the website.
+7. **Manage notification settings** when Firebase is connected.
+8. **Sign out** after finishing administrative work.
 
 ---
 
 ## 12. Prototype Design
-The platform features a luxury dark-and-gold design system:
-- **Palette:** Obsidian dark backgrounds (`#0a0a0c`, `#141418`), warm champagne gold accents (`#d4af37`), and WhatsApp emerald green (`#25d366`).
-- **Typography:** Modern, clean system fonts and Google Fonts ensuring fast rendering on mobile devices across 3G/4G connections in Sierra Leone.
-- **Micro-interactions:** Smooth tab transitions, card hover glows, and responsive modal dialogues.
+The prototype included with this documentation is a simple working front-end demonstration of the proposed customer and owner experience. It uses sample products so that it can be opened without connecting to the production database.
+
+- **Home** — Luxury dark-and-gold introduction, store status and clear calls to action.
+- **Collections** — Product cards with category filters for the main collections.
+- **Order Builder** — Simple form that prepares a WhatsApp message.
+- **Retail & Wholesale** — Separate sections explaining the two shopping paths.
+- **Reviews** — Examples of approved customer feedback.
+- **FAQ & Store** — Common questions, address, opening hours and contact information.
+- **Owner Panel** — A visual demonstration of product, review, order and notification management.
 
 ---
 
 ## 13. WhatsApp Ordering
-WhatsApp remains central to the boutique's customer relationships. In Freetown's fashion landscape, customers value seeing daylight video clips, discussing fit, and asking questions before money changes hands. Rather than replacing WhatsApp with a rigid detached cart, the system leverages WhatsApp as the personal concierge closing stage while structuring all order details systematically.
+WhatsApp is central to the current customer experience because it allows the business and customer to have a direct conversation. Rather than forcing the customer through a complicated checkout process, the website prepares the important information first.
+
+A typical message contains the customer's name, phone number, category, retail or wholesale status, and the item details. The owner can then confirm availability, price, payment and delivery arrangements.
 
 ---
 
-## 14. Online Payments and Checkout
-The upgraded website introduces a structured checkout stage so customers can choose a supported payment method after confirming their products, quantity, delivery details, and final amount.
-
-### Supported Payment Methods
-- **Orange Money:** Payment through enabled Orange Money merchant integration / USSD push (`*144#`).
-- **Afrimoney:** Payment through enabled Afrimoney merchant integration (`*161#`).
-- **Credit Cards:** Visa and Mastercard payments via secure tokenized payment provider.
-- **Debit Cards:** Local and international issuing bank debit cards.
-- **Cash on Delivery / In-Store Pickup:** For customers collecting in Aberdeen or paying the bike courier upon arrival.
-
-### Recommended Payment Flow
-1. Customer reviews order summary and confirms final amount in New Leones (`SLE`).
-2. Customer confirms name, telephone number, and delivery location.
-3. Customer selects Orange Money, Afrimoney, credit card, or debit card.
-4. Customer completes payment authorization through provider's secure checkout flow.
-5. The system records the transaction reference and marks the order status as `Paid` or `Pending Verification`.
-6. Customer receives an on-screen payment confirmation receipt with unique Order ID.
-7. Customer continues seamlessly to WhatsApp with the payment receipt pre-attached for prompt dispatch.
-8. Failed, pending, or cancelled payments remain clearly logged for administrative reconciliation.
-
-### Recorded Payment Attributes
-- Order ID (e.g., `HK-ORD-84920`)
-- Payment Reference (e.g., `OM-SLE-93810`)
-- Selected Payment Method
-- Total Amount and Currency (`SLE`)
-- Payment Status (`Pending`, `Paid`, `Failed`, `Cancelled`, `Refunded`)
-- Date and Timestamp
-- Delivery Location and Customer Phone
-
-### Payment Security Standards
-- Card numbers and CVV codes are **never** stored in the client or Supabase database.
-- Secure HTTPS encryption is enforced across all endpoints.
-- Server-side verification is executed prior to marking payments settled.
-- Provider secrets and API keys are stored exclusively in secure server-side environment variables.
+## 14. Customer Reviews
+Reviews are kept under the owner's control. New feedback should not automatically become visible on the public website. The owner can review the submission first and then decide whether it should be published. This keeps the public review section relevant and trustworthy.
 
 ---
 
-## 15. Customer Reviews
-Reviews reflect authentic customer experiences from shoppers across Freetown, Sierra Leone, and the diaspora. The owner retains administrative approval control to safeguard against spam and ensure all displayed testimonials represent real boutique clients.
+## 15. Notifications
+When Firebase Cloud Messaging is configured, the owner can receive a push notification when a new order-related event is recorded. The notification service is connected through a secure backend/Edge Function so private Firebase credentials are not placed in the browser.
 
 ---
 
-## 16. Notifications
-Push notifications powered by Firebase Cloud Messaging (FCM) alert the boutique owner when new orders, payment verifications, or review submissions occur. Web push tokens are stored securely in Supabase and dispatched via secure serverless Edge Functions.
+## 16. Security
+Security is especially important because the owner panel contains business information and allows changes to the public catalogue. The recommended setup uses Supabase authentication and Row Level Security to control who can make changes.
+
+- Keep Supabase service-role keys and Firebase private credentials out of browser code.
+- Only authenticated owners should be able to manage products and reviews.
+- Use database security policies rather than relying only on hidden buttons in the interface.
+- Validate information entered through owner forms.
+- Protect uploaded images and storage operations with appropriate access rules.
+- Use HTTPS for the production website.
+- Review owner accounts and access permissions regularly.
 
 ---
 
-## 17. Security
-Security safeguards include:
-- Supabase Row Level Security (RLS) guaranteeing that public visitors can only read published products and reviews.
-- Strict `is_admin()` database policies ensuring only authorized user IDs can create or modify inventory.
-- Zero client storage of sensitive payment credentials.
-- HTTPS encryption enforced globally by Vercel's Edge Network.
-- Input validation and HTML escaping preventing XSS vulnerabilities.
+## 17. Search Engine and Social Media Visibility
+The website has been prepared with SEO information, OpenGraph metadata and LocalBusiness structured data. This helps search engines understand the business and gives social platforms useful information when the website is shared.
+
+Keeping product names, descriptions, business address, opening hours and contact information accurate will help maintain a consistent online presence.
 
 ---
 
-## 18. Search Engine and Social Media Visibility
-The boutique website includes comprehensive SEO and social sharing tags:
-- Search engine meta titles and descriptions tailored to fashion shoppers in Freetown.
-- OpenGraph (OG) tags ensuring attractive preview cards when shared on WhatsApp, Facebook, or Instagram.
-- Schema.org `LocalBusiness` JSON-LD structured data designating the physical Aberdeen address, telephone contact, and opening hours for Google Search and Maps indexing.
+## 18. Deployment and Setup
+1. Keep the project source code in the GitHub repository.
+2. Connect the repository to Vercel for hosting and automatic deployment.
+3. Create/configure the Supabase project and apply the required database and security setup.
+4. Configure Firebase Cloud Messaging if owner push notifications are required.
+5. Add production environment values through the appropriate secure configuration.
+6. Test the customer website and owner panel after deployment.
+7. Use [SETUP_GUIDE.md](file:///d:/desktop/HK/SETUP_GUIDE.md) for technical setup and [OWNER_GUIDE.md](file:///d:/desktop/HK/OWNER_GUIDE.md) for day-to-day owner tasks.
 
 ---
 
-## 19. Deployment and Setup
-The platform is deployed via modern continuous deployment:
-1. Source code managed in GitHub repository: `https://github.com/michaelkargbo/humu-kabba-vault`.
-2. Vercel automatically deploys every push to the `main` branch with sub-second global edge distribution.
-3. Supabase database schema configured via SQL Editor using `supabase-setup.sql`.
-4. Day-to-day operation managed through `OWNER_GUIDE.md` and technical configuration guided by `SETUP_GUIDE.md`.
+## 19. Testing
+Before the website is considered ready for regular business use, the following areas should be checked:
+- Homepage opens correctly on mobile and desktop.
+- Collection filters show the correct products.
+- WhatsApp messages contain the information entered by the customer.
+- Owner login blocks unauthorized administrative access.
+- Products can be added and published correctly.
+- Reviews only appear after approval.
+- Orders are recorded when the cloud backend is active.
+- Push notifications work when FCM is configured.
+- The website remains useful when optional cloud services are unavailable.
+- Business address, phone number and opening hours are correct.
 
 ---
 
-## 20. Testing
-Comprehensive test procedures verify system stability:
-- **Responsive Viewport Testing:** Fluid display verified across mobile (375px), tablet (768px), and desktop (1200px+).
-- **Store Hours Accuracy:** Verifies correct opening/closing status against Africa/Freetown time.
-- **Checkout & Payment Flow:** Simulates Orange Money, Afrimoney, and Card checkout flows with receipt generation.
-- **WhatsApp Deep-links:** Validates that URLs correctly populate customer details and product metadata.
-- **Authentication & RLS:** Confirms unauthorized visitors cannot access or mutate admin tables.
+## 20. Maintenance
+- Keep product information and availability up to date.
+- Replace old product photos with clear, good-quality images.
+- Review WhatsApp inquiries regularly.
+- Remove products that are no longer available.
+- Check the owner account and notification setup from time to time.
+- Test the website after major code or database changes.
+- Keep a backup/version of important project changes in GitHub.
 
 ---
 
-## 21. Maintenance
-Routine operational maintenance entails:
-- Regular catalog updates to reflect incoming fashion stock.
-- Marking sold-out items to set customer expectations.
-- Monitoring WhatsApp order inquiries and reconciling mobile money payments.
-- Updating store hours for national holidays or seasonal boutique schedules.
-- Performing periodic database and configuration backups.
+## 21. Future Improvements
+- **Online payment integration** for supported Sierra Leone payment methods.
+- **Customer accounts** and order history.
+- **Stock quantities** and low-stock alerts.
+- **Product search** and sorting.
+- **Discount codes** and promotions.
+- **Delivery fees** based on location.
+- **Wholesale customer accounts** and special pricing.
+- **Sales and product-interest reports.**
+- **Progressive Web App support.**
+- **Dedicated Android/iOS application** if the business grows enough to require it.
 
 ---
 
-## 22. Future Improvements
-- Direct API webhook integration with Orange Money and Afrimoney merchant gateways.
-- Automated SMS notifications for delivery dispatch.
-- Customer accounts with saved delivery addresses and re-order history.
-- Dynamic delivery fee calculation based on Freetown postal zones and upcountry districts.
-- Reseller wholesale portal with tier-based pricing discounts.
-- Progressive Web App (PWA) with offline catalog caching.
+## 22. Conclusion
+**Humu Kabba Variety Vault** is more than a product display page. It gives the boutique a practical way to present its products online while keeping the personal shopping experience that customers get through WhatsApp. The dark luxury design gives the brand a clear identity, while the owner panel and cloud services provide a foundation for managing the business as it grows.
+
+The current version focuses on making the important things simple: customers can find products, ask questions and contact the business, while the owner can keep the catalogue and customer information organised. Future additions such as online payments, inventory management and customer accounts can be introduced as the business needs them.
 
 ---
 
-## 23. Conclusion
-**Humu Kabba Variety Vault** bridges the gap between high-end digital presentation and the warm, conversational shopping culture of Sierra Leone. By combining a dark luxury digital showcase with structured online payments (Orange Money, Afrimoney, Cards) and WhatsApp concierge ordering, the boutique delivers a state-of-the-art retail experience tailored to local and diaspora clientele.
-
----
-
-## 24. References
-1. **Live Production Storefront:** [https://humu-kabba-vault.vercel.app](https://humu-kabba-vault.vercel.app)
-2. **GitHub Source Code Repository:** [https://github.com/michaelkargbo/humu-kabba-vault](https://github.com/michaelkargbo/humu-kabba-vault)
-3. **Supabase Documentation:** [https://supabase.com/docs](https://supabase.com/docs)
-4. **Vercel Edge Hosting Documentation:** [https://vercel.com/docs](https://vercel.com/docs)
-5. **Firebase Cloud Messaging Documentation:** [https://firebase.google.com/docs/cloud-messaging](https://firebase.google.com/docs/cloud-messaging)
+## 23. References
+- Humu Kabba Variety Vault. Live website: [https://humu-kabba-vault.vercel.app](https://humu-kabba-vault.vercel.app) (accessed 29 September 2026).
+- Michael Kargbo. Humu Kabba Variety Vault GitHub repository: [https://github.com/michaelkargbo/humu-kabba-vault](https://github.com/michaelkargbo/humu-kabba-vault) (accessed 29 September 2026).
+- Supabase Documentation: [https://supabase.com/docs](https://supabase.com/docs)
+- Vercel Documentation: [https://vercel.com/docs](https://vercel.com/docs)
+- Firebase Cloud Messaging Documentation: [https://firebase.google.com/docs/cloud-messaging](https://firebase.google.com/docs/cloud-messaging)

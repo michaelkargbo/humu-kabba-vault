@@ -13,8 +13,8 @@
   const CONFIG = window.APP_CONFIG || {
     BUSINESS: {
       name: "Humu Kabba Variety Vault",
-      whatsappNumber: "23275416008",
-      whatsappLink: "https://wa.me/23275416008"
+      whatsappNumber: "23277416008",
+      whatsappLink: "https://wa.me/23277416008"
     },
     isSupabaseConfigured: () => false,
     isFirebaseConfigured: () => false
@@ -127,7 +127,7 @@
   // 2. WHATSAPP LOGGING & REDIRECTION
   // ==============================================================================
   async function logOrderAndRedirect(productName, customerName = "A customer", orderType = "retail", notes = "", customMsg = "") {
-    const cleanNum = CONFIG.BUSINESS.whatsappNumber || "23275416008";
+    const cleanNum = CONFIG.BUSINESS.whatsappNumber || "23277416008";
 
     // 1. Asynchronously log order to Supabase orders table (if configured)
     if (supabaseClient) {
@@ -239,7 +239,7 @@
 
     function renderPaymentPanel(method) {
       if (!panel) return;
-      const customerPhone = document.getElementById('chkCustPhone')?.value.trim() || "+232 75 416008";
+      const customerPhone = document.getElementById('chkCustPhone')?.value.trim() || "+232 77 416008";
 
       if (method === 'orange_money') {
         panel.innerHTML = `
@@ -489,7 +489,7 @@
         if (rcptDelivery) rcptDelivery.textContent = `${deliveryArea} (${address})`;
 
         // Build WhatsApp deep-link message
-        const waCleanNum = CONFIG.BUSINESS.whatsappNumber || "23275416008";
+        const waCleanNum = CONFIG.BUSINESS.whatsappNumber || "23277416008";
         const waMsg = 
           `Hello Humu! 👋%0A%0A` +
           `I have just placed an order and confirmed payment on your website:%0A%0A` +
@@ -1479,7 +1479,7 @@
             (notes ? `Notes: ${notes}\n\n` : '') +
             `Please confirm my order. Thank you! 🙏`
           );
-          rcptWaBtn.href = `https://wa.me/23275416008?text=${waMsg}`;
+          rcptWaBtn.href = `https://wa.me/23277416008?text=${waMsg}`;
         }
 
         // Show receipt modal
