@@ -61,6 +61,13 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
 
+  <!-- PWA Manifest & Web App Capabilities -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Humu Vault">
+  <link rel="apple-touch-icon" href="assets/logo.jpg">
+
   <!-- Supabase JS Client (v2) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Firebase Compat for Web Push -->
@@ -121,7 +128,21 @@
       </nav>
 
       <div class="nav-actions">
-        <a href="https://wa.me/23277416008?text=Hello%20Humu!%20%F0%9F%91%8B%20I%20am%20visiting%20your%20website%20and%20would%20love%20to%20place%20an%20order." target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
+        <button type="button" class="nav-icon-btn" id="btnQuickSearch" aria-label="Search Collections" title="Search items">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button type="button" class="nav-icon-btn" id="btnOpenWishlist" aria-label="Open Wishlist" title="Your Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="nav-badge" id="wishlistCount">0</span>
+        </button>
+        <button type="button" class="nav-icon-btn" id="btnOpenCart" aria-label="Open Shopping Bag" title="Your Shopping Bag">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartCount">0</span>
+        </button>
+        <button type="button" class="nav-install-btn" id="btnInstallApp" style="display: none;" title="Install Humu Kabba App">
+          <i class="fa-solid fa-download"></i> Install App
+        </button>
+        <a href="https://wa.me/23277416008?text=Hello%20Humu!%20%F0%9F%91%8B%20I%20am%20visiting%20your%20website%20and%20would%20love%20to%20place%20an%20order." target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm nav-wa-btn">
           <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
         </a>
       </div>
@@ -129,6 +150,17 @@
 
     <!-- Mobile Drawer -->
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+        <button type="button" class="btn btn-gold btn-sm" id="btnDrawerOpenBag" style="flex: 1; padding: 10px 8px; font-size: 0.82rem;">
+          <i class="fa-solid fa-bag-shopping"></i> Bag (<span id="drawerBagCount">0</span>)
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" id="btnDrawerOpenWishlist" style="flex: 1; padding: 10px 8px; font-size: 0.82rem;">
+          <i class="fa-regular fa-heart"></i> Wishlist (<span id="drawerWishCount">0</span>)
+        </button>
+      </div>
+      <button type="button" class="btn btn-whatsapp btn-sm" id="btnDrawerInstallApp" style="display: none; width: 100%; margin-bottom: 12px;">
+        <i class="fa-solid fa-mobile-screen"></i> Install Humu Vault App
+      </button>
       <a href="#order" data-select-method="orange_money" style="color: var(--gold-accent); font-weight: 700;">
         <i class="fa-solid fa-credit-card"></i> Online Checkout & Payments
       </a>
@@ -181,6 +213,27 @@
           <p>Every piece in our Aberdeen boutique is selected for longevity, cut, and effortless style.</p>
         </div>
 
+        <!-- Interactive Search & Sort Bar -->
+        <div class="catalog-search-wrap">
+          <div class="catalog-search-row">
+            <div class="catalog-search-bar">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="catalogSearchInput" placeholder="Search bags, dresses, perfumes, shoes, cases..." autocomplete="off">
+              <button type="button" class="search-clear" id="catalogSearchClear" title="Clear search">&times;</button>
+            </div>
+            <select id="catalogSortSelect" class="catalog-sort-select" aria-label="Sort products">
+              <option value="default">Sort: Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="in-stock">In-Stock Only</option>
+            </select>
+          </div>
+          <div class="search-feedback-bar">
+            <span>Showing <strong id="catalogResultCount" class="search-count-badge">7</strong> boutique items</span>
+            <span id="catalogActiveFilterLabel" style="font-size: 0.8rem; color: var(--gold-accent);">All Collections</span>
+          </div>
+        </div>
+
         <!-- Filter Bar -->
         <div class="filter-bar" role="tablist" aria-label="Collections Filter">
           <button type="button" class="filter-btn active" data-filter="all">All Showcase</button>
@@ -191,11 +244,11 @@
           <button type="button" class="filter-btn" data-filter="Phone Cases">Phone Cases</button>
         </div>
 
-        <!-- Product Grid -->
+                <!-- Product Grid -->
         <div class="product-grid" id="dynamicProductsContainer">
 
           <!-- Collection 1: Bags and Accessories -->
-          <article class="product-card" data-category="Bags & Accessories">
+          <article class="product-card" data-category="Bags & Accessories" data-item-id="bags-clutches" data-price="950" data-stock="8">
             <div class="product-img-wrap">
               <img src="assets/bags.jpg" alt="Designer handbags and gold jewellery" loading="lazy" class="product-img" width="600" height="450">
               <span class="product-tag">Bags & Accessories</span>
@@ -203,17 +256,27 @@
             <div class="product-body">
               <h3 class="product-title">Designer Handbags & Clutches</h3>
               <div class="product-colors">Selected Leatherware & Clutches</div>
+              <div class="product-stock-row">
+                <span class="stock-pill in-stock"><i class="fa-solid fa-boxes-stacked"></i> <strong>In Store:</strong> 8 pieces available</span>
+              </div>
               <p class="product-desc">
                 Designer handbags, clutches, spacious totes, and fine gold-tone jewellery crafted for everyday elegance and black-tie galas.
               </p>
               <div class="product-footer">
-                <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <div>
+                  <span class="product-price">SLE 950</span>
+                </div>
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="8" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <button type="button" class="btn btn-gold btn-sm btn-card-order" data-order-item="Luxury Designer Handbag" data-price="950" title="Order & Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </button>
                   <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Designer Handbags and Clutches" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Designer Handbags and Clutches. Please share photos and prices.">
                     <i class="fa-brands fa-whatsapp"></i> Inquire
-                  </button>
-                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Luxury Designer Handbag" data-checkout-price="950" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
                   </button>
                 </div>
               </div>
@@ -221,7 +284,7 @@
           </article>
 
           <!-- Collection 2: Apparel and Dresses -->
-          <article class="product-card" data-category="Apparel & Dresses">
+          <article class="product-card" data-category="Apparel & Dresses" data-item-id="evening-dresses" data-price="850" data-stock="14">
             <div class="product-img-wrap">
               <img src="assets/dresses.jpg" alt="Evening dresses and stylish two-piece sets" loading="lazy" class="product-img" width="600" height="450">
               <span class="product-tag">Apparel & Dresses</span>
@@ -229,17 +292,27 @@
             <div class="product-body">
               <h3 class="product-title">Evening Dresses & Apparel</h3>
               <div class="product-colors">Sizes: Small, Medium, Large, XL</div>
+              <div class="product-stock-row">
+                <span class="stock-pill in-stock"><i class="fa-solid fa-boxes-stacked"></i> <strong>In Store:</strong> 14 pieces available</span>
+              </div>
               <p class="product-desc">
                 Evening dresses, co-ord two-piece sets, tailored suits, and versatile fashion items cut to flatter every silhouette.
               </p>
               <div class="product-footer">
-                <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <div>
+                  <span class="product-price">SLE 850</span>
+                </div>
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="14" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <button type="button" class="btn btn-gold btn-sm btn-card-order" data-order-item="Boutique Evening Dress" data-price="850" title="Order & Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </button>
                   <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Evening Dresses and Apparel" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Evening Dresses & Apparel collection. Please share available sizes and colors.">
                     <i class="fa-brands fa-whatsapp"></i> Inquire
-                  </button>
-                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Boutique Evening Dress" data-checkout-price="850" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
                   </button>
                 </div>
               </div>
@@ -247,7 +320,7 @@
           </article>
 
           <!-- Collection 3: Beauty and Perfumes -->
-          <article class="product-card" data-category="Beauty & Perfumes">
+          <article class="product-card" data-category="Beauty & Perfumes" data-item-id="luxury-perfumes" data-price="650" data-stock="18">
             <div class="product-img-wrap">
               <img src="assets/beauty.jpg" alt="Designer perfumes and luxury cosmetics" loading="lazy" class="product-img" width="600" height="450">
               <span class="product-tag">Beauty & Perfumes</span>
@@ -255,25 +328,35 @@
             <div class="product-body">
               <h3 class="product-title">Luxury Perfumes & Cosmetics</h3>
               <div class="product-colors">Designer Scents & Skincare</div>
+              <div class="product-stock-row">
+                <span class="stock-pill in-stock"><i class="fa-solid fa-boxes-stacked"></i> <strong>In Store:</strong> 18 pieces available</span>
+              </div>
               <p class="product-desc">
                 Long-lasting designer perfumes, concentrated Arabian oils, glow serums, and makeup palettes for refined daily beauty.
               </p>
               <div class="product-footer">
-                <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <div>
+                  <span class="product-price">SLE 650</span>
+                </div>
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="18" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <button type="button" class="btn btn-gold btn-sm btn-card-order" data-order-item="Luxury Arabian Perfume" data-price="650" title="Order & Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </button>
                   <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Luxury Perfumes and Cosmetics" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Perfumes & Beauty products. Please share current fragrances in stock.">
                     <i class="fa-brands fa-whatsapp"></i> Inquire
-                  </button>
-                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Luxury Arabian Perfume" data-checkout-price="650" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
                   </button>
                 </div>
               </div>
             </div>
           </article>
 
-          <!-- Collection 4: Footwear and Denim -->
-          <article class="product-card" data-category="Footwear & Denim">
+          <!-- Collection 4: Footwear and Denim (Low Stock) -->
+          <article class="product-card" data-category="Footwear & Denim" data-item-id="footwear-denim" data-price="750" data-stock="4">
             <div class="product-img-wrap">
               <img src="assets/shoes.jpg" alt="Designer footwear and denim jeans" loading="lazy" class="product-img" width="600" height="450">
               <span class="product-tag">Footwear & Denim</span>
@@ -281,50 +364,136 @@
             <div class="product-body">
               <h3 class="product-title">Footwear & Premium Denim</h3>
               <div class="product-colors">Footwear Sizes 36 to 43</div>
+              <div class="product-stock-row">
+                <span class="stock-pill low-stock"><i class="fa-solid fa-fire"></i> <strong>Low Stock:</strong> Only 4 left in store!</span>
+              </div>
               <p class="product-desc">
                 Glamorous stiletto heels, everyday comfort sneakers, embellished sandals, and high-waisted designer denim trousers.
               </p>
               <div class="product-footer">
-                <div><span class="ask-price">Ask price on WhatsApp</span></div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <div>
+                  <span class="product-price">SLE 750</span>
+                </div>
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="4" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <button type="button" class="btn btn-gold btn-sm btn-card-order" data-order-item="Designer Footwear / Heels" data-price="750" title="Order & Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </button>
                   <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Footwear and Denim" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to inquire about your Footwear & Denim items. Please share available sizes.">
                     <i class="fa-brands fa-whatsapp"></i> Inquire
-                  </button>
-                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="Designer Footwear / Heels" data-checkout-price="750" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
                   </button>
                 </div>
               </div>
             </div>
           </article>
 
-          <!-- Collection 5: Phone Cases Preview -->
-          <article class="product-card" data-category="Phone Cases">
+          <!-- Collection 5: Phone Cases — Crystal Shell -->
+          <article class="product-card" data-category="Phone Cases" data-item-id="case-crystal" data-price="450" data-stock="12">
             <div class="product-img-wrap">
               <img src="assets/cases/crystal_shell.jpg" alt="Crystal shell case for iPhone 17 Pro Max" loading="lazy" class="product-img" width="600" height="450">
               <span class="product-tag">iPhone 17 Pro Max</span>
             </div>
             <div class="product-body">
-              <h3 class="product-title">Phone Case Collection</h3>
+              <h3 class="product-title">Crystal Shell Case</h3>
               <div class="product-colors">iPhone 17 Pro Max Exclusive</div>
+              <div class="product-stock-row">
+                <span class="stock-pill in-stock"><i class="fa-solid fa-boxes-stacked"></i> <strong>In Store:</strong> 12 pieces available</span>
+              </div>
               <p class="product-desc">
-                Crystal shell cases, heart shimmer cases with crystal camera frames, and monogram leather-look cases with optional wrist charms.
+                High-shimmer reflective crystal finish designed specifically for iPhone 17 Pro Max. Features a scratch-resistant hard shell and metallic lens ring.
               </p>
               <div class="product-footer">
-                <div><span class="ask-price">Full Catalogue</span></div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                  <a href="cases.html" class="btn btn-gold btn-sm">
-                    View Cases &rarr;
-                  </a>
-                  <button type="button" class="btn btn-outline btn-sm" data-checkout-item="iPhone 17 Pro Max Case (Crystal Shell)" data-checkout-price="450" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
+                <div>
+                  <span class="product-price">SLE 450</span>
+                </div>
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="12" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <button type="button" class="btn btn-gold btn-sm btn-card-order" data-order-item="iPhone 17 Pro Max Case (Crystal Shell)" data-price="450" title="Order & Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
                   </button>
+                  <a href="cases.html" class="btn btn-outline btn-sm">
+                    Catalogue &rarr;
+                  </a>
                 </div>
               </div>
             </div>
           </article>
 
-        </div>
+          <!-- Collection 6: Phone Cases — Heart Shimmer (Low Stock) -->
+          <article class="product-card" data-category="Phone Cases" data-item-id="case-heart" data-price="450" data-stock="2">
+            <div class="product-img-wrap">
+              <img src="assets/cases/heart_shell.jpg" alt="Heart Shell Crystal Case for iPhone 17 Pro Max" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">iPhone 17 Pro Max</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Heart Shell Crystal Case</h3>
+              <div class="product-colors">Colours: Clear, Pink (Camera Crystal)</div>
+              <div class="product-stock-row">
+                <span class="stock-pill low-stock"><i class="fa-solid fa-fire"></i> <strong>Low Stock:</strong> Only 2 left in store!</span>
+              </div>
+              <p class="product-desc">
+                Shimmering glitter finish with an embossed heart emblem and oversized crystal-encrusted camera protector frame for iPhone 17 Pro Max.
+              </p>
+              <div class="product-footer">
+                <div>
+                  <span class="product-price">SLE 450</span>
+                </div>
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="2" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <button type="button" class="btn btn-gold btn-sm btn-card-order" data-order-item="iPhone 17 Pro Max Case (Heart Shimmer)" data-price="450" title="Order & Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </button>
+                  <a href="cases.html" class="btn btn-outline btn-sm">
+                    Catalogue &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Collection 7: Finished / Out of Stock Product (Goes down to the bottom) -->
+          <article class="product-card product-finished" data-category="Phone Cases" data-item-id="case-monogram" data-price="500" data-stock="0" style="order: 999;">
+            <div class="product-img-wrap">
+              <img src="assets/cases/crystal_shell.jpg" alt="Monogram Leather-Look Case for iPhone 17 Pro Max" loading="lazy" class="product-img" width="600" height="450">
+              <span class="product-tag">iPhone 17 Pro Max</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Monogram Leather-Look Case</h3>
+              <div class="product-colors">Colours: Orange, Pink (Wrist Charm Available)</div>
+              <div class="product-stock-row">
+                <span class="stock-pill finished"><i class="fa-solid fa-circle-xmark"></i> <strong>Finished in Store</strong> (0 Available)</span>
+              </div>
+              <p class="product-desc">
+                Textured faux-leather case with elegant monogram pattern and polished gold-tone plate. Restocking next week from boutique supplier.
+              </p>
+              <div class="product-footer">
+                <div>
+                  <span class="sold-out-badge">SLE 500 &middot; Finished</span>
+                </div>
+                <div class="product-order-bar">
+                  <button type="button" class="btn btn-outline btn-sm" disabled style="opacity: 0.55; cursor: not-allowed;">
+                    <i class="fa-solid fa-ban"></i> Finished in Store
+                  </button>
+                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Monogram Leather Case Restock" data-wa-msg="Hello Humu! 👋 I see the Monogram Leather Case is finished in store. Please notify me as soon as new stock arrives!">
+                    <i class="fa-brands fa-whatsapp"></i> Notify on WhatsApp
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div></div>
       </div>
     </section>
 
@@ -345,13 +514,47 @@
             </div>
 
             <div class="founder-content">
-              <span class="product-tag" style="margin-bottom: 12px; display: inline-block;">A Note From The Vault</span>
-              <h2 style="font-size: 2rem; margin-bottom: 18px; color: var(--gold-accent);">
+              <span class="product-tag" style="margin-bottom: 12px; display: inline-block;">Official Business Profile & Branding</span>
+              <h2 style="font-size: 2rem; margin-bottom: 14px; color: var(--gold-accent);">
                 "Your Style, Our Priority."
               </h2>
               <p class="founder-quote">
-                When you walk through our doors in Aberdeen or send us a WhatsApp message, you are not just a customer — you are family. For over seven years, my heart's work has been to bring women and men across Freetown the absolute finest in fashion, fragrances, and luxury accessories without the unreasonable price tags. Every single piece in this vault has been chosen with genuine care, because when you look amazing, you feel unstoppable.
+                <strong>Humu Kabba Variety Vault</strong> is a fashion, beauty, and lifestyle retail business based in Aberdeen, Freetown, Sierra Leone. The business provides customers with a variety of quality and stylish products designed to meet everyday fashion, beauty, and lifestyle needs. With <strong>over seven years of experience (7+)</strong>, Humu Kabba Variety Vault is a trusted destination for premium fashion in Freetown.
               </p>
+
+              <!-- Logo & Brand Identity Symbolism -->
+              <div class="brand-symbolism-box">
+                <h4 style="margin: 0 0 8px; color: var(--gold-accent); font-size: 1rem;"><i class="fa-solid fa-crown"></i> Our Brand & Logo Meaning</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0 0 10px;">
+                  The Humu Kabba Variety Vault brand is represented by a premium black-and-gold logo featuring the initials “HK”, a shopping-bag symbol, and a circular design.
+                </p>
+                <div class="brand-symbolism-grid">
+                  <div class="brand-sym-card">
+                    <strong><i class="fa-solid fa-circle" style="color: var(--gold-accent); font-size: 0.65rem;"></i> Gold Symbolism</strong>
+                    Gold represents quality, elegance, and premium service across our boutique.
+                  </div>
+                  <div class="brand-sym-card">
+                    <strong><i class="fa-solid fa-circle" style="color: #fff; font-size: 0.65rem;"></i> Black Symbolism</strong>
+                    Black gives the brand a modern, professional, and luxurious appearance.
+                  </div>
+                  <div class="brand-sym-card">
+                    <strong><i class="fa-solid fa-bag-shopping" style="color: var(--gold-accent); font-size: 0.85rem;"></i> HK & Shopping Bag</strong>
+                    Reflects curated variety and putting customer satisfaction at the center of its services.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Products & Services Spectrum -->
+              <h4 style="margin: 16px 0 6px; color: var(--text-main); font-size: 0.95rem;">Products & Services:</h4>
+              <div class="products-pill-grid">
+                <span class="product-pill-item">👗 Apparel & Clothing</span>
+                <span class="product-pill-item">👜 Designer Bags & Accessories</span>
+                <span class="product-pill-item">💄 Beauty & Cosmetics</span>
+                <span class="product-pill-item">👟 Shoes & Footwear</span>
+                <span class="product-pill-item">👖 Denim</span>
+                <span class="product-pill-item">🌸 Perfumes & Fragrances</span>
+                <span class="product-pill-item">👚 Dresses & Fashion Items</span>
+              </div>
 
               <div class="founder-highlights">
                 <div class="founder-hl-item">
@@ -360,7 +563,7 @@
                 </div>
                 <div class="founder-hl-item">
                   <i class="fa-solid fa-video"></i>
-                  <span><strong>Live Video Verification:</strong> Request a 360° clip before buying</span>
+                  <span><strong>Live Video Verification:</strong> Request a 360° daylight clip before buying</span>
                 </div>
                 <div class="founder-hl-item">
                   <i class="fa-solid fa-motorcycle"></i>
@@ -368,7 +571,7 @@
                 </div>
                 <div class="founder-hl-item">
                   <i class="fa-solid fa-store"></i>
-                  <span><strong>Aberdeen Boutique:</strong> Located right behind the community field</span>
+                  <span><strong>Aberdeen Boutique:</strong> 4B Johnson Land, Back of the Field</span>
                 </div>
               </div>
 
@@ -426,38 +629,56 @@
       </div>
     </section>
 
-    <!-- The Humu Kabba Standard (Section 4.5) -->
+    <!-- The Humu Kabba Standard & 5 Core Commitments (Section 4.5) -->
     <section class="section" id="why-choose-us">
       <div class="container">
         <div class="section-title-wrap">
-          <h2>The Humu Kabba Standard</h2>
-          <p>Over 7 years of trusted service, dressing Freetown with authenticity, quality, and respect.</p>
+          <h2>Our Commitment & Standards</h2>
+          <p>Over 7 years of trusted service, putting customer satisfaction at the center of everything we do.</p>
         </div>
 
-        <div class="standards-grid">
+        <!-- 5 Core Brand Commitments -->
+        <div class="commitments-grid">
+          <div class="commitment-card">
+            <div class="commitment-icon"><i class="fa-solid fa-gem"></i></div>
+            <h3 class="commitment-title">Quality Products</h3>
+            <p class="commitment-desc">Handpicked apparel, bags, cosmetics, and accessories crafted for durability, elegant finishes, and long-lasting style.</p>
+          </div>
+          <div class="commitment-card">
+            <div class="commitment-icon"><i class="fa-solid fa-tags"></i></div>
+            <h3 class="commitment-title">Affordable Prices</h3>
+            <p class="commitment-desc">Premium boutique style at honest, accessible Freetown prices. Check us now and get the value worth your money.</p>
+          </div>
+          <div class="commitment-card">
+            <div class="commitment-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <h3 class="commitment-title">Convenient Shopping</h3>
+            <p class="commitment-desc">Browse our online vault, order in 1 click, pay with Mobile Money, or request daylight video clips before dispatch.</p>
+          </div>
+          <div class="commitment-card">
+            <div class="commitment-icon"><i class="fa-solid fa-sparkles"></i></div>
+            <h3 class="commitment-title">Trendy & Unique Items</h3>
+            <p class="commitment-desc">Weekly fresh drops, limited edition gowns, concentrated Arabian scents, and exclusive iPhone 17 Pro Max cases.</p>
+          </div>
+          <div class="commitment-card">
+            <div class="commitment-icon"><i class="fa-solid fa-headset"></i></div>
+            <h3 class="commitment-title">Reliable Customer Service</h3>
+            <p class="commitment-desc">7+ years of warm customer care. Voice notes welcomed, honest size guidance, and dependable after-sales attention.</p>
+          </div>
+        </div>
+
+        <!-- Standards Grid -->
+        <div class="standards-grid" style="margin-top: 36px;">
           <div class="standard-item">
-            <h4><i class="fa-solid fa-gem" style="color: var(--gold-accent); margin-right: 6px;"></i> Handpicked with Love</h4>
-            <p>Every dress, handbag, heel, and scent is personally inspected by Humu for fabric quality, seam integrity, and authentic finishing.</p>
+            <h4><i class="fa-solid fa-circle-check" style="color: var(--gold-accent); margin-right: 6px;"></i> Retail & Wholesale Ready</h4>
+            <p>Whether you need single pieces for your wardrobe or bulk wholesale packs for your provincial boutique, we cater to all order volumes.</p>
           </div>
           <div class="standard-item">
-            <h4><i class="fa-solid fa-tag" style="color: var(--gold-accent); margin-right: 6px;"></i> Value Worth Your Money</h4>
-            <p>Our founding promise: <em>"Check us now and get the value worth your money."</em> Premium boutique style at honest, accessible Freetown prices.</p>
+            <h4><i class="fa-solid fa-video" style="color: var(--gold-accent); margin-right: 6px;"></i> Daylight Video Proof</h4>
+            <p>Never wonder how an item looks in real life. We record genuine daylight clips showing accurate colors, zippers, and textures.</p>
           </div>
           <div class="standard-item">
-            <h4><i class="fa-solid fa-video" style="color: var(--gold-accent); margin-right: 6px;"></i> Live Video Confirmation</h4>
-            <p>Never worry about what you're receiving. Send us a message and we'll record a real video in daylight showing colors, zips, and textures.</p>
-          </div>
-          <div class="standard-item">
-            <h4><i class="fa-solid fa-motorcycle" style="color: var(--gold-accent); margin-right: 6px;"></i> Careful Freetown Delivery</h4>
-            <p>Fast doorstep delivery to Lumley, Aberdeen, Juba, Wilberforce, Central, and beyond via trusted riders, or easy pickup at our boutique.</p>
-          </div>
-          <div class="standard-item">
-            <h4><i class="fa-solid fa-comments" style="color: var(--gold-accent); margin-right: 6px;"></i> Voice Notes & Warm Advice</h4>
-            <p>Prefer speaking rather than typing? Send a WhatsApp voice note! Humu will listen and recommend the exact right pieces for your occasion.</p>
-          </div>
-          <div class="standard-item">
-            <h4><i class="fa-solid fa-box-open" style="color: var(--gold-accent); margin-right: 6px;"></i> Wholesale Reseller Support</h4>
-            <p>Supplying fashion boutiques and aspiring entrepreneurs across Freetown, Bo, Makeni, and Kenema with high-margin bulk inventory.</p>
+            <h4><i class="fa-solid fa-motorcycle" style="color: var(--gold-accent); margin-right: 6px;"></i> Doorstep Bike Dispatch</h4>
+            <p>Fast delivery across Aberdeen, Lumley, Central Freetown, East End, and upcountry transit to Bo, Kenema, and Makeni.</p>
           </div>
         </div>
       </div>
@@ -728,22 +949,34 @@
                   <div class="cinput">
                     <i class="fa-solid fa-bag-shopping ci"></i>
                     <select id="chkCategory" class="form-control">
-                      <option value="iPhone 17 Pro Max Case (Crystal Shell)" data-price="450">📱 iPhone 17 Pro Max Case — Crystal Shell (SLE 450)</option>
-                      <option value="iPhone 17 Pro Max Case (Heart Shimmer)" data-price="450">📱 iPhone 17 Pro Max Case — Heart Shimmer (SLE 450)</option>
-                      <option value="iPhone 17 Pro Max Case (Monogram Leather)" data-price="500">📱 iPhone 17 Pro Max Case — Monogram Leather (SLE 500)</option>
-                      <option value="Luxury Designer Handbag" data-price="950">👜 Luxury Designer Handbag (SLE 950)</option>
-                      <option value="Boutique Evening Dress" data-price="850">👗 Boutique Evening Dress (SLE 850)</option>
-                      <option value="Luxury Arabian Perfume" data-price="650">🌸 Luxury Arabian Perfume (SLE 650)</option>
-                      <option value="Designer Footwear / Heels" data-price="750">👠 Designer Footwear / Heels (SLE 750)</option>
-                      <option value="Custom Item / Other Fashion Piece" data-price="500">✨ Custom Item / Other Fashion Piece (SLE 500)</option>
+                      <option value="iPhone 17 Pro Max Case (Crystal Shell)" data-price="450" data-stock="12" data-item-id="case-crystal">📱 iPhone 17 Pro Max Case — Crystal Shell (SLE 450) · 12 in store</option>
+                      <option value="iPhone 17 Pro Max Case (Heart Shimmer)" data-price="450" data-stock="2" data-item-id="case-heart">📱 iPhone 17 Pro Max Case — Heart Shimmer (SLE 450) · Only 2 left in store!</option>
+                      <option value="Luxury Designer Handbag" data-price="950" data-stock="8" data-item-id="bags-clutches">👜 Luxury Designer Handbag (SLE 950) · 8 in store</option>
+                      <option value="Boutique Evening Dress" data-price="850" data-stock="14" data-item-id="evening-dresses">👗 Boutique Evening Dress (SLE 850) · 14 in store</option>
+                      <option value="Luxury Arabian Perfume" data-price="650" data-stock="18" data-item-id="luxury-perfumes">🌸 Luxury Arabian Perfume (SLE 650) · 18 in store</option>
+                      <option value="Designer Footwear / Heels" data-price="750" data-stock="4" data-item-id="footwear-denim">👠 Designer Footwear / Heels (SLE 750) · Only 4 left in store!</option>
+                      <option value="iPhone 17 Pro Max Case (Monogram Leather)" data-price="500" data-stock="0" data-item-id="case-monogram">📱 iPhone 17 Pro Max Case — Monogram Leather (SLE 500) · [Finished in Store]</option>
+                      <option value="Custom Item / Other Fashion Piece" data-price="500" data-stock="20" data-item-id="custom-piece">✨ Custom Item / Other Fashion Piece (SLE 500) · 20 in store</option>
                     </select>
+                  </div>
+                  <!-- Dynamic Stock Notice Banner -->
+                  <div id="chkStockNotice" class="chk-stock-banner">
+                    <div>
+                      <i class="fa-solid fa-boxes-stacked" style="color: var(--gold-accent);"></i>
+                      <span>Available in Aberdeen Store: <strong id="stockAvailVal">12 pieces</strong></span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-calculator" style="color: var(--gold-accent);"></i>
+                      <span>Remainder after Order: <strong id="stockRemainVal">11 pieces</strong></span>
+                    </div>
                   </div>
                 </div>
                 <div class="cfield">
-                  <label for="chkQuantity" class="form-label">Quantity</label>
-                  <div class="cinput">
-                    <i class="fa-solid fa-hashtag ci"></i>
-                    <input type="number" id="chkQuantity" class="form-control" value="1" min="1" max="50">
+                  <label for="chkQuantity" class="form-label">Quantity <span id="qtyAvailableHint" style="color: var(--gold-accent); font-weight: normal; font-size: 0.8rem;">(Max: 12)</span></label>
+                  <div class="cinput cinput-qty">
+                    <button type="button" class="btn-qty-step" id="btnQtyMinus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" id="chkQuantity" class="form-control" value="1" min="1" max="12">
+                    <button type="button" class="btn-qty-step" id="btnQtyPlus" aria-label="Increase quantity">&plus;</button>
                   </div>
                 </div>
                 <div class="cfield">
@@ -973,14 +1206,18 @@
             <span class="receipt-val" id="rcptDate">—</span>
           </div>
           <div class="receipt-row">
+            <span class="receipt-label">Store Remainder:</span>
+            <span class="receipt-val" id="rcptStockRemainder" style="color: var(--gold-accent); font-weight: 700;">—</span>
+          </div>
+          <div class="receipt-row">
             <span class="receipt-label">Status:</span>
             <span class="receipt-val" style="color: #25d366; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
           </div>
         </div>
 
         <div class="receipt-actions">
-          <a href="#" id="rcptWhatsappBtn" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%; padding: 14px; font-size: 0.95rem;">
-            <i class="fa-brands fa-whatsapp"></i> Send Receipt to WhatsApp (+232 77 416008)
+          <a href="#" id="rcptWhatsappBtn" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%; padding: 15px; font-size: 1.02rem; font-weight: 700; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);">
+            <i class="fa-brands fa-whatsapp"></i> Send Order & Receipt to Humu (+232 77 416008) for Confirmation
           </a>
           <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0; text-align: center;">
             <i class="fa-solid fa-shield-halved" style="color: var(--gold-accent);"></i>
@@ -1074,6 +1311,32 @@
 
             <a href="https://wa.me/23277416008?text=Hello%20Humu!%20%F0%9F%91%8B%20I%20am%20planning%20to%20visit%20your%20Aberdeen%20boutique." target="_blank" rel="noopener" class="btn btn-whatsapp" style="width: 100%;">
               <i class="fa-brands fa-whatsapp"></i> Message Before Visiting
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Official Closing Statement Banner -->
+    <section class="closing-statement-banner">
+      <div class="container">
+        <div class="closing-banner-card">
+          <span class="product-tag" style="margin-bottom: 12px; display: inline-block;">Humu Kabba Variety Vault &bull; Fashion &bull; Beauty &bull; Lifestyle</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2.3rem; color: var(--gold-accent); margin-bottom: 12px;">
+            "Your Style, Our Priority."
+          </h2>
+          <p style="font-size: 1.12rem; color: var(--text-main); max-width: 760px; margin: 0 auto 10px; line-height: 1.6;">
+            Quality products, great value, and a shopping experience you can trust.
+          </p>
+          <p style="font-size: 1.25rem; font-weight: 700; color: var(--gold-accent); margin-bottom: 24px;">
+            <em>"Check us now and get the value worth your money."</em>
+          </p>
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://wa.me/23277416008" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
+              <i class="fa-brands fa-whatsapp"></i> Chat / Order: +232 77 416008
+            </a>
+            <a href="#collections" class="btn btn-gold btn-lg">
+              <i class="fa-solid fa-sparkles"></i> Explore The Collections
             </a>
           </div>
         </div>
@@ -1211,6 +1474,10 @@
               <input type="number" step="0.01" id="prodPrice" class="form-control" placeholder="Optional">
             </div>
             <div class="form-group">
+              <label for="prodStock" class="form-label">Available Stock (Store Remainder)</label>
+              <input type="number" id="prodStock" class="form-control" placeholder="e.g. 10 (0 for Finished)" min="0" value="10">
+            </div>
+            <div class="form-group">
               <label for="prodImage" class="form-label">Product Photo (Auto-resized to 900px JPEG)</label>
               <input type="file" id="prodImage" class="form-control" accept="image/*">
             </div>
@@ -1306,24 +1573,125 @@
 
   <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav" aria-label="Bottom Navigation">
+  <!-- Shopping Bag Cart Drawer -->
+  <div class="app-drawer-backdrop" id="cartDrawerBackdrop"></div>
+  <aside class="app-drawer" id="cartDrawer" aria-label="Shopping Bag">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="fa-solid fa-bag-shopping"></i> Your Bag (<span id="cartItemCountHeader">0</span>)</h3>
+      <button type="button" class="drawer-close-btn" id="btnCloseCart" aria-label="Close Shopping Bag">&times;</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer">
+      <!-- Populated via JavaScript -->
+    </div>
+    <div class="drawer-footer" id="cartFooter">
+      <div class="drawer-delivery-row">
+        <label for="cartDeliverySelect" class="drawer-delivery-label"><i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> Delivery Area in Sierra Leone:</label>
+        <select id="cartDeliverySelect" class="drawer-delivery-select">
+          <option value="0" data-name="Aberdeen (Store Pickup / Local)">Aberdeen (Free Store Delivery) - SLE 0</option>
+          <option value="20" data-name="Lumley / Wilkinson Road">Lumley / Wilkinson Road - SLE 20</option>
+          <option value="35" data-name="Central Freetown / Cotton Tree">Central Freetown / West End - SLE 35</option>
+          <option value="50" data-name="East End / Kissy / Wellington">East End / Kissy / Wellington - SLE 50</option>
+          <option value="80" data-name="Provincial Dispatch (Bo/Kenema/Makeni)">Provincial Transit (Bo / Kenema / Makeni) - SLE 80</option>
+        </select>
+      </div>
+      <div class="drawer-summary-row">
+        <span>Items Subtotal:</span>
+        <span id="cartSubtotalText">SLE 0</span>
+      </div>
+      <div class="drawer-summary-row">
+        <span>Estimated Delivery:</span>
+        <span id="cartDeliveryText">SLE 0</span>
+      </div>
+      <div class="drawer-total-row">
+        <span>Grand Total:</span>
+        <span class="total-amount" id="cartTotalText">SLE 0</span>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--text-dim); text-align: right; margin-top: -10px; margin-bottom: 12px;" id="cartTotalUsdText">approx. $0.00 USD</div>
+      <button type="button" class="btn-drawer-checkout btn-drawer-wa" id="btnCartCheckoutWhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> Order Bag via WhatsApp
+      </button>
+      <button type="button" class="btn-drawer-checkout btn-drawer-pay" id="btnCartPayOnline">
+        <i class="fa-solid fa-credit-card"></i> Pay via Mobile Money / Card
+      </button>
+      <button type="button" class="btn-drawer-clear" id="btnCartClear">Clear Bag</button>
+    </div>
+  </aside>
+
+  <!-- Wishlist Drawer -->
+  <div class="app-drawer-backdrop" id="wishlistDrawerBackdrop"></div>
+  <aside class="app-drawer" id="wishlistDrawer" aria-label="Saved Wishlist">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="fa-solid fa-heart" style="color: #ff4757;"></i> Wishlist (<span id="wishlistItemCountHeader">0</span>)</h3>
+      <button type="button" class="drawer-close-btn" id="btnCloseWishlist" aria-label="Close Wishlist">&times;</button>
+    </div>
+    <div class="drawer-body" id="wishlistItemsContainer">
+      <!-- Populated via JavaScript -->
+    </div>
+    <div class="drawer-footer" id="wishlistFooter">
+      <button type="button" class="btn-drawer-checkout btn-drawer-wa" id="btnWishlistInquireAll">
+        <i class="fa-brands fa-whatsapp"></i> Inquire Wishlist on WhatsApp
+      </button>
+      <button type="button" class="btn-drawer-clear" id="btnWishlistClear">Clear Wishlist</button>
+    </div>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div class="quickview-backdrop" id="quickViewBackdrop">
+    <div class="quickview-modal" id="quickViewModal" role="dialog" aria-modal="true" aria-label="Product Quick View">
+      <button type="button" class="quickview-close" id="btnCloseQuickView" aria-label="Close Quick View">&times;</button>
+      <div>
+        <img src="assets/bags.jpg" alt="Product Image" id="qvImage" class="quickview-img">
+      </div>
+      <div class="quickview-content">
+        <span class="quickview-tag" id="qvCategory">Bags & Accessories</span>
+        <h3 class="quickview-title" id="qvTitle">Designer Handbags & Clutches</h3>
+        <div class="quickview-price-row">
+          <span class="quickview-price" id="qvPrice">SLE 950</span>
+          <span class="quickview-price-usd" id="qvPriceUsd">(~$42.22 USD)</span>
+        </div>
+        <div id="qvStockRow" style="margin-bottom: 12px;"></div>
+        <p class="quickview-desc" id="qvDesc"></p>
+        <div class="quickview-actions">
+          <div class="card-qty-stepper">
+            <button type="button" class="card-qty-btn" id="qvQtyMinus">&minus;</button>
+            <input type="number" class="card-qty-val" id="qvQtyVal" value="1" min="1" readonly>
+            <button type="button" class="card-qty-btn" id="qvQtyPlus">&plus;</button>
+          </div>
+          <button type="button" class="btn btn-gold btn-sm" id="qvBtnAddBag">
+            <i class="fa-solid fa-bag-shopping"></i> Add to Bag
+          </button>
+          <button type="button" class="btn btn-whatsapp btn-sm" id="qvBtnWhatsApp">
+            <i class="fa-brands fa-whatsapp"></i> Inquire
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom App Navigation Bar -->
+  <nav class="bottom-nav" aria-label="Mobile Navigation">
     <a href="index.html" class="bottom-nav-item active" id="bnav-home">
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
     <a href="#collections" class="bottom-nav-item" id="bnav-store">
       <i class="fa-solid fa-store"></i>
-      <span>Store</span>
+      <span>Shop</span>
     </a>
-    <a href="tel:+23277416008" class="bottom-nav-item" id="bnav-call">
-      <i class="fa-solid fa-phone"></i>
-      <span>Call Us</span>
-    </a>
-    <a href="#visit" class="bottom-nav-item" id="bnav-contact">
-      <i class="fa-solid fa-envelope"></i>
-      <span>Contact</span>
-    </a>
+    <button type="button" class="bottom-nav-item" id="bnav-search" style="background: transparent; border: none; cursor: pointer;">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnav-wishlist" style="background: transparent; border: none; cursor: pointer;">
+      <i class="fa-regular fa-heart"></i>
+      <span>Wishlist</span>
+      <span class="nav-badge" id="mWishlistBadge" style="top: 4px; right: 18%;">0</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnav-bag" style="background: transparent; border: none; cursor: pointer;">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>Bag</span>
+      <span class="nav-badge" id="mBagBadge" style="top: 4px; right: 18%;">0</span>
+    </button>
   </nav>
 
   <script src="script.js"></script>

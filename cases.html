@@ -21,6 +21,13 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
 
+  <!-- PWA Manifest & Web App Capabilities -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Humu Vault">
+  <link rel="apple-touch-icon" href="assets/logo.jpg">
+
   <!-- Supabase JS Client (v2) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Firebase Compat for Web Push -->
@@ -79,7 +86,21 @@
       </nav>
 
       <div class="nav-actions">
-        <a href="https://wa.me/23277416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20interested%20in%20your%20iPhone%2017%20Pro%20Max%20cases." target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
+        <a href="index.html#collections" class="nav-icon-btn" aria-label="Search Collections" title="Search items">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+        <button type="button" class="nav-icon-btn" id="btnOpenWishlist" aria-label="Open Wishlist" title="Your Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="nav-badge" id="wishlistCount">0</span>
+        </button>
+        <button type="button" class="nav-icon-btn" id="btnOpenCart" aria-label="Open Shopping Bag" title="Your Shopping Bag">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartCount">0</span>
+        </button>
+        <button type="button" class="nav-install-btn" id="btnInstallApp" style="display: none;" title="Install Humu Kabba App">
+          <i class="fa-solid fa-download"></i> Install App
+        </button>
+        <a href="https://wa.me/23277416008?text=Hello%20Humu%20Kabba%20Variety%20Vault%2C%20I%20am%20interested%20in%20your%20iPhone%2017%20Pro%20Max%20cases." target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm nav-wa-btn">
           <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
         </a>
       </div>
@@ -87,6 +108,17 @@
 
     <!-- Mobile Drawer -->
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+        <button type="button" class="btn btn-gold btn-sm" id="btnDrawerOpenBag" style="flex: 1; padding: 10px 8px; font-size: 0.82rem;">
+          <i class="fa-solid fa-bag-shopping"></i> Bag (<span id="drawerBagCount">0</span>)
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" id="btnDrawerOpenWishlist" style="flex: 1; padding: 10px 8px; font-size: 0.82rem;">
+          <i class="fa-regular fa-heart"></i> Wishlist (<span id="drawerWishCount">0</span>)
+        </button>
+      </div>
+      <button type="button" class="btn btn-whatsapp btn-sm" id="btnDrawerInstallApp" style="display: none; width: 100%; margin-bottom: 12px;">
+        <i class="fa-solid fa-mobile-screen"></i> Install Humu Vault App
+      </button>
       <a href="index.html#order" style="color: var(--gold-accent); font-weight: 700;">
         <i class="fa-solid fa-credit-card"></i> Online Checkout & Payments
       </a>
@@ -138,7 +170,7 @@
         <div class="product-grid" id="dynamicProductsContainer">
 
           <!-- Product 1: Crystal Shell Case -->
-          <article class="product-card" data-category="Phone Cases">
+          <article class="product-card" data-category="Phone Cases" data-item-id="case-crystal" data-price="450" data-stock="12">
             <div class="product-img-wrap">
               <img src="assets/cases/crystal_shell.jpg" alt="Crystal Shell Case for iPhone 17 Pro Max" loading="lazy" class="product-img">
               <span class="product-tag">iPhone 17 Pro Max</span>
@@ -146,76 +178,95 @@
             <div class="product-body">
               <h3 class="product-title">Crystal Shell Case</h3>
               <div class="product-colors">Colours: White, Lilac, Dark Green-Black, Pink, Orange</div>
+              <div class="product-stock-row">
+                <span class="stock-pill in-stock"><i class="fa-solid fa-boxes-stacked"></i> <strong>In Store:</strong> 12 pieces available</span>
+              </div>
               <p class="product-desc">
                 High-shimmer reflective crystal finish designed specifically for iPhone 17 Pro Max. Features a scratch-resistant hard shell and metallic lens ring.
               </p>
               <div class="product-footer">
                 <div>
-                  <span class="ask-price">Ask price on WhatsApp</span>
+                  <span class="product-price">SLE 450</span>
                 </div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="12" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <a href="index.html#order" class="btn btn-gold btn-sm btn-card-order" data-order-item="iPhone 17 Pro Max Case (Crystal Shell)" data-price="450" title="Order and Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </a>
                   <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Crystal Shell Case" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to order the Crystal Shell Case phone case for iPhone 17 Pro Max. Please confirm it is in stock.">
                     <i class="fa-brands fa-whatsapp"></i> Inquire
                   </button>
-                  <a href="index.html#order" class="btn btn-outline btn-sm" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
-                  </a>
                 </div>
               </div>
             </div>
           </article>
 
-          <!-- Product 2: Heart Shell Crystal Case -->
-          <article class="product-card" data-category="Phone Cases">
+          <!-- Product 2: Heart Shell Crystal Case (Low Stock) -->
+          <article class="product-card" data-category="Phone Cases" data-item-id="case-heart" data-price="450" data-stock="2">
             <div class="product-img-wrap">
               <img src="assets/cases/heart_shell.jpg" alt="Heart Shell Crystal Case for iPhone 17 Pro Max" loading="lazy" class="product-img">
               <span class="product-tag">iPhone 17 Pro Max</span>
             </div>
             <div class="product-body">
               <h3 class="product-title">Heart Shell Crystal Case</h3>
-              <div class="product-colors">Colours: Clear, Pink</div>
+              <div class="product-colors">Colours: Clear, Pink (Camera Crystal)</div>
+              <div class="product-stock-row">
+                <span class="stock-pill low-stock"><i class="fa-solid fa-fire"></i> <strong>Low Stock:</strong> Only 2 left in store!</span>
+              </div>
               <p class="product-desc">
                 Shimmering glitter finish with an embossed heart emblem and an oversized crystal-encrusted camera protector frame tailored for iPhone 17 Pro Max.
               </p>
               <div class="product-footer">
                 <div>
-                  <span class="ask-price">Ask price on WhatsApp</span>
+                  <span class="product-price">SLE 450</span>
                 </div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <div class="product-order-bar">
+                  <div class="card-qty-stepper">
+                    <button type="button" class="card-qty-btn card-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <input type="number" class="card-qty-val" value="1" min="1" max="2" readonly>
+                    <button type="button" class="card-qty-btn card-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <a href="index.html#order" class="btn btn-gold btn-sm btn-card-order" data-order-item="iPhone 17 Pro Max Case (Heart Shimmer)" data-price="450" title="Order and Pay directly in app">
+                    <i class="fa-solid fa-cart-shopping"></i> Order Now
+                  </a>
                   <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Heart Shell Crystal Case" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to order the Heart Shell Crystal Case phone case for iPhone 17 Pro Max. Please confirm it is in stock.">
                     <i class="fa-brands fa-whatsapp"></i> Inquire
                   </button>
-                  <a href="index.html#order" class="btn btn-outline btn-sm" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
-                  </a>
                 </div>
               </div>
             </div>
           </article>
 
-          <!-- Product 3: Monogram Leather-Look Case -->
-          <article class="product-card" data-category="Phone Cases">
+          <!-- Product 3: Finished / Out of Stock (Sinks down to the bottom) -->
+          <article class="product-card product-finished" data-category="Phone Cases" data-item-id="case-monogram" data-price="500" data-stock="0" style="order: 999;">
             <div class="product-img-wrap">
-              <img src="assets/cases/monogram_leather.jpg" alt="Monogram Leather-Look Case for iPhone 17 Pro Max" loading="lazy" class="product-img">
+              <img src="assets/cases/crystal_shell.jpg" alt="Monogram Leather-Look Case for iPhone 17 Pro Max" loading="lazy" class="product-img">
               <span class="product-tag">iPhone 17 Pro Max</span>
             </div>
             <div class="product-body">
               <h3 class="product-title">Monogram Leather-Look Case</h3>
               <div class="product-colors">Colours: Orange, Pink (Wrist Charm Available)</div>
+              <div class="product-stock-row">
+                <span class="stock-pill finished"><i class="fa-solid fa-circle-xmark"></i> <strong>Finished in Store</strong> (0 Available)</span>
+              </div>
               <p class="product-desc">
-                Textured faux-leather case featuring an elegant all-over monogram pattern with a polished gold-tone plate. Available with optional plush pom-pom and organza scrunchie wrist charms for iPhone 17 Pro Max.
+                Textured faux-leather case featuring an elegant all-over monogram pattern with a polished gold-tone plate. Restocking soon from boutique supplier.
               </p>
               <div class="product-footer">
                 <div>
-                  <span class="ask-price">Ask price on WhatsApp</span>
+                  <span class="sold-out-badge">SLE 500 &middot; Finished</span>
                 </div>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Monogram Leather-Look Case" data-wa-msg="Hello Humu Kabba Variety Vault, I would like to order the Monogram Leather-Look Case phone case for iPhone 17 Pro Max. Please confirm it is in stock.">
-                    <i class="fa-brands fa-whatsapp"></i> Inquire
+                <div class="product-order-bar">
+                  <button type="button" class="btn btn-outline btn-sm" disabled style="opacity: 0.55; cursor: not-allowed;">
+                    <i class="fa-solid fa-ban"></i> Finished in Store
                   </button>
-                  <a href="index.html#order" class="btn btn-outline btn-sm" title="Pay with Orange Money, Afrimoney or Card">
-                    <i class="fa-solid fa-credit-card"></i> Pay Online
-                  </a>
+                  <button type="button" class="btn btn-whatsapp btn-sm" data-wa-order="Monogram Leather Case Restock" data-wa-msg="Hello Humu! 👋 I see the Monogram Leather Case is finished in store. Please notify me as soon as new stock arrives!">
+                    <i class="fa-brands fa-whatsapp"></i> Notify on WhatsApp
+                  </button>
                 </div>
               </div>
             </div>
@@ -239,6 +290,32 @@
           <a href="index.html" class="btn btn-outline">
             &larr; Back to Main Boutique
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Official Closing Statement Banner -->
+    <section class="closing-statement-banner">
+      <div class="container">
+        <div class="closing-banner-card">
+          <span class="product-tag" style="margin-bottom: 12px; display: inline-block;">Humu Kabba Variety Vault &bull; Fashion &bull; Beauty &bull; Lifestyle</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2.3rem; color: var(--gold-accent); margin-bottom: 12px;">
+            "Your Style, Our Priority."
+          </h2>
+          <p style="font-size: 1.12rem; color: var(--text-main); max-width: 760px; margin: 0 auto 10px; line-height: 1.6;">
+            Quality products, great value, and a shopping experience you can trust.
+          </p>
+          <p style="font-size: 1.25rem; font-weight: 700; color: var(--gold-accent); margin-bottom: 24px;">
+            <em>"Check us now and get the value worth your money."</em>
+          </p>
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://wa.me/23277416008" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
+              <i class="fa-brands fa-whatsapp"></i> Chat / Order: +232 77 416008
+            </a>
+            <a href="index.html#collections" class="btn btn-gold btn-lg">
+              <i class="fa-solid fa-sparkles"></i> View All Collections
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -469,24 +546,125 @@
 
   <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav" aria-label="Bottom Navigation">
+  <!-- Shopping Bag Cart Drawer -->
+  <div class="app-drawer-backdrop" id="cartDrawerBackdrop"></div>
+  <aside class="app-drawer" id="cartDrawer" aria-label="Shopping Bag">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="fa-solid fa-bag-shopping"></i> Your Bag (<span id="cartItemCountHeader">0</span>)</h3>
+      <button type="button" class="drawer-close-btn" id="btnCloseCart" aria-label="Close Shopping Bag">&times;</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer">
+      <!-- Populated via JavaScript -->
+    </div>
+    <div class="drawer-footer" id="cartFooter">
+      <div class="drawer-delivery-row">
+        <label for="cartDeliverySelect" class="drawer-delivery-label"><i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> Delivery Area in Sierra Leone:</label>
+        <select id="cartDeliverySelect" class="drawer-delivery-select">
+          <option value="0" data-name="Aberdeen (Store Pickup / Local)">Aberdeen (Free Store Delivery) - SLE 0</option>
+          <option value="20" data-name="Lumley / Wilkinson Road">Lumley / Wilkinson Road - SLE 20</option>
+          <option value="35" data-name="Central Freetown / Cotton Tree">Central Freetown / West End - SLE 35</option>
+          <option value="50" data-name="East End / Kissy / Wellington">East End / Kissy / Wellington - SLE 50</option>
+          <option value="80" data-name="Provincial Dispatch (Bo/Kenema/Makeni)">Provincial Transit (Bo / Kenema / Makeni) - SLE 80</option>
+        </select>
+      </div>
+      <div class="drawer-summary-row">
+        <span>Items Subtotal:</span>
+        <span id="cartSubtotalText">SLE 0</span>
+      </div>
+      <div class="drawer-summary-row">
+        <span>Estimated Delivery:</span>
+        <span id="cartDeliveryText">SLE 0</span>
+      </div>
+      <div class="drawer-total-row">
+        <span>Grand Total:</span>
+        <span class="total-amount" id="cartTotalText">SLE 0</span>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--text-dim); text-align: right; margin-top: -10px; margin-bottom: 12px;" id="cartTotalUsdText">approx. $0.00 USD</div>
+      <button type="button" class="btn-drawer-checkout btn-drawer-wa" id="btnCartCheckoutWhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> Order Bag via WhatsApp
+      </button>
+      <button type="button" class="btn-drawer-checkout btn-drawer-pay" id="btnCartPayOnline">
+        <i class="fa-solid fa-credit-card"></i> Pay via Mobile Money / Card
+      </button>
+      <button type="button" class="btn-drawer-clear" id="btnCartClear">Clear Bag</button>
+    </div>
+  </aside>
+
+  <!-- Wishlist Drawer -->
+  <div class="app-drawer-backdrop" id="wishlistDrawerBackdrop"></div>
+  <aside class="app-drawer" id="wishlistDrawer" aria-label="Saved Wishlist">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="fa-solid fa-heart" style="color: #ff4757;"></i> Wishlist (<span id="wishlistItemCountHeader">0</span>)</h3>
+      <button type="button" class="drawer-close-btn" id="btnCloseWishlist" aria-label="Close Wishlist">&times;</button>
+    </div>
+    <div class="drawer-body" id="wishlistItemsContainer">
+      <!-- Populated via JavaScript -->
+    </div>
+    <div class="drawer-footer" id="wishlistFooter">
+      <button type="button" class="btn-drawer-checkout btn-drawer-wa" id="btnWishlistInquireAll">
+        <i class="fa-brands fa-whatsapp"></i> Inquire Wishlist on WhatsApp
+      </button>
+      <button type="button" class="btn-drawer-clear" id="btnWishlistClear">Clear Wishlist</button>
+    </div>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div class="quickview-backdrop" id="quickViewBackdrop">
+    <div class="quickview-modal" id="quickViewModal" role="dialog" aria-modal="true" aria-label="Product Quick View">
+      <button type="button" class="quickview-close" id="btnCloseQuickView" aria-label="Close Quick View">&times;</button>
+      <div>
+        <img src="assets/cases/crystal_shell.jpg" alt="Product Image" id="qvImage" class="quickview-img">
+      </div>
+      <div class="quickview-content">
+        <span class="quickview-tag" id="qvCategory">Phone Cases</span>
+        <h3 class="quickview-title" id="qvTitle">Crystal Shell Case</h3>
+        <div class="quickview-price-row">
+          <span class="quickview-price" id="qvPrice">SLE 450</span>
+          <span class="quickview-price-usd" id="qvPriceUsd">(~$20.00 USD)</span>
+        </div>
+        <div id="qvStockRow" style="margin-bottom: 12px;"></div>
+        <p class="quickview-desc" id="qvDesc"></p>
+        <div class="quickview-actions">
+          <div class="card-qty-stepper">
+            <button type="button" class="card-qty-btn" id="qvQtyMinus">&minus;</button>
+            <input type="number" class="card-qty-val" id="qvQtyVal" value="1" min="1" readonly>
+            <button type="button" class="card-qty-btn" id="qvQtyPlus">&plus;</button>
+          </div>
+          <button type="button" class="btn btn-gold btn-sm" id="qvBtnAddBag">
+            <i class="fa-solid fa-bag-shopping"></i> Add to Bag
+          </button>
+          <button type="button" class="btn btn-whatsapp btn-sm" id="qvBtnWhatsApp">
+            <i class="fa-brands fa-whatsapp"></i> Inquire
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom App Navigation Bar -->
+  <nav class="bottom-nav" aria-label="Mobile Navigation">
     <a href="index.html" class="bottom-nav-item" id="bnav-home">
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="index.html#collections" class="bottom-nav-item active" id="bnav-store">
-      <i class="fa-solid fa-store"></i>
-      <span>Store</span>
+    <a href="cases.html" class="bottom-nav-item active" id="bnav-store">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      <span>Cases</span>
     </a>
-    <a href="tel:+23277416008" class="bottom-nav-item" id="bnav-call">
-      <i class="fa-solid fa-phone"></i>
-      <span>Call Us</span>
+    <a href="index.html#collections" class="bottom-nav-item" id="bnav-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search</span>
     </a>
-    <a href="index.html#visit" class="bottom-nav-item" id="bnav-contact">
-      <i class="fa-solid fa-envelope"></i>
-      <span>Contact</span>
-    </a>
+    <button type="button" class="bottom-nav-item" id="bnav-wishlist" style="background: transparent; border: none; cursor: pointer;">
+      <i class="fa-regular fa-heart"></i>
+      <span>Wishlist</span>
+      <span class="nav-badge" id="mWishlistBadge" style="top: 4px; right: 18%;">0</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnav-bag" style="background: transparent; border: none; cursor: pointer;">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>Bag</span>
+      <span class="nav-badge" id="mBagBadge" style="top: 4px; right: 18%;">0</span>
+    </button>
   </nav>
 
   <script src="script.js"></script>

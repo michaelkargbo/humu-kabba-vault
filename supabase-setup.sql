@@ -69,6 +69,8 @@ create table if not exists public.orders (
 );
 
 -- Safe column additions for existing databases
+alter table public.products add column if not exists stock_quantity integer default 10;
+alter table public.orders add column if not exists quantity integer default 1;
 alter table public.orders add column if not exists amount numeric default null;
 alter table public.orders add column if not exists currency text default 'SLE';
 alter table public.orders add column if not exists payment_method text default 'whatsapp';

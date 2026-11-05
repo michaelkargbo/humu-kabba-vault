@@ -19,7 +19,15 @@ window.APP_CONFIG = {
     hoursWeekday: "09:00 - 19:00",
     hoursSunday: "13:00 - 17:00",
     experienceYears: "7+",
-    logoUrl: "assets/logo.jpg"
+    logoUrl: "assets/logo.jpg",
+    commitments: [
+      "Quality Products",
+      "Affordable Prices",
+      "Convenient Shopping",
+      "Trendy & Unique Items",
+      "Reliable Customer Service"
+    ],
+    closingStatement: "Humu Kabba Variety Vault — Fashion • Beauty • Lifestyle. Your style, our priority. Quality products, great value, and a shopping experience you can trust. Check us now and get the value worth your money."
   },
 
   // 1. Supabase Project Configuration

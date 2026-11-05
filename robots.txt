@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /supabase-setup.sql
+Disallow: /supabase-ecommerce.sql
+Disallow: /SETUP_GUIDE.md
+Disallow: /OWNER_GUIDE.md
+
+Sitemap: https://humu-kabba-vault.vercel.app/sitemap.xml

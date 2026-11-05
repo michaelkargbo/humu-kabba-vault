@@ -49,20 +49,57 @@ Instead of making the website feel like a detached, rigid online supermarket, th
 
 ---
 
-## 2. About the Business
-Humu Kabba Variety Vault is built around fashion, beauty, and lifestyle products. The boutique serves customers who desire stylish and affordable items while receiving a warm, personalized shopping experience. Customers can inquire about sizes, colors, availability, real-time pricing in Sierra Leone New Leones (`SLE`), and local doorstep delivery before completing their purchase.
+## 2. About the Business & Official Brand Profile
+**Humu Kabba Variety Vault** is a fashion, beauty, and lifestyle retail business based in Aberdeen, Freetown, Sierra Leone. The business provides customers with a variety of quality and stylish products designed to meet everyday fashion, beauty, and lifestyle needs. With **over seven years of experience (7+)**, Humu Kabba Variety Vault is a trusted destination for premium fashion in Freetown.
+
+### Our Brand & Logo Identity
+The Humu Kabba Variety Vault brand is represented by a premium black-and-gold logo featuring the initials **“HK”**, a **shopping-bag symbol**, and a **circular luxury seal**:
+- **Gold:** Represents quality, elegance, and premium service across every touchpoint.
+- **Black:** Gives the brand a modern, professional, and luxurious appearance.
+- **HK & Shopping Bag:** Symbolizes curated variety and putting customer satisfaction at the center of its services.
+
+### Products & Services
+The business offers a wide range of products across 7 core collections:
+- 👗 **Apparel & clothing**
+- 👜 **Designer bags & accessories**
+- 💄 **Beauty & cosmetics**
+- 👟 **Shoes & footwear**
+- 👖 **Denim**
+- 🌸 **Perfumes & fragrances**
+- 👚 **Dresses and other fashion items**
+
+The business is designed to serve both customers shopping for personal use and customers looking for quality products for their businesses. Both **retail** and **wholesale** options are available to suit each customer's needs.
+
+### Brand Slogan
+> **“Your Style, Our Priority.”**  
+*This slogan reflects the business’s commitment to providing customers with fashionable, quality, and desirable products while putting customer satisfaction at the center of its services.*
+
+### Our Commitment (5 Core Pillars)
+Humu Kabba Variety Vault focuses on:
+1. **Quality Products:** Hand-selected apparel, accessories, and cosmetics chosen for craftsmanship, durable seams, and longevity.
+2. **Affordable Prices:** Transparent pricing in Sierra Leone New Leones (`SLE`) giving shoppers the value worth their money.
+3. **Convenient Shopping:** Interactive online shopping bag, instant WhatsApp checkout, and door-to-door bike dispatch across Freetown.
+4. **Trendy & Unique Items:** Exclusive party gowns, concentrated Arabian fragrances, and specialized iPhone 17 Pro Max cases.
+5. **Reliable Customer Service:** 7+ years of warm personal guidance, daylight video verification, and direct replies from Humu.
 
 ### Business Information Summary
 
 | Detail | Specification |
 | :--- | :--- |
 | **Business Name** | Humu Kabba Variety Vault |
-| **Tagline** | *Your Style, Our Priority.* |
+| **Slogan** | *Your Style, Our Priority.* |
+| **Founding Promise** | *"Check us now and get the value worth your money."* |
+| **Experience** | 7+ Years of Trusted Service in Freetown |
 | **Physical Location** | 4B Johnson Land, Aberdeen, Freetown, Sierra Leone (Back of the Field) |
 | **WhatsApp Hotline** | `+232 77 416008` |
-| **Store Hours** | Monday–Saturday: 09:00–19:00; Sunday: 13:00–17:00 |
+| **Store Hours** | Monday–Saturday: 09:00–19:00; Sunday: 13:00–17:00 (GMT/UTC) |
 | **WhatsApp Inquiries** | Available 24/7 (Replies during store operating hours) |
 | **Local Currencies** | Sierra Leone New Leones (`SLE`) and US Dollars (`USD`) |
+
+### Closing Statement
+> **Humu Kabba Variety Vault — Fashion • Beauty • Lifestyle**  
+> *Your style, our priority. Quality products, great value, and a shopping experience you can trust.*  
+> **"Check us now and get the value worth your money."**
 
 ---
 
