@@ -1,205 +1,285 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-gold: #d4af37;
+  --color-gold-light: #e8cc6b;
+  --color-gold-dark: #b8962e;
 
-@layer base {
-  :root {
-    --gold: #d4af37;
-    --gold-light: #e8cc6b;
-    --gold-dark: #b8962e;
-    --bg: #0a0a0c;
-    --surface: #131316;
-    --card: #1a1a1e;
-    --border: rgba(255,255,255,0.08);
-    --text: #f3efe6;
-    --muted: #9b9794;
-  }
+  --color-vault-bg: #0a0a0c;
+  --color-vault-surface: #131316;
+  --color-vault-card: #1a1a1e;
+  --color-vault-border: rgba(255, 255, 255, 0.08);
+  --color-vault-text: #f3efe6;
+  --color-vault-muted: #9b9794;
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
-
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--surface); }
-  ::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(212,175,55,0.6); }
-
-  ::selection { background: rgba(212,175,55,0.3); color: var(--text); }
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
-@layer components {
-  .btn-gold {
-    background: linear-gradient(135deg, #d4af37, #b8962e);
-    color: var(--bg);
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    transition: all 0.2s;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-  }
+:root {
+  --gold: #d4af37;
+  --gold-light: #e8cc6b;
+  --gold-dark: #b8962e;
+  --bg: #0a0a0c;
+  --surface: #131316;
+  --card: #1a1a1e;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f3efe6;
+  --muted: #9b9794;
+}
 
-  .btn-gold:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(212,175,55,0.4);
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  .btn-outline-gold {
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 600;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: #0a0a0c;
+}
 
-  .btn-outline-gold:hover {
-    background: var(--gold);
-    color: var(--bg);
-  }
+body {
+  background-color: #0a0a0c;
+  color: #f3efe6;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
 
-  .btn-ghost {
-    color: var(--muted);
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: colors 0.2s;
-    cursor: pointer;
-  }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  .btn-ghost:hover {
-    color: var(--text);
-    background: var(--card);
-  }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
+}
 
-  .card-vault {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: all 0.2s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
 
-  .card-vault:hover {
-    border-color: rgba(212,175,55,0.3);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-  }
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #f3efe6;
+}
 
-  .input-vault {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    padding: 0.75rem 1rem;
-    color: var(--text);
-    transition: border-color 0.2s;
-  }
+/* Luxury Button Utilities */
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37, #b8962e);
+  color: #0a0a0c !important;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  border: none;
+}
 
-  .input-vault:focus {
-    outline: none;
-    border-color: var(--gold);
-  }
+.btn-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
 
-  .badge-gold {
-    background: var(--gold);
-    color: var(--bg);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.125rem 0.5rem;
-    border-radius: 9999px;
-  }
+.btn-outline-gold {
+  border: 1px solid #d4af37;
+  color: #d4af37 !important;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+}
 
-  .badge-new {
-    background: #22c55e;
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.125rem 0.5rem;
-    border-radius: 9999px;
-  }
+.btn-outline-gold:hover {
+  background: #d4af37;
+  color: #0a0a0c !important;
+}
 
+.btn-ghost {
+  color: #9b9794;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: #f3efe6;
+  background: #1a1a1e;
+}
+
+/* Luxury Cards */
+.card-vault {
+  background: #1a1a1e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-vault:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Inputs */
+.input-vault {
+  width: 100%;
+  background: #131316;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #f3efe6;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-vault:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* Badges */
+.badge-gold {
+  background: #d4af37;
+  color: #0a0a0c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge-new {
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Headings & Dividers */
+.section-title {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  color: #f3efe6;
+}
+
+@media (min-width: 768px) {
   .section-title {
-    font-size: 1.5rem;
-    font-family: var(--font-heading), 'Playfair Display', Georgia, serif;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  @media (min-width: 768px) {
-    .section-title {
-      font-size: 1.875rem;
-    }
-  }
-
-  .gold-divider {
-    height: 2px;
-    background: linear-gradient(135deg, #d4af37, #b8962e);
-    border-radius: 9999px;
-  }
-
-  .bottom-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-
-  .bottom-nav-item.active {
-    color: var(--gold);
-  }
-
-  /* Product card hover overlay */
-  .product-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    transition: opacity 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-  }
-
-  .card-vault:hover .product-overlay {
-    opacity: 1;
+    font-size: 1.875rem;
   }
 }
 
-@layer utilities {
-  .text-gold { color: var(--gold); }
-  .bg-gold-gradient { background: linear-gradient(135deg, #d4af37, #b8962e); }
-  .border-gold { border-color: var(--gold); }
+.gold-divider {
+  height: 2px;
+  background: linear-gradient(135deg, #d4af37, #b8962e);
+  border-radius: 9999px;
+}
 
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+/* Bottom Nav Items */
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #9b9794;
+  transition: color 0.2s ease;
+  padding: 0.25rem 0.5rem;
+}
 
-  .scrollbar-hide {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
+.bottom-nav-item.active {
+  color: #d4af37;
+  font-weight: 600;
+}
 
-  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 16px); }
-  .safe-top { padding-top: env(safe-area-inset-top, 0px); }
+/* Product Card Overlay */
+.product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.card-vault:hover .product-overlay {
+  opacity: 1;
+}
+
+/* Helper Utilities */
+.text-gold {
+  color: #d4af37;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #d4af37, #b8962e);
+}
+
+.border-gold {
+  border-color: #d4af37;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
 }

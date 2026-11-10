@@ -38,8 +38,7 @@ export default function Header() {
   return (
     <>
       <header className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled ? 'bg-vault-bg/95 backdrop-blur-md shadow-lg border-b border-vault-border' : 'bg-transparent'
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-vault-bg/95 backdrop-blur-md border-b border-vault-border shadow-md'
       )}>
         {/* Top bar */}
         <div className="max-w-7xl mx-auto px-4">
