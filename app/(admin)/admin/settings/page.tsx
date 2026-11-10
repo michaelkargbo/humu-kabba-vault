@@ -5,6 +5,7 @@ import { toast } from '@/components/ui/Toast'
 
 export default function AdminSettingsPage() {
   const [storeName, setStoreName] = useState('Humu Kabba Variety Vault')
+  const [adminEmail, setAdminEmail] = useState('mickykargbo3040@gmail.com')
   const [phone, setPhone] = useState('+232 77 416008')
   const [waNumber, setWaNumber] = useState('23277416008')
   const [address, setAddress] = useState('4B Johnson Land, Aberdeen, Freetown, Sierra Leone (Back of the Field)')
