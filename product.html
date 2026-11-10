@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product | Humu Kabba Variety Vault</title>
+  <meta name="description" content="View product details, price in NLe, availability, and order from Humu Kabba Variety Vault in Aberdeen, Freetown.">
+  <meta name="theme-color" content="#0a0a0c">
+  <meta property="og:type" content="product">
+  <meta property="og:title" content="Product | Humu Kabba Variety Vault">
+  <meta property="og:description" content="Browse this item from Humu Kabba Variety Vault and order via cart or WhatsApp.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="js/hk-store.js"></script>
+  <style>
+    .pd-wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 110px; }
+    .pd-crumb { font-size: .82rem; color: var(--text-muted); margin-bottom: 22px; }
+    .pd-crumb a { color: var(--gold-accent); text-decoration: none; }
+    .pd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; }
+    @media (max-width: 800px) { .pd-grid { grid-template-columns: 1fr; } }
+    .pd-img { width: 100%; min-height: 320px; max-height: 560px; object-fit: cover; border-radius: 20px; border: 1px solid rgba(212,175,55,.25); background: #15151a; }
+    .pd-cat { color: var(--gold-accent); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+    .pd-title { font-family: var(--font-serif); font-size: clamp(1.6rem, 4vw, 2.3rem); margin: 0 0 12px; }
+    .pd-price { font-size: 1.6rem; color: var(--gold-accent); font-weight: 700; margin: 10px 0; }
+    .pd-desc { color: var(--text-muted); margin: 16px 0 22px; }
+    .pd-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .qty { display: flex; align-items: center; border: 1px solid rgba(255,255,255,.12); border-radius: 10px; overflow: hidden; }
+    .qty button { width: 40px; height: 42px; background: transparent; color: var(--text-main); border: 0; cursor: pointer; }
+    .qty span { min-width: 36px; text-align: center; }
+    .sample-flag { display: inline-block; margin: 8px 0 14px; padding: 6px 10px; border-radius: 8px; background: rgba(212,175,55,.12); color: var(--gold-accent); font-size: .78rem; }
+    .pd-empty { text-align: center; padding: 80px 20px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.jpg" alt="Humu Kabba Variety Vault logo" class="brand-logo" width="44" height="44" onerror="this.src='assets/logo.svg'">
+        <div>
+          <span class="brand-title">Humu Kabba</span>
+          <span class="brand-sub">Variety Vault</span>
+        </div>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="cart.html">Bag</a></li>
+          <li><a href="track.html">Track</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon-btn" aria-label="Shopping bag"><i class="fa-solid fa-bag-shopping"></i><span class="nav-badge" id="cartCount">0</span></a>
+        <a class="btn btn-whatsapp btn-sm nav-wa-btn" href="https://wa.me/23277416008" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pd-wrap" id="productMain">
+    <p class="pd-empty">Loading product…</p>
+  </main>
+
+  <nav class="bottom-nav-bar">
+    <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="shop.html" class="bottom-nav-item"><i class="fa-solid fa-store"></i><span>Shop</span></a>
+    <a href="cart.html" class="bottom-nav-item"><i class="fa-solid fa-bag-shopping"></i><span>Bag</span></a>
+    <a href="track.html" class="bottom-nav-item"><i class="fa-solid fa-location-dot"></i><span>Track</span></a>
+  </nav>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script>
+  (function () {
+    var S = window.HKStore;
+    function toast(msg, type) {
+      var c = document.getElementById('toastContainer');
+      if (!c) return;
+      var t = document.createElement('div');
+      t.className = 'toast ' + (type || 'info');
+      t.textContent = msg;
+      c.appendChild(t);
+      setTimeout(function () { t.remove(); }, 4000);
+    }
+    function updateBadge() {
+      var el = document.getElementById('cartCount');
+      if (el) el.textContent = S.cartCount();
+    }
+    var qty = 1;
+    var product = null;
+    async function render() {
+      var id = new URLSearchParams(location.search).get('id');
+      var main = document.getElementById('productMain');
+      if (!id) {
+        main.innerHTML = '<div class="pd-empty"><h1>Product not found</h1><p><a href="shop.html">Back to shop</a></p></div>';
+        return;
+      }
+      try {
+        product = await S.loadProduct(id);
+      } catch (e) {
+        main.innerHTML = '<div class="pd-empty"><h1>Could not load this product</h1><p><a href="shop.html">Back to shop</a></p></div>';
+        return;
+      }
+      if (!product) {
+        main.innerHTML = '<div class="pd-empty"><h1>Product not found</h1><p><a href="shop.html">Back to shop</a></p></div>';
+        return;
+      }
+      document.title = product.name + ' | Humu Kabba Variety Vault';
+      var stock = S.stockOf(product);
+      var available = S.inStock(product);
+      var stockLabel = !available ? 'Sold out' : (stock == null ? 'Availability confirmed by the shop' : (stock + ' in store'));
+      main.innerHTML =
+        '<p class="pd-crumb"><a href="index.html">Home</a> / <a href="shop.html">Shop</a> / ' + S.escapeHTML(product.name) + '</p>' +
+        '<div class="pd-grid">' +
+          '<img class="pd-img" src="' + S.escapeHTML(S.imgSrc(product.image_url)) + '" alt="' + S.escapeHTML(product.name) + '" onerror="this.src=\'assets/dresses.jpg\'">' +
+          '<div>' +
+            '<div class="pd-cat">' + S.escapeHTML(product.category || '') + '</div>' +
+            '<h1 class="pd-title">' + S.escapeHTML(product.name) + '</h1>' +
+            (product.is_sample ? '<div class="sample-flag">Sample listing — confirm price, colours, and stock with the shop before paying.</div>' : '') +
+            '<div class="pd-price">' + S.formatSLE(product.price) + '</div>' +
+            '<p>' + S.escapeHTML(stockLabel) + '</p>' +
+            (product.colors ? '<p>Variations: ' + S.escapeHTML(product.colors) + '</p>' : '') +
+            '<p class="pd-desc">' + S.escapeHTML(product.description || 'Ask Humu on WhatsApp for a live photo or video of this piece.') + '</p>' +
+            '<div class="pd-actions">' +
+              '<div class="qty"><button type="button" id="qtyMinus">−</button><span id="qtyVal">1</span><button type="button" id="qtyPlus">+</button></div>' +
+              '<button class="btn btn-gold" id="addBtn"' + (available ? '' : ' disabled') + '><i class="fa-solid fa-bag-shopping"></i> Add to bag</button>' +
+              '<a class="btn btn-whatsapp" id="waBtn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Inquire</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      document.getElementById('waBtn').href = S.waUrl('Hello Humu Kabba Variety Vault, I would like to ask about:\n*' + product.name + '*\n' + S.formatSLE(product.price) + '\nIs this available?');
+      document.getElementById('qtyMinus').onclick = function () { qty = Math.max(1, qty - 1); document.getElementById('qtyVal').textContent = qty; };
+      document.getElementById('qtyPlus').onclick = function () { qty = Math.min(99, qty + 1); document.getElementById('qtyVal').textContent = qty; };
+      document.getElementById('addBtn').onclick = function () {
+        if (!available) return;
+        S.addToCart(product, qty);
+        updateBadge();
+        toast(product.name + ' added to bag', 'success');
+      };
+    }
+    updateBadge();
+    render();
+  })();
+  </script>
+</body>
+</html>
