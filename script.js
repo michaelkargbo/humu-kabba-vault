@@ -944,6 +944,81 @@
   }
 
   // Setup product card interactive quantity steppers, bag additions & wishlist triggers
+  const RECENTLY_VIEWED_KEY = 'hk_recently_viewed_v1';
+
+  function getRecentlyViewedItems() {
+    try {
+      return JSON.parse(localStorage.getItem(RECENTLY_VIEWED_KEY)) || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveRecentlyViewedItems(items) {
+    try {
+      localStorage.setItem(RECENTLY_VIEWED_KEY, JSON.stringify(items));
+    } catch (e) {}
+  }
+
+  function recordRecentlyViewedProduct(product) {
+    if (!product || !product.id || !product.name) return;
+
+    const items = getRecentlyViewedItems();
+    const next = [{
+      id: product.id,
+      name: product.name,
+      price: Number(product.price) || 0,
+      image: product.image || 'assets/logo.jpg',
+      category: product.category || 'Collections'
+    }, ...items.filter(item => item.id !== product.id)];
+
+    saveRecentlyViewedItems(next.slice(0, 4));
+    renderRecentlyViewedProducts();
+  }
+
+  function renderRecentlyViewedProducts() {
+    const container = document.getElementById('recentlyViewedGrid');
+    const section = document.getElementById('recentlyViewedSection');
+    if (!container) return;
+
+    const items = getRecentlyViewedItems();
+    if (!items.length) {
+      if (section) section.hidden = true;
+      container.innerHTML = '';
+      return;
+    }
+
+    if (section) section.hidden = false;
+    container.innerHTML = items.map(item => `
+      <article class="recent-view-card">
+        <img src="${escapeHTML(item.image || 'assets/logo.jpg')}" alt="${escapeHTML(item.name)}" onerror="this.src='assets/logo.jpg'">
+        <div class="name">${escapeHTML(item.name)}</div>
+        <div class="meta">
+          <span>${escapeHTML(item.category || 'Collection')}</span>
+          <strong>SLE ${Number(item.price || 0).toLocaleString()}</strong>
+        </div>
+        <button type="button" class="btn btn-gold btn-sm small-btn" data-recent-add="${escapeHTML(item.id)}">
+          <i class="fa-solid fa-bag-shopping"></i> Add to Bag
+        </button>
+      </article>
+    `).join('');
+
+    container.querySelectorAll('[data-recent-add]').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = items.find(entry => entry.id === button.dataset.recentAdd);
+        if (!item) return;
+        CartManager.addItem({
+          id: item.id,
+          name: item.name,
+          price: Number(item.price) || 0,
+          category: item.category || 'Collections',
+          image: item.image || 'assets/logo.jpg',
+          stock: 10
+        }, 1);
+      });
+    });
+  }
+
   function setupProductCardInteractions() {
     document.querySelectorAll('.product-card').forEach(card => {
       const minusBtn = card.querySelector('.card-qty-minus');
@@ -959,6 +1034,13 @@
       const category = card.getAttribute('data-category') || "Collections";
       const img = card.querySelector('.product-img')?.getAttribute('src') || "assets/logo.jpg";
       const desc = card.querySelector('.product-desc')?.textContent?.trim() || "";
+
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('.card-wishlist-btn, .card-quickview-btn, .btn-add-bag, .card-qty-btn, .btn-card-order, .card-qty-minus, .card-qty-plus, button, a')) {
+          return;
+        }
+        recordRecentlyViewedProduct({ id: itemId, name: title, price, image: img, category });
+      });
 
       // 1. Wishlist button overlay
       if (imgWrap && !imgWrap.querySelector('.card-wishlist-btn')) {
@@ -2111,6 +2193,7 @@
       const qtyVal = document.getElementById('qvQtyVal');
       if (qtyVal) qtyVal.value = '1';
 
+      recordRecentlyViewedProduct(product);
       backdrop.classList.add('active');
       document.body.style.overflow = 'hidden';
     },
@@ -2313,6 +2396,7 @@
     SearchAndFilterManager.init();
     PwaManager.init();
     setupProductCardInteractions();
+    renderRecentlyViewedProducts();
 
     // ── Cart Drawer Event Listeners ──
     const openCartTriggers = ['btnOpenCart', 'btnDrawerOpenBag', 'bnav-bag'];

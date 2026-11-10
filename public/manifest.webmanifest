@@ -1,0 +1,26 @@
+{
+  "name": "Humu Kabba Variety Vault",
+  "short_name": "Humu Vault",
+  "description": "Fashion, Beauty & Lifestyle boutique in Aberdeen, Freetown, Sierra Leone. Shop online, order via WhatsApp.",
+  "start_url": "/shop.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0c",
+  "theme_color": "#d4af37",
+  "lang": "en",
+  "categories": ["shopping", "lifestyle", "fashion"],
+  "icons": [
+    { "src": "assets/logo.jpg", "sizes": "192x192", "type": "image/jpeg", "purpose": "any" },
+    { "src": "assets/logo.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Shop Now", "short_name": "Shop", "description": "Browse all products", "url": "/shop.html", "icons": [{ "src": "assets/logo.jpg", "sizes": "96x96" }] },
+    { "name": "My Bag", "short_name": "Bag", "description": "View your shopping bag", "url": "/cart.html", "icons": [{ "src": "assets/logo.jpg", "sizes": "96x96" }] },
+    { "name": "Track Order", "short_name": "Track", "description": "Track your order status", "url": "/track.html", "icons": [{ "src": "assets/logo.jpg", "sizes": "96x96" }] },
+    { "name": "WhatsApp Us", "short_name": "WhatsApp", "description": "Chat with us on WhatsApp", "url": "https://wa.me/23277416008", "icons": [{ "src": "assets/logo.jpg", "sizes": "96x96" }] }
+  ],
+  "screenshots": [
+    { "src": "assets/dresses.jpg", "sizes": "360x640", "type": "image/jpeg", "platform": "narrow", "label": "Humu Vault — Shop View" }
+  ]
+}

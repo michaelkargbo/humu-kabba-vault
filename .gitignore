@@ -2,4 +2,7 @@
 *.docx
 supabase/.temp/
 .vscode/
-
+.claude/
+node_modules/
+.next/
+.env*.local
