@@ -5,7 +5,6 @@ import ProductSection from '@/components/home/ProductSection'
 import PromoBanner from '@/components/home/PromoBanner'
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat'
 
-export const revalidate = 60 // ISR: refresh every 60 seconds
 
 export default async function HomePage() {
   const supabase = await createClient()

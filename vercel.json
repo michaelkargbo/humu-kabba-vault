@@ -1,20 +1,3 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/shop", "destination": "/shop.html" },
-    { "source": "/cart", "destination": "/cart.html" },
-    { "source": "/orders", "destination": "/track.html" },
-    { "source": "/orders/track", "destination": "/track.html" },
-    { "source": "/track", "destination": "/track.html" },
-    { "source": "/cases", "destination": "/cases.html" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" }
-      ]
-    }
-  ]
+  "framework": "nextjs"
 }
